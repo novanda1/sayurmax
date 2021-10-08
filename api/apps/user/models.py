@@ -4,7 +4,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class User(models.Model):
-    email = models.CharField(max_length=100, blank=True, default=None)
+    email = models.EmailField(max_length=254, blank=True, default=None)
     username = models.CharField(max_length=100)
     display_name = models.CharField(max_length=100)
     phone = PhoneNumberField(blank=True)
