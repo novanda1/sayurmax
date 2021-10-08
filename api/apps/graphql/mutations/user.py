@@ -5,11 +5,19 @@ from argon2 import PasswordHasher
 from apps.user.models import User
 from apps.graphql.schema.user import UserResponse
 
+import jwt
+
+from dotenv import load_dotenv
+import os
+
+load_dotenv(dotenv_path='./.env.dev')
+
 
 class UserResponseObj:
-    def __init__(self, user, error):
+    def __init__(self, user, error, token):
         self.user = user
         self.error = error
+        self.token = token
 
 
 class ErrorFieldObj:
@@ -41,6 +49,17 @@ def register(options: UserDto) -> UserResponse:
 
     user.save()
 
+    payload_data = {
+        "sub": user.pk,
+        "name": user.username,
+        "display_name": user.display_name
+    }
+
+    token = jwt.encode(
+        payload=payload_data,
+        key=os.getenv("JWT_SECRET") 
+    )
+
     if user.pk is None:
         return UserResponseObj(user=None, error=ErrorFieldObj("some field", "invalid input"))
     else:
@@ -48,4 +67,4 @@ def register(options: UserDto) -> UserResponse:
         if user_exist.pk is None:
             return UserResponseObj(user=None, error=ErrorFieldObj("some field", "invalid input"))
         else:
-            return UserResponseObj(user=user, error=None)
+            return UserResponseObj(user=user, error=None, token=token)

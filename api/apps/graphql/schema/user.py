@@ -23,3 +23,4 @@ class FieldError:
 class UserResponse:
     user: Optional[UserType]
     error: Optional[FieldError]
+    token: Optional[str]
