@@ -9,6 +9,7 @@ django-filer==2.0.2
 django-formtools==2.3
 django-js-asset==1.2.2
 django-mptt==0.13.4
+django-phonenumber-field==5.2.0
 django-polymorphic==3.0.0
 django-sekizai==2.0.0
 django-treebeard==4.4
@@ -29,6 +30,7 @@ h11==0.12.0
 html5lib==1.1
 idna==3.2
 importlib-metadata==4.8.1
+phonenumberslite==8.12.34
 Pillow==8.3.2
 psycopg2-binary==2.9.1
 Pygments==2.10.0

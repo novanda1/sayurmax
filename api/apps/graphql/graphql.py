@@ -1,6 +1,6 @@
 import strawberry
 
-from apps.graphql.schema.hello import say_hello
+from apps.graphql.queries.hello import say_hello
 
 
 @strawberry.type
