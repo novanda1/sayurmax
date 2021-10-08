@@ -1,5 +1,7 @@
 import strawberry
 from typing import Optional
+from argon2 import PasswordHasher
+
 from apps.user.models import User
 
 
@@ -9,27 +11,24 @@ class UserDto:
     username: str
     display_name: str
     phone: Optional[str]
-
-    # def __init__(
-    #     self,
-    #     email: Optional[str],
-    #     username: str,
-    #     display_name: str,
-    #     phone: Optional[str],
-    # ):
-    #     self.email = email
-    #     self.username = username
-    #     self.display_name = display_name
-    #     self.phone = phone
+    password: str
 
 
-def create_user(options: UserDto):
+def register(options: UserDto):
+    ph = PasswordHasher()
+    password = ph.hash(options.password)
+
     user = User(
         email=options.email,
         display_name=options.display_name,
         username=options.username,
-        phone=options.phone
+        phone=options.phone,
+        password=password
     )
 
-    user.save()
+    try:
+        user.save()
+    except:
+        pass
+
     return user
