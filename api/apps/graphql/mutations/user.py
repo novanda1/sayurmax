@@ -3,6 +3,19 @@ from typing import Optional
 from argon2 import PasswordHasher
 
 from apps.user.models import User
+from apps.graphql.schema.user import UserResponse
+
+
+class UserResponseObj:
+    def __init__(self, user, error):
+        self.user = user
+        self.error = error
+
+
+class ErrorFieldObj:
+    def __init__(self, field, error):
+        self.field = field
+        self.error = error
 
 
 @strawberry.input
@@ -14,7 +27,7 @@ class UserDto:
     password: str
 
 
-def register(options: UserDto):
+def register(options: UserDto) -> UserResponse:
     ph = PasswordHasher()
     password = ph.hash(options.password)
 
@@ -26,9 +39,13 @@ def register(options: UserDto):
         password=password
     )
 
-    try:
-        user.save()
-    except:
-        pass
+    user.save()
 
-    return user
+    if user.pk is None:
+        return UserResponseObj(user=None, error=ErrorFieldObj("some field", "invalid input"))
+    else:
+        user_exist = User.objects.get(pk=user.pk)
+        if user_exist.pk is None:
+            return UserResponseObj(user=None, error=ErrorFieldObj("some field", "invalid input"))
+        else:
+            return UserResponseObj(user=user, error=None)

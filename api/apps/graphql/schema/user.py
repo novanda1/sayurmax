@@ -11,3 +11,15 @@ class UserType:
     phone: Optional[str]
     created_at: str
     updated_at: str
+
+
+@strawberry.type
+class FieldError:
+    field: str
+    error: str
+
+
+@strawberry.type
+class UserResponse:
+    user: Optional[UserType]
+    error: Optional[FieldError]

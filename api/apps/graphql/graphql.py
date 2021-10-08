@@ -4,7 +4,7 @@ from typing import List
 from apps.graphql.queries.hello import say_hello
 from apps.graphql.queries.user import get_users
 from apps.graphql.mutations.user import register
-from apps.graphql.schema.user import UserType
+from apps.graphql.schema.user import UserType, UserResponse
 
 
 @strawberry.type
@@ -15,7 +15,7 @@ class Query:
 
 @strawberry.type
 class Mutation:
-    register: UserType = strawberry.mutation(resolver=register)
+    register: UserResponse = strawberry.mutation(resolver=register)
 
 
 schema = strawberry.Schema(query=Query, mutation=Mutation)
