@@ -5,6 +5,7 @@ cached-property==1.5.2
 cffi==1.14.6
 click==8.0.1
 cryptography==35.0.0
+decorator==5.1.0
 Django==3.1.13
 django-classy-tags==2.0.0
 django-cms==3.8.0
@@ -52,5 +53,6 @@ strawberry-graphql==0.81.0
 typing-extensions==3.10.0.2
 Unidecode==1.1.2
 uvicorn==0.15.0
+validators==0.18.2
 webencodings==0.5.1
 zipp==3.6.0
