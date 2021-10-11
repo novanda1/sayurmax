@@ -1,0 +1,11 @@
+mutation Login($options: LoginDto!) {
+    login(options: $options) {
+        error {
+            ...ErrorFragment
+        }
+        user {
+            ...UserFragment
+        }
+        token
+    }
+}
