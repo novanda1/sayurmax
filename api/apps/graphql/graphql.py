@@ -2,7 +2,7 @@ import strawberry
 from typing import List
 
 from apps.graphql.queries.hello import say_hello
-from apps.graphql.queries.user import get_users
+from apps.graphql.queries.user import get_users, get_user
 from apps.graphql.mutations.user import register, login
 from apps.graphql.schema.user import UserType, UserResponse
 
@@ -11,6 +11,7 @@ from apps.graphql.schema.user import UserType, UserResponse
 class Query:
     hello: str = strawberry.field(resolver=say_hello)
     users: List[UserType] = strawberry.field(resolver=get_users)
+    user: UserType = strawberry.field(resolver=get_user)
 
 
 @strawberry.type
