@@ -1,5 +1,5 @@
 import strawberry
-from typing import Optional
+from typing import Optional, List
 
 
 @strawberry.type
@@ -22,5 +22,5 @@ class FieldError:
 @strawberry.type
 class UserResponse:
     user: Optional[UserType]
-    error: Optional[FieldError]
+    error: Optional[List[FieldError]]
     token: Optional[str]
