@@ -7,7 +7,7 @@ class UserType:
     id: int
     email: Optional[str]
     username: str
-    display_name: str
+    display_name: Optional[str]
     phone: Optional[str]
     created_at: str
     updated_at: str
