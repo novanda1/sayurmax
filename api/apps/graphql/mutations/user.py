@@ -27,7 +27,7 @@ class ErrorFieldObj:
 
 
 @strawberry.input
-class UserDto:
+class CreateUserDto:
     email: Optional[str] = strawberry.field(description="add unique email")
     username: str
     display_name: str
@@ -35,10 +35,17 @@ class UserDto:
     password: str
 
 
-def register(options: UserDto) -> UserResponse:
-    ph = PasswordHasher()
-    password = ph.hash(options.password)
+@strawberry.input
+class LoginDto:
+    email: str
+    password: str
 
+
+ph = PasswordHasher()
+
+
+def register(options: CreateUserDto) -> UserResponse:
+    password = ph.hash(options.password)
     user = User(
         email=options.email,
         display_name=options.display_name,
@@ -57,7 +64,7 @@ def register(options: UserDto) -> UserResponse:
 
     token = jwt.encode(
         payload=payload_data,
-        key=os.getenv("JWT_SECRET") 
+        key=os.getenv("JWT_SECRET")
     )
 
     if user.pk is None:
@@ -68,3 +75,28 @@ def register(options: UserDto) -> UserResponse:
             return UserResponseObj(user=None, error=ErrorFieldObj("some field", "invalid input"))
         else:
             return UserResponseObj(user=user, error=None, token=token)
+
+
+def login(options: LoginDto) -> UserResponse:
+    try:
+        user = User.objects.get(email=options.email)
+    except:
+        return UserResponseObj(user=None, error=ErrorFieldObj("email", "email doesnt exists"), token=None)
+
+    try:
+        password_verified = ph.verify(user.password, options.password)
+    except:
+        return UserResponseObj(user=None, error=ErrorFieldObj("password", "password is wrong"), token=None)
+
+    payload_data = {
+        "sub": user.pk,
+        "name": user.username,
+        "display_name": user.display_name
+    }
+
+    token = jwt.encode(
+        payload=payload_data,
+        key=os.getenv("JWT_SECRET")
+    )
+
+    return UserResponseObj(user=user, error=None, token=token)
