@@ -53,7 +53,13 @@ export type MutationRegisterArgs = {
 export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
+  user: UserType;
   users: Array<UserType>;
+};
+
+
+export type QueryUserArgs = {
+  pk: Scalars['Int'];
 };
 
 export type UserResponse = {
@@ -66,7 +72,7 @@ export type UserResponse = {
 export type UserType = {
   __typename?: 'UserType';
   createdAt: Scalars['String'];
-  displayName: Scalars['String'];
+  displayName?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   phone?: Maybe<Scalars['String']>;
@@ -76,14 +82,21 @@ export type UserType = {
 
 export type ErrorFragmentFragment = { __typename?: 'FieldError', error: string, field: string };
 
-export type UserFragmentFragment = { __typename?: 'UserType', id: number, email?: string | null | undefined, username: string, displayName: string, phone?: string | null | undefined, createdAt: string, updatedAt: string };
+export type UserFragmentFragment = { __typename?: 'UserType', id: number, email?: string | null | undefined, username: string, displayName?: string | null | undefined, phone?: string | null | undefined, createdAt: string, updatedAt: string };
 
 export type RegisterMutationVariables = Exact<{
   options: CreateUserDto;
 }>;
 
 
-export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', token?: string | null | undefined, error?: Array<{ __typename?: 'FieldError', error: string, field: string }> | null | undefined, user?: { __typename?: 'UserType', id: number, email?: string | null | undefined, username: string, displayName: string, phone?: string | null | undefined, createdAt: string, updatedAt: string } | null | undefined } };
+export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', token?: string | null | undefined, error?: Array<{ __typename?: 'FieldError', error: string, field: string }> | null | undefined, user?: { __typename?: 'UserType', id: number, email?: string | null | undefined, username: string, displayName?: string | null | undefined, phone?: string | null | undefined, createdAt: string, updatedAt: string } | null | undefined } };
+
+export type GetUserQueryVariables = Exact<{
+  pk: Scalars['Int'];
+}>;
+
+
+export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'UserType', id: number, email?: string | null | undefined, username: string, displayName?: string | null | undefined, phone?: string | null | undefined, createdAt: string, updatedAt: string } };
 
 export const ErrorFragmentFragmentDoc = gql`
     fragment ErrorFragment on FieldError {
@@ -142,3 +155,38 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const GetUserDocument = gql`
+    query GetUser($pk: Int!) {
+  user(pk: $pk) {
+    ...UserFragment
+  }
+}
+    ${UserFragmentFragmentDoc}`;
+
+/**
+ * __useGetUserQuery__
+ *
+ * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserQuery({
+ *   variables: {
+ *      pk: // value for 'pk'
+ *   },
+ * });
+ */
+export function useGetUserQuery(baseOptions: Apollo.QueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
+      }
+export function useGetUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
+        }
+export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
+export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
+export type GetUserQueryResult = Apollo.QueryResult<GetUserQuery, GetUserQueryVariables>;
