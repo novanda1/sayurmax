@@ -7,7 +7,7 @@ import {
 import { withApollo } from "next-apollo";
 import { IncomingHttpHeaders } from "http";
 import { config } from "dotenv";
-import isProd from "../utils/isProd";
+import isProd from "../../utils/isProd";
 
 config({ path: isProd ? ".env" : ".env.dev" });
 

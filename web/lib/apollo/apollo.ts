@@ -12,7 +12,7 @@ import isEqual from "lodash/isEqual";
 import type { AppProps } from "next/app";
 import { config } from "dotenv";
 import { useMemo } from "react";
-import isProd from "../utils/isProd";
+import isProd from "../../utils/isProd";
 
 config({ path: isProd ? ".env" : ".env.dev" });
 
