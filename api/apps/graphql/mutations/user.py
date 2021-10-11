@@ -73,7 +73,7 @@ def register(options: CreateUserDto) -> UserResponse:
             "password", f"password must between 8 and 30{valid_password}"))
 
     try:
-        valid_display_name = validators.between(
+        valid_display_name = validators.length(
             options.display_name, min=3, max=30)
     except:
         error_fields.append(ErrorFieldObj(
