@@ -10,13 +10,10 @@ import { IncomingHttpHeaders } from "http";
 import fetch from "isomorphic-unfetch";
 import isEqual from "lodash/isEqual";
 import type { AppProps } from "next/app";
-import { config } from "dotenv";
 import { useMemo } from "react";
-import isProd from "../../utils/isProd";
-
-config({ path: isProd ? ".env" : ".env.dev" });
 
 const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
+const URL = process.env.NEXT_PUBLIC_GROCERY_GRAPHQL_URL;
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 
@@ -38,7 +35,7 @@ const createApolloClient = (headers: IncomingHttpHeaders | null = null) => {
         ssrMode: typeof window === "undefined",
         link: ApolloLink.from([
             new HttpLink({
-                uri: process.env.GROCERY_GRAPHQL_URL,
+                uri: URL,
                 credentials: "same-origin",
                 fetch: enhancedFetch,
             }),
