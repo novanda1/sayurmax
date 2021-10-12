@@ -82,6 +82,11 @@ def register(options: CreateUserDto) -> UserResponse:
     if error_fields:
         return UserResponseObj(user=None, error=error_fields, token=None)
 
+    try:
+        username_exist = User.objects.get(username=options.username)
+    except:
+        return UserResponseObj(user=None, error=[ErrorFieldObj("username", "Username already exist")], token=None)
+
     password = ph.hash(options.password)
     user = User(
         email=options.email,
