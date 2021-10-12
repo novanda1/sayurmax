@@ -1,14 +1,15 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { Provider } from "mobx-react";
 import { store } from "../stores/RootStateContext";
+import theme from "../theme";
 
 function MyApp({ Component, pageProps }) {
     return (
-        <Provider {...store}>
-            <ChakraProvider>
+        <ChakraProvider theme={theme}>
+            <Provider {...store}>
                 <Component {...pageProps} />
-            </ChakraProvider>
-        </Provider>
+            </Provider>
+        </ChakraProvider>
     );
 }
 
