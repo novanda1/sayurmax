@@ -36,7 +36,7 @@ class CreateUserDto:
 
 @strawberry.input
 class LoginDto:
-    email: str
+    username: str
     password: str
 
 
@@ -103,9 +103,9 @@ def register(options: CreateUserDto):
 
 def login(options: LoginDto) -> UserResponse:
     try:
-        user = User.objects.get(email=options.email)
+        user = User.objects.get(username=options.username)
     except:
-        return UserResponseObj(user=None, error=[ErrorFieldObj("email", "email doesnt exists")], token=None)
+        return UserResponseObj(user=None, error=[ErrorFieldObj("username", "username doesnt exists")], token=None)
 
     try:
         password_verified = ph.verify(user.password, options.password)
