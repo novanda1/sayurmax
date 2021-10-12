@@ -1,9 +1,12 @@
 import { action, observable } from "mobx";
+import { initializeApollo } from "../../lib/apollo/apollo";
 import {
     CreateUserDto,
     FieldError,
-    useLoginMutation,
-    useRegisterMutation,
+    LoginDocument,
+    LoginMutationVariables,
+    RegisterDocument,
+    RegisterMutationVariables
 } from "../../lib/generated/graphql";
 import { store } from "./RootStateContext";
 
@@ -24,7 +27,6 @@ class AuthStore {
         this.values.password = password;
     }
 
-
     @action reset() {
         this.values.username = "";
         this.values.password = "";
@@ -34,16 +36,18 @@ class AuthStore {
         this.inProgress = true;
         this.errors = undefined;
 
-        const [loginMutation] = useLoginMutation();
+        const client = initializeApollo();
 
-        return loginMutation({
-            variables: {
-                options: {
-                    username: this.values.username,
-                    password: this.values.password,
-                },
-            },
-        })
+        return client
+            .mutate({
+                mutation: LoginDocument,
+                variables: {
+                    options: {
+                        username: this.values.username,
+                        password: this.values.password,
+                    },
+                } as LoginMutationVariables,
+            })
             .then(
                 action(({ data }) => {
                     if (data.login.error) {
@@ -51,6 +55,7 @@ class AuthStore {
                         throw this.errors;
                     }
 
+                    store.commonStore.setToken(data.register.token);
                     store.userStore.pullUser(null, data.login.user);
                 })
             )
@@ -61,27 +66,30 @@ class AuthStore {
         this.inProgress = true;
         this.errors = undefined;
 
-        const [registration] = useRegisterMutation();
+        const client = initializeApollo();
 
-        return registration({
-            variables: { options: this.values },
-        })
+        return client
+            .mutate({
+                mutation: RegisterDocument,
+                variables: {
+                    options: {
+                        username: this.values.username,
+                        password: this.values.password,
+                    },
+                } as RegisterMutationVariables,
+            })
             .then(
                 action(({ data }) => {
-                    if (data.register.error) {
-                        this.errors = data.register.error;
-                        return this.errors;
+                    if (data.login.error) {
+                        this.errors = data.login.error;
+                        throw this.errors;
                     }
 
                     store.commonStore.setToken(data.register.token);
-                    store.userStore.pullUser(null, data.register.user);
+                    store.userStore.pullUser(null, data.login.user);
                 })
             )
-            .finally(
-                action(() => {
-                    this.inProgress = false;
-                })
-            );
+            .finally(action(() => (this.inProgress = false)));
     }
 
     @action logout() {
