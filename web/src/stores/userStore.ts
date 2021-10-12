@@ -1,6 +1,10 @@
 import { action, observable } from "mobx";
 import { initializeApollo } from "../../lib/apollo/apollo";
-import { GetUserDocument, UserType } from "../../lib/generated/graphql";
+import {
+    GetUserDocument,
+    useGetUserQuery,
+    UserType,
+} from "../../lib/generated/graphql";
 
 class UserStore {
     @observable currentUser: UserType;
@@ -46,4 +50,4 @@ class UserStore {
     }
 }
 
-export default new UserStore();
+export default UserStore;

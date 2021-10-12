@@ -1,22 +1,29 @@
 import { action, observable, reaction } from "mobx";
+import isServer from "../../utils/isServer";
 import { LOCALSTORAGE_TOKEN_NAME } from "../shared";
 
 class CommonStore {
     @observable appName = "Grocery";
-    @observable token = window.localStorage.getItem(LOCALSTORAGE_TOKEN_NAME);
+    @observable token = !isServer
+        ? window.localStorage.getItem(LOCALSTORAGE_TOKEN_NAME)
+        : null;
     @observable appLoaded = false;
 
     constructor() {
-        reaction(
-            () => this.token,
-            (token) => {
-                if (token) {
-                    window.localStorage.setItem(LOCALSTORAGE_TOKEN_NAME, token);
-                } else {
-                    window.localStorage.removeItem(LOCALSTORAGE_TOKEN_NAME);
+        if (!isServer)
+            reaction(
+                () => this.token,
+                (token) => {
+                    if (token) {
+                        window.localStorage.setItem(
+                            LOCALSTORAGE_TOKEN_NAME,
+                            token
+                        );
+                    } else {
+                        window.localStorage.removeItem(LOCALSTORAGE_TOKEN_NAME);
+                    }
                 }
-            }
-        );
+            );
     }
 
     @action setToken(token: string) {
@@ -28,4 +35,4 @@ class CommonStore {
     }
 }
 
-export default new CommonStore();
+export default CommonStore;

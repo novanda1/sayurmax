@@ -5,8 +5,7 @@ import {
     useLoginMutation,
     useRegisterMutation,
 } from "../../lib/generated/graphql";
-import commonStore from "./commonStore";
-import userStore from "./userStore";
+import { store } from "./RootStateContext";
 
 class AuthStore {
     @observable inProgress = false;
@@ -67,7 +66,7 @@ class AuthStore {
                         throw this.errors;
                     }
 
-                    userStore.pullUser(null, data.login.user);
+                    store.userStore.pullUser(null, data.login.user);
                 })
             )
             .finally(action(() => (this.inProgress = false)));
@@ -89,8 +88,8 @@ class AuthStore {
                         return this.errors;
                     }
 
-                    commonStore.setToken(data.register.token);
-                    userStore.pullUser(null, data.register.user);
+                    store.commonStore.setToken(data.register.token);
+                    store.userStore.pullUser(null, data.register.user);
                 })
             )
             .finally(
@@ -101,10 +100,10 @@ class AuthStore {
     }
 
     @action logout() {
-        commonStore.setToken(undefined);
-        userStore.forgetUser();
+        store.commonStore.setToken(undefined);
+        store.userStore.forgetUser();
         return Promise.resolve();
     }
 }
 
-export default new AuthStore();
+export default AuthStore;
