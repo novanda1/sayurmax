@@ -6,7 +6,9 @@ import {
     LoginDocument,
     LoginMutationVariables,
     RegisterDocument,
-    RegisterMutationVariables
+    RegisterMutation,
+    RegisterMutationResult,
+    RegisterMutationVariables,
 } from "../../lib/generated/graphql";
 import { store } from "./RootStateContext";
 
@@ -69,7 +71,7 @@ class AuthStore {
         const client = initializeApollo();
 
         return client
-            .mutate({
+            .mutate<RegisterMutation>({
                 mutation: RegisterDocument,
                 variables: {
                     options: {
@@ -80,13 +82,14 @@ class AuthStore {
             })
             .then(
                 action(({ data }) => {
-                    if (data.login.error) {
-                        this.errors = data.login.error;
+                    console.log(`data after register`, data);
+                    if (data?.register.error) {
+                        this.errors = data.register.error;
                         throw this.errors;
                     }
 
                     store.commonStore.setToken(data.register.token);
-                    store.userStore.pullUser(null, data.login.user);
+                    store.userStore.pullUser(null, data.register.user);
                 })
             )
             .finally(action(() => (this.inProgress = false)));
