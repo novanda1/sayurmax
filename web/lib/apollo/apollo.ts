@@ -37,7 +37,7 @@ const createApolloClient = (headers: IncomingHttpHeaders | null = null) => {
             new HttpLink({
                 uri: URL,
                 credentials: "same-origin",
-                fetch: enhancedFetch,
+                // fetch: enhancedFetch,
             }),
         ]),
         cache: new InMemoryCache(),
