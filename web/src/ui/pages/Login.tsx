@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import { inject, observer } from "mobx-react";
+import React, { Component } from "react";
+import AuthStore from "../../stores/authStore";
 
-export default class Login extends Component {
+@inject("authStore")
+@observer
+export default class Login extends Component<{ authStore?: AuthStore }> {
     render() {
-        return (
-            <div>
-                
-            </div>
-        )
+        return <div></div>;
     }
 }
