@@ -30,10 +30,7 @@ class ErrorFieldObj:
 
 @strawberry.input
 class CreateUserDto:
-    email: Optional[str] = strawberry.field(description="add unique email")
     username: str
-    display_name: str
-    phone: Optional[str]
     password: str
 
 
@@ -46,18 +43,8 @@ class LoginDto:
 ph = PasswordHasher()
 
 
-def register(options: CreateUserDto) -> UserResponse:
+def register(options: CreateUserDto):
     error_fields = []
-
-    try:
-        valid_phone = validate_international_phonenumber(options.phone)
-    except:
-        error_fields.append(ErrorFieldObj("phone", "phone is invalid"))
-
-    try:
-        valid_email = validators.email(options.email)
-    except:
-        error_fields.append(ErrorFieldObj("email", "email is invalid"))
 
     try:
         valid_username = validators.length(options.username, min=5, max=15)
@@ -72,27 +59,23 @@ def register(options: CreateUserDto) -> UserResponse:
         error_fields.append(ErrorFieldObj(
             "password", f"password must between 8 and 30{valid_password}"))
 
-    try:
-        valid_display_name = validators.length(
-            options.display_name, min=3, max=30)
-    except:
-        error_fields.append(ErrorFieldObj(
-            "display name", "display name must between 3 and 30"))
-
     if error_fields:
         return UserResponseObj(user=None, error=error_fields, token=None)
 
+    username_not_exist: bool = False
+
     try:
-        username_exist = User.objects.get(username=options.username)
+        User.objects.get(username=options.username)
     except:
+        username_not_exist = True
+
+    if not username_not_exist:
         return UserResponseObj(user=None, error=[ErrorFieldObj("username", "Username already exist")], token=None)
 
     password = ph.hash(options.password)
+
     user = User(
-        email=options.email,
-        display_name=options.display_name,
         username=options.username,
-        phone=options.phone,
         password=password
     )
 
@@ -101,7 +84,6 @@ def register(options: CreateUserDto) -> UserResponse:
     payload_data = {
         "sub": user.pk,
         "name": user.username,
-        "display_name": user.display_name
     }
 
     token = jwt.encode(
@@ -133,7 +115,6 @@ def login(options: LoginDto) -> UserResponse:
     payload_data = {
         "sub": user.pk,
         "name": user.username,
-        "display_name": user.display_name
     }
 
     token = jwt.encode(
