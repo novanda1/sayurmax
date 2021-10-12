@@ -13,9 +13,6 @@ class AuthStore {
 
     @observable values: CreateUserDto = {
         username: "",
-        displayName: "",
-        email: "",
-        phone: "",
         password: "",
     };
 
@@ -23,25 +20,13 @@ class AuthStore {
         this.values.username = username;
     }
 
-    @action setDisplayName(v: string) {
-        this.values.displayName = v;
-    }
-
-    @action setEmail(email: string) {
-        this.values.email = email;
-    }
-
     @action setPassword(password) {
         this.values.password = password;
     }
 
-    @action setPhone(v: string) {
-        this.values.phone = v;
-    }
 
     @action reset() {
         this.values.username = "";
-        this.values.email = "";
         this.values.password = "";
     }
 
@@ -54,7 +39,7 @@ class AuthStore {
         return loginMutation({
             variables: {
                 options: {
-                    email: this.values.email,
+                    username: this.values.username,
                     password: this.values.password,
                 },
             },

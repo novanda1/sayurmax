@@ -15,11 +15,7 @@ export type Scalars = {
 };
 
 export type CreateUserDto = {
-  displayName: Scalars['String'];
-  /** add unique email */
-  email?: Maybe<Scalars['String']>;
   password: Scalars['String'];
-  phone?: Maybe<Scalars['String']>;
   username: Scalars['String'];
 };
 
@@ -30,8 +26,8 @@ export type FieldError = {
 };
 
 export type LoginDto = {
-  email: Scalars['String'];
   password: Scalars['String'];
+  username: Scalars['String'];
 };
 
 export type Mutation = {
