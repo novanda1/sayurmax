@@ -28,8 +28,8 @@ const WrapperWithAuth: React.FC<WrapperWithAuthProps> = observer(
         }, [error, token]);
 
         if (loading) return <div>authenticating...</div>;
-        if (data?.verifyJwt) return <>{children}</>;
-        else return <></>;
+        if (error || !data?.verifyJwt) return <></>;
+        else return <>{children}</>;
     }
 );
 
