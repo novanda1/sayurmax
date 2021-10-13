@@ -4,12 +4,10 @@ import {
     HttpLink,
     InMemoryCache,
 } from "@apollo/client";
-import { withApollo } from "next-apollo";
 import { IncomingHttpHeaders } from "http";
-import { config } from "dotenv";
-import isProd from "../../utils/isProd";
+import { withApollo } from "next-apollo";
 
-config({ path: isProd ? ".env" : ".env.dev" });
+const URL = process.env.NEXT_PUBLIC_GROCERY_GRAPHQL_URL;
 
 const createApolloClient = (headers: IncomingHttpHeaders | null = null) => {
     // isomorphic fetch for passing the cookies along with each GraphQL request
@@ -33,9 +31,9 @@ const createApolloClient = (headers: IncomingHttpHeaders | null = null) => {
         ssrMode: typeof window === "undefined",
         link: ApolloLink.from([
             new HttpLink({
-                uri: process.env.GROCERY_GRAPHQL_URL,
+                uri: URL,
                 credentials: "same-origin",
-                fetch: enhancedFetch,
+                // fetch: enhancedFetch,
             }),
         ]),
         cache: new InMemoryCache({}),

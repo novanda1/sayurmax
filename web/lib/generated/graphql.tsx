@@ -51,11 +51,17 @@ export type Query = {
   hello: Scalars['String'];
   user: UserType;
   users: Array<UserType>;
+  verifyJwt: Scalars['Boolean'];
 };
 
 
 export type QueryUserArgs = {
   pk: Scalars['Int'];
+};
+
+
+export type QueryVerifyJwtArgs = {
+  token: Scalars['String'];
 };
 
 export type UserResponse = {
@@ -100,6 +106,13 @@ export type GetUserQueryVariables = Exact<{
 
 
 export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'UserType', id: number, email?: string | null | undefined, username: string, displayName?: string | null | undefined, phone?: string | null | undefined, createdAt: string, updatedAt: string } };
+
+export type VerifyJwtQueryVariables = Exact<{
+  token: Scalars['String'];
+}>;
+
+
+export type VerifyJwtQuery = { __typename?: 'Query', verifyJwt: boolean };
 
 export const ErrorFragmentFragmentDoc = gql`
     fragment ErrorFragment on FieldError {
@@ -233,3 +246,36 @@ export function useGetUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ge
 export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
 export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
 export type GetUserQueryResult = Apollo.QueryResult<GetUserQuery, GetUserQueryVariables>;
+export const VerifyJwtDocument = gql`
+    query VerifyJWT($token: String!) {
+  verifyJwt(token: $token)
+}
+    `;
+
+/**
+ * __useVerifyJwtQuery__
+ *
+ * To run a query within a React component, call `useVerifyJwtQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVerifyJwtQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVerifyJwtQuery({
+ *   variables: {
+ *      token: // value for 'token'
+ *   },
+ * });
+ */
+export function useVerifyJwtQuery(baseOptions: Apollo.QueryHookOptions<VerifyJwtQuery, VerifyJwtQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VerifyJwtQuery, VerifyJwtQueryVariables>(VerifyJwtDocument, options);
+      }
+export function useVerifyJwtLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VerifyJwtQuery, VerifyJwtQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VerifyJwtQuery, VerifyJwtQueryVariables>(VerifyJwtDocument, options);
+        }
+export type VerifyJwtQueryHookResult = ReturnType<typeof useVerifyJwtQuery>;
+export type VerifyJwtLazyQueryHookResult = ReturnType<typeof useVerifyJwtLazyQuery>;
+export type VerifyJwtQueryResult = Apollo.QueryResult<VerifyJwtQuery, VerifyJwtQueryVariables>;

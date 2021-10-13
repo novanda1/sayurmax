@@ -3,6 +3,7 @@ import {
     CreateUserDto,
     FieldError,
     LoginDocument,
+    LoginMutation,
     LoginMutationVariables,
     RegisterDocument,
     RegisterMutation,
@@ -34,12 +35,12 @@ export class AuthStore {
         });
     }
 
-    async login() {
+    async login(): Promise<LoginMutation> {
         const client = initializeApollo();
         this.isProgress = true;
 
         return client
-            .mutate({
+            .mutate<LoginMutation>({
                 mutation: LoginDocument,
                 variables: {
                     options: {
@@ -54,6 +55,8 @@ export class AuthStore {
                         this.errors = data.login.error;
                     });
                 }
+
+                return data;
             })
 
             .finally(() => {
