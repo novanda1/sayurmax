@@ -27,7 +27,7 @@ type Props = {
 
 const Register: React.FC<Props> = observer(
     ({ commonStore, authStore, userStore }) => {
-        useReactiveTokenRedirect(commonStore.token);
+        useReactiveTokeaRedirect(commonStore.token);
 
         return (
             <Container
@@ -163,3 +163,6 @@ const Register: React.FC<Props> = observer(
 );
 
 export default Register;
+function useReactiveTokeaRedirect(token: string) {
+    throw new Error("Function not implemented.");
+}
