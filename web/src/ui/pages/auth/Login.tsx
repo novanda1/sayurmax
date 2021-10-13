@@ -16,9 +16,12 @@ import { loginValidatorSchema } from "lib/validators/loginValidatorSchema";
 import { observer } from "mobx-react";
 import React from "react";
 import NextLink from "next/link";
+import { useReactiveTokenRedirect } from "src/hooks/useReactiveTokenRedirect";
 
 const Login: React.FC<typeof RootStateContextValue> = observer(
     ({ commonStore, authStore, userStore }) => {
+        useReactiveTokenRedirect(commonStore.token);
+
         return (
             <Container
                 h="100vh"

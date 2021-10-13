@@ -27,6 +27,8 @@ type Props = {
 
 const Register: React.FC<Props> = observer(
     ({ commonStore, authStore, userStore }) => {
+        useReactiveTokenRedirect(commonStore.token);
+
         return (
             <Container
                 h="100vh"
