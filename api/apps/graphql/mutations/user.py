@@ -44,61 +44,68 @@ ph = PasswordHasher()
 
 
 def register(options: CreateUserDto):
+    # validation start
     error_fields = []
 
     try:
         valid_username = validators.length(options.username, min=5, max=15)
+        if not valid_username:
+            error_fields.append(ErrorFieldObj(
+                "username", "username must between 5 and 15"))
     except:
-        error_fields.append(ErrorFieldObj(
-            "username", "username must between 5 and 15"))
+        pass
 
     try:
         valid_password = validators.length(options.password, min=8, max=30)
+        if not valid_password:
+            valid_password = validators.length(options.password, min=8, max=30)
+            error_fields.append(ErrorFieldObj(
+                "password", "password must between 8 and 30"))
     except:
-        valid_password = validators.length(options.password, min=8, max=30)
-        error_fields.append(ErrorFieldObj(
-            "password", f"password must between 8 and 30{valid_password}"))
+        pass
+
+    try:
+        username_exist_user = User.objects.get(username=options.username)
+        if username_exist_user.pk is not None:
+            error_fields.append(ErrorFieldObj(
+                "username", "Username already exist")
+            )
+    except:
+        pass
 
     if error_fields:
         return UserResponseObj(user=None, error=error_fields, token=None)
 
-    username_not_exist: bool = False
+    # validation end
 
-    try:
-        User.objects.get(username=options.username)
-    except:
-        username_not_exist = True
-
-    if not username_not_exist:
-        return UserResponseObj(user=None, error=[ErrorFieldObj("username", "Username already exist")], token=None)
-
-    password = ph.hash(options.password)
-
-    user = User(
-        username=options.username,
-        password=password
-    )
-
-    user.save()
-
-    payload_data = {
-        "sub": user.pk,
-        "name": user.username,
-    }
-
-    token = jwt.encode(
-        payload=payload_data,
-        key=os.getenv("JWT_SECRET")
-    )
-
-    if user.pk is None:
-        return UserResponseObj(user=None, error=[ErrorFieldObj("some field", "invalid input")])
     else:
-        user_exist = User.objects.get(pk=user.pk)
-        if user_exist.pk is None:
+        password = ph.hash(options.password)
+
+        user = User(
+            username=options.username,
+            password=password
+        )
+
+        user.save()
+
+        payload_data = {
+            "sub": user.pk,
+            "name": user.username,
+        }
+
+        token = jwt.encode(
+            payload=payload_data,
+            key=os.getenv("JWT_SECRET")
+        )
+
+        if user.pk is None:
             return UserResponseObj(user=None, error=[ErrorFieldObj("some field", "invalid input")])
         else:
-            return UserResponseObj(user=user, error=None, token=token)
+            user_exist = User.objects.get(pk=user.pk)
+            if user_exist.pk is None:
+                return UserResponseObj(user=None, error=[ErrorFieldObj("some field", "invalid input")])
+            else:
+                return UserResponseObj(user=user, error=None, token=token)
 
 
 def login(options: LoginDto) -> UserResponse:
