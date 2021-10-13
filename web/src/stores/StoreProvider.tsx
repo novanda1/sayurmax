@@ -1,10 +1,7 @@
-import { Provider } from "mobx-react";
 import React from "react";
-import AuthStore from "./authStore";
-import CommonStore from "./commonStore";
-import UserStore from "./userStore";
-
-// enableStaticRendering(isServer);
+import { AuthStore } from "./auth";
+import { CommonStore } from "./common";
+import { UserStore } from "./user";
 
 type RootStateContextValue = {
     commonStore: CommonStore;
@@ -12,7 +9,7 @@ type RootStateContextValue = {
     userStore: UserStore;
 };
 
-export const store: RootStateContextValue = {
+export const RootStateContextValue: RootStateContextValue = {
     commonStore: new CommonStore(),
     authStore: new AuthStore(),
     userStore: new UserStore(),
@@ -26,7 +23,7 @@ export const RootStateProvider: React.FC<React.PropsWithChildren<{}>> = ({
     children,
 }) => {
     return (
-        <RootStateContext.Provider value={store}>
+        <RootStateContext.Provider value={RootStateContextValue}>
             {children}
         </RootStateContext.Provider>
     );

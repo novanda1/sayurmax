@@ -7,30 +7,19 @@ import {
     Input,
 } from "@chakra-ui/react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
-import { reaction } from "mobx";
 import { observer } from "mobx-react";
-import React, { useEffect } from "react";
-import { CreateUserDto } from "../../../lib/generated/graphql";
-import { registerValidatorSchema } from "../../../lib/validators/registerValidatorSchema";
-import AuthStore from "../../stores/authStore";
-import CommonStore from "../../stores/commonStore";
+import React, { useEffect, useState } from "react";
+import { CreateUserDto } from "../../../../lib/generated/graphql";
+import { registerValidatorSchema } from "../../../../lib/validators/registerValidatorSchema";
+import { AuthStore } from "../../../stores/auth";
+import { CommonStore } from "../../../stores/common";
 
 type Props = {
-    authStore: AuthStore;
     commonStore: CommonStore;
+    authStore: AuthStore;
 };
 
-const Login: React.FC<Props> = observer(({ authStore, commonStore }) => {
-    useEffect(() =>
-        reaction(
-            () => commonStore.token,
-            (token) => {
-                console.log("token :>> ", token);
-                console.log("token change");
-            }
-        )
-    );
-
+const register: React.FC<Props> = observer(({ commonStore, authStore }) => {
     return (
         <Container
             h="100vh"
@@ -39,6 +28,13 @@ const Login: React.FC<Props> = observer(({ authStore, commonStore }) => {
             justifyContent="center"
         >
             <Box maxW="sm">
+                <Button
+                    onClick={() => {
+                        commonStore.setToken("hoiii");
+                    }}
+                >
+                    test
+                </Button>
                 <Formik
                     initialValues={{
                         ...authStore.values,
@@ -145,4 +141,4 @@ const Login: React.FC<Props> = observer(({ authStore, commonStore }) => {
     );
 });
 
-export default Login;
+export default register;
