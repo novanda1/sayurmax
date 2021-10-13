@@ -1,5 +1,5 @@
 import { makeAutoObservable, reaction } from "mobx";
-import isServer from "../../utils/isServer";
+import isServer from "@/utils/isServer";
 import { LOCALSTORAGE_TOKEN_NAME } from "../shared";
 
 export class CommonStore {

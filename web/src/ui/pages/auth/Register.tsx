@@ -1,3 +1,7 @@
+import { CreateUserDto } from "lib/generated/graphql";
+import { registerValidatorSchema } from "lib/validators/registerValidatorSchema";
+import { AuthStore } from "@/stores/auth";
+import { CommonStore } from "@/stores/common";
 import {
     Box,
     Button,
@@ -8,11 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { observer } from "mobx-react";
-import React, { useEffect, useState } from "react";
-import { CreateUserDto } from "../../../../lib/generated/graphql";
-import { registerValidatorSchema } from "../../../../lib/validators/registerValidatorSchema";
-import { AuthStore } from "../../../stores/auth";
-import { CommonStore } from "../../../stores/common";
+import React from "react";
 
 type Props = {
     commonStore: CommonStore;

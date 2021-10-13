@@ -1,5 +1,4 @@
-import { makeAutoObservable, runInAction } from "mobx";
-import { initializeApollo } from "../../lib/apollo/apollo";
+import { initializeApollo } from "lib/apollo/apollo";
 import {
     CreateUserDto,
     FieldError,
@@ -8,7 +7,8 @@ import {
     RegisterDocument,
     RegisterMutation,
     RegisterMutationVariables,
-} from "../../lib/generated/graphql";
+} from "lib/generated/graphql";
+import { makeAutoObservable, runInAction } from "mobx";
 
 export class AuthStore {
     isProgress: boolean = false;
