@@ -22,7 +22,7 @@ interface NabvarProps {
 
 export const Nabvar: React.FC<NabvarProps> = ({ user }) => {
     return (
-        <Box py="3" backgroundColor="white" borderColor="gray.200" borderBottomWidth="2px">
+        <Box py="2.5" backgroundColor="white" borderColor="gray.300" borderBottomWidth="thin">
             <Container maxW="container.xl">
                 <Flex justifyContent="space-between" alignItems="center">
                     <Box>
