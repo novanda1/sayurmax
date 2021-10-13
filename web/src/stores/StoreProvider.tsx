@@ -3,20 +3,20 @@ import { AuthStore } from "./auth";
 import { CommonStore } from "./common";
 import { UserStore } from "./user";
 
-type RootStateContextValue = {
+type RootStateContextValueType = {
     commonStore: CommonStore;
     authStore: AuthStore;
     userStore: UserStore;
 };
 
-export const RootStateContextValue: RootStateContextValue = {
+export const RootStateContextValue: RootStateContextValueType = {
     commonStore: new CommonStore(),
     authStore: new AuthStore(),
     userStore: new UserStore(),
 };
 
-const RootStateContext = React.createContext<RootStateContextValue>(
-    {} as RootStateContextValue
+const RootStateContext = React.createContext<RootStateContextValueType>(
+    {} as RootStateContextValueType
 );
 
 export const RootStateProvider: React.FC<React.PropsWithChildren<{}>> = ({

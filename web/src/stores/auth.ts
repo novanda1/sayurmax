@@ -53,7 +53,6 @@ export class AuthStore {
                     runInAction(() => {
                         this.errors = data.login.error;
                     });
-                    throw this.errors;
                 }
             })
 
@@ -67,7 +66,7 @@ export class AuthStore {
         this.isProgress = true;
         this.errors = undefined;
 
-        const result = client
+        return client
             .mutate<RegisterMutation>({
                 mutation: RegisterDocument,
                 variables: {
@@ -78,17 +77,13 @@ export class AuthStore {
                 } as RegisterMutationVariables,
             })
             .then(({ data }) => {
-                console.log(`data after register`, data);
                 if (data?.register.error) {
                     this.errors = data.register.error;
-                    throw this.errors;
                 }
 
                 return data;
             })
             .finally(() => (this.isProgress = false));
-
-        return result;
     }
 }
 

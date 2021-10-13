@@ -1,7 +1,7 @@
-import { CreateUserDto } from "lib/generated/graphql";
-import { registerValidatorSchema } from "lib/validators/registerValidatorSchema";
 import { AuthStore } from "@/stores/auth";
 import { CommonStore } from "@/stores/common";
+import { UserStore } from "@/stores/user";
+import { toErrorMap } from "@/utils/toErrorMap";
 import {
     Box,
     Button,
@@ -11,9 +11,10 @@ import {
     Input,
 } from "@chakra-ui/react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
+import { CreateUserDto } from "lib/generated/graphql";
+import { registerValidatorSchema } from "lib/validators/registerValidatorSchema";
 import { observer } from "mobx-react";
 import React from "react";
-import user, { UserStore } from "@/stores/user";
 
 type Props = {
     commonStore: CommonStore;
@@ -31,13 +32,6 @@ const register: React.FC<Props> = observer(
                 justifyContent="center"
             >
                 <Box maxW="sm">
-                    <Button
-                        onClick={() => {
-                            commonStore.setToken("hoiii");
-                        }}
-                    >
-                        test
-                    </Button>
                     <Formik
                         initialValues={{
                             ...authStore.values,
@@ -46,7 +40,10 @@ const register: React.FC<Props> = observer(
                         validationSchema={registerValidatorSchema}
                         onSubmit={async (
                             values: CreateUserDto,
-                            { setSubmitting }: FormikHelpers<CreateUserDto>
+                            {
+                                setSubmitting,
+                                setErrors,
+                            }: FormikHelpers<CreateUserDto>
                         ) => {
                             setSubmitting(true);
 
@@ -55,9 +52,13 @@ const register: React.FC<Props> = observer(
 
                             const result = await authStore.register();
 
-                            commonStore.setToken(result.register.token);
-                            userStore.pullUser(null, result.register.user);
-
+                            if (result?.register.error) {
+                                setErrors(toErrorMap(result.register.error));
+                            }
+                            if (result?.register.user) {
+                                commonStore.setToken(result.register.token);
+                                userStore.pullUser(null, result.register.user);
+                            }
                             setSubmitting(false);
                         }}
                     >

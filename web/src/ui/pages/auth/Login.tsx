@@ -28,13 +28,6 @@ const Login: React.FC<Props> = observer(({ commonStore, authStore }) => {
             justifyContent="center"
         >
             <Box maxW="sm">
-                <Button
-                    onClick={() => {
-                        commonStore.setToken("hoiii");
-                    }}
-                >
-                    test
-                </Button>
                 <Formik
                     initialValues={{
                         ...authStore.values,
