@@ -6,9 +6,7 @@ import {
     Flex,
     Heading,
     Popover,
-    PopoverArrow,
     PopoverBody,
-    PopoverCloseButton,
     PopoverContent,
     PopoverTrigger,
 } from "@chakra-ui/react";
@@ -22,7 +20,12 @@ interface NabvarProps {
 
 export const Nabvar: React.FC<NabvarProps> = ({ user }) => {
     return (
-        <Box py="2.5" backgroundColor="white" borderColor="gray.300" borderBottomWidth="thin">
+        <Box
+            py="2.5"
+            backgroundColor="white"
+            borderColor="gray.300"
+            borderBottomWidth="thin"
+        >
             <Container maxW="container.xl">
                 <Flex justifyContent="space-between" alignItems="center">
                     <Box>
