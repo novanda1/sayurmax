@@ -7,7 +7,7 @@ export const MainLayout: React.FC<typeof RootStateContextValue> = ({
     userStore,
 }) => {
     return (
-        <Box>
+        <Box minH="100vh" bgColor="gray.100">
             <Nabvar user={userStore.currentUser ?? null} />
         </Box>
     );

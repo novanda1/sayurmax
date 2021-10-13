@@ -13,6 +13,7 @@ import {
     PopoverTrigger,
 } from "@chakra-ui/react";
 import { UserType } from "lib/generated/graphql";
+import { observer } from "mobx-react";
 import React from "react";
 
 interface NabvarProps {
@@ -21,9 +22,9 @@ interface NabvarProps {
 
 export const Nabvar: React.FC<NabvarProps> = ({ user }) => {
     return (
-        <Box py="4" boxShadow="md">
+        <Box py="3" backgroundColor="white" borderColor="gray.200" borderBottomWidth="2px">
             <Container maxW="container.xl">
-                <Flex justifyContent="space-between">
+                <Flex justifyContent="space-between" alignItems="center">
                     <Box>
                         <Heading size="md">Grocery</Heading>
                     </Box>
@@ -36,7 +37,7 @@ export const Nabvar: React.FC<NabvarProps> = ({ user }) => {
     );
 };
 
-const AvatarPopover: React.FC<{ user: UserType }> = ({ user }) => {
+const AvatarPopover: React.FC<{ user: UserType }> = observer(({ user }) => {
     return (
         <Popover placement="bottom-end">
             <PopoverTrigger>
@@ -55,4 +56,4 @@ const AvatarPopover: React.FC<{ user: UserType }> = ({ user }) => {
             </PopoverContent>
         </Popover>
     );
-};
+});
