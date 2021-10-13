@@ -9,12 +9,15 @@ import {
     FormControl,
     FormErrorMessage,
     Input,
+    Link,
+    Text,
 } from "@chakra-ui/react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { CreateUserDto } from "lib/generated/graphql";
 import { registerValidatorSchema } from "lib/validators/registerValidatorSchema";
 import { observer } from "mobx-react";
 import React from "react";
+import NextLink from "next/link";
 
 type Props = {
     commonStore: CommonStore;
@@ -22,7 +25,7 @@ type Props = {
     userStore: UserStore;
 };
 
-const register: React.FC<Props> = observer(
+const Register: React.FC<Props> = observer(
     ({ commonStore, authStore, userStore }) => {
         return (
             <Container
@@ -143,10 +146,18 @@ const register: React.FC<Props> = observer(
                             </Form>
                         )}
                     </Formik>
+                    <Box mt="5">
+                        <Text fontSize="sm" textAlign="center">
+                            Already have an account? Please{" "}
+                            <NextLink href="/login">
+                                <Link color="yellow.500">Login</Link>
+                            </NextLink>
+                        </Text>
+                    </Box>
                 </Box>
             </Container>
         );
     }
 );
 
-export default register;
+export default Register;
