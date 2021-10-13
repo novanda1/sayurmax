@@ -62,12 +62,12 @@ export class AuthStore {
             });
     }
 
-    async register() {
+    async register(): Promise<RegisterMutation> {
         const client = initializeApollo();
         this.isProgress = true;
         this.errors = undefined;
 
-        return client
+        const result = client
             .mutate<RegisterMutation>({
                 mutation: RegisterDocument,
                 variables: {
@@ -83,9 +83,12 @@ export class AuthStore {
                     this.errors = data.register.error;
                     throw this.errors;
                 }
-            })
 
+                return data;
+            })
             .finally(() => (this.isProgress = false));
+
+        return result;
     }
 }
 

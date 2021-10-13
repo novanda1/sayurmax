@@ -1,20 +1,29 @@
 import { AuthStore } from "@/stores/auth";
 import { CommonStore } from "@/stores/common";
+import { UserStore } from "@/stores/user";
 import { observer } from "mobx-react";
 import React from "react";
-import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
 
 type WrapperWithAuthProps = {
     commonStore: CommonStore;
     authStore: AuthStore;
+    userStore: UserStore;
 };
 
 const WrapperWithAuth: React.FC<WrapperWithAuthProps> = observer(
-    ({ commonStore, authStore, children }) => {
+    ({ commonStore, authStore, userStore, children }) => {
         const { token } = commonStore;
 
         if (token) return <>{children}</>;
-        else return <Login authStore={authStore} commonStore={commonStore} />;
+        else
+            return (
+                <Register
+                    authStore={authStore}
+                    commonStore={commonStore}
+                    userStore={userStore}
+                />
+            );
     }
 );
 
