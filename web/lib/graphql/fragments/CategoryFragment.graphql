@@ -1,0 +1,5 @@
+fragment CategoryFragment on CategoryType {
+    id
+    slug
+    title
+}

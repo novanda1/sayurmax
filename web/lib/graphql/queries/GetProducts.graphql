@@ -1,0 +1,9 @@
+query GetProducts($limit: Int!) {
+  products(limit: $limit) {
+    result {
+        ...ProductFragment
+    }
+    hasNext
+    nextCursor
+  }
+}
