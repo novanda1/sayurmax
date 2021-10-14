@@ -8,7 +8,7 @@ import { Main } from "src/ui/pages/Main";
 const Home = () => {
     return (
         <MainLayout {...RootStateContextValue}>
-            <Main />
+            <Main {...RootStateContextValue} />
         </MainLayout>
     );
 };

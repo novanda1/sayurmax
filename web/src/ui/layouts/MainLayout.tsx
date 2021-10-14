@@ -10,7 +10,6 @@ export const MainLayout: React.FC<typeof RootStateContextValue> = ({
     return (
         <Box minH="100vh" bgColor="gray.100">
             <Nabvar user={userStore.currentUser ?? null} />
-
             {children}
         </Box>
     );
