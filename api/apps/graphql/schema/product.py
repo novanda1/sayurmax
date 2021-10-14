@@ -25,7 +25,7 @@ class ProductType:
     id: int
     title: str
     slug: str
-    categories: List[CategoryType]
+    categories: Optional[List[CategoryType]]
     image_url: str
     normal_price: int
     dicount_price: Optional[int]
@@ -33,3 +33,10 @@ class ProductType:
     information: Optional[str]
     nutrition: Optional[str]
     how_to_keep: Optional[str]
+
+
+@strawberry.type
+class ProductResponse:
+    result: List[ProductType]
+    has_next: bool
+    next_cursor: Optional[str]

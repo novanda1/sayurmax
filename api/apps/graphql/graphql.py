@@ -8,7 +8,7 @@ from apps.graphql.mutations.user import register, login
 from apps.graphql.queries.product import products
 
 from apps.graphql.schema.user import UserType, UserResponse
-from apps.graphql.schema.product import ProductType
+from apps.graphql.schema.product import ProductResponse
 
 
 @strawberry.type
@@ -19,7 +19,7 @@ class Query:
     user: UserType = strawberry.field(resolver=get_user)
     verify_jwt: bool = strawberry.field(resolver=verify_jwt)
 
-    products: List[ProductType] = strawberry.field(resolver=products)
+    products: ProductResponse = strawberry.field(resolver=products)
 
 
 @strawberry.type

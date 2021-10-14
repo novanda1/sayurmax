@@ -11,6 +11,7 @@ Django==3.1.13
 django-classy-tags==2.0.0
 django-cms==3.8.0
 django-cors-headers==3.10.0
+django-cursor-pagination==0.1.5
 django-filer==2.0.2
 django-formtools==2.3
 django-js-asset==1.2.2
