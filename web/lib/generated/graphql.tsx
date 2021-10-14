@@ -14,6 +14,13 @@ export type Scalars = {
   Float: number;
 };
 
+export type CategoryType = {
+  __typename?: 'CategoryType';
+  id: Scalars['Int'];
+  slug: Scalars['String'];
+  title: Scalars['String'];
+};
+
 export type CreateUserDto = {
   password: Scalars['String'];
   username: Scalars['String'];
@@ -24,6 +31,13 @@ export type FieldError = {
   error: Scalars['String'];
   field: Scalars['String'];
 };
+
+export enum ItemUnitEnum {
+  Gram = 'gram',
+  Kg = 'kg',
+  Pack = 'pack',
+  Pcs = 'pcs'
+}
 
 export type LoginDto = {
   password: Scalars['String'];
@@ -46,12 +60,41 @@ export type MutationRegisterArgs = {
   options: CreateUserDto;
 };
 
+export type ProductResponse = {
+  __typename?: 'ProductResponse';
+  hasNext: Scalars['Boolean'];
+  nextCursor?: Maybe<Scalars['String']>;
+  result: Array<ProductType>;
+};
+
+export type ProductType = {
+  __typename?: 'ProductType';
+  categories?: Maybe<Array<CategoryType>>;
+  dicountPrice?: Maybe<Scalars['Int']>;
+  howToKeep?: Maybe<Scalars['String']>;
+  id: Scalars['Int'];
+  imageUrl: Scalars['String'];
+  information?: Maybe<Scalars['String']>;
+  itemUnit: ItemUnitEnum;
+  normalPrice: Scalars['Int'];
+  nutrition?: Maybe<Scalars['String']>;
+  slug: Scalars['String'];
+  title: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
+  products: ProductResponse;
   user: UserType;
   users: Array<UserType>;
   verifyJwt: Scalars['Boolean'];
+};
+
+
+export type QueryProductsArgs = {
+  after?: Maybe<Scalars['String']>;
+  limit: Scalars['Int'];
 };
 
 
@@ -82,7 +125,11 @@ export type UserType = {
   username: Scalars['String'];
 };
 
+export type CategoryFragmentFragment = { __typename?: 'CategoryType', id: number, slug: string, title: string };
+
 export type ErrorFragmentFragment = { __typename?: 'FieldError', error: string, field: string };
+
+export type ProductFragmentFragment = { __typename?: 'ProductType', id: number, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: ItemUnitEnum, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined };
 
 export type UserFragmentFragment = { __typename?: 'UserType', id: number, email?: string | null | undefined, username: string, displayName?: string | null | undefined, phone?: string | null | undefined, createdAt: string, updatedAt: string };
 
@@ -100,6 +147,13 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', token?: string | null | undefined, error?: Array<{ __typename?: 'FieldError', error: string, field: string }> | null | undefined, user?: { __typename?: 'UserType', id: number, email?: string | null | undefined, username: string, displayName?: string | null | undefined, phone?: string | null | undefined, createdAt: string, updatedAt: string } | null | undefined } };
 
+export type GetProductsQueryVariables = Exact<{
+  limit: Scalars['Int'];
+}>;
+
+
+export type GetProductsQuery = { __typename?: 'Query', products: { __typename?: 'ProductResponse', hasNext: boolean, nextCursor?: string | null | undefined, result: Array<{ __typename?: 'ProductType', id: number, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: ItemUnitEnum, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined }> } };
+
 export type GetUserQueryVariables = Exact<{
   pk: Scalars['Int'];
 }>;
@@ -107,19 +161,36 @@ export type GetUserQueryVariables = Exact<{
 
 export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'UserType', id: number, email?: string | null | undefined, username: string, displayName?: string | null | undefined, phone?: string | null | undefined, createdAt: string, updatedAt: string } };
 
-export type VerifyJwtQueryVariables = Exact<{
-  token: Scalars['String'];
-}>;
-
-
-export type VerifyJwtQuery = { __typename?: 'Query', verifyJwt: boolean };
-
 export const ErrorFragmentFragmentDoc = gql`
     fragment ErrorFragment on FieldError {
   error
   field
 }
     `;
+export const CategoryFragmentFragmentDoc = gql`
+    fragment CategoryFragment on CategoryType {
+  id
+  slug
+  title
+}
+    `;
+export const ProductFragmentFragmentDoc = gql`
+    fragment ProductFragment on ProductType {
+  id
+  title
+  slug
+  categories {
+    ...CategoryFragment
+  }
+  imageUrl
+  normalPrice
+  dicountPrice
+  itemUnit
+  information
+  nutrition
+  howToKeep
+}
+    ${CategoryFragmentFragmentDoc}`;
 export const UserFragmentFragmentDoc = gql`
     fragment UserFragment on UserType {
   id
@@ -211,6 +282,45 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const GetProductsDocument = gql`
+    query GetProducts($limit: Int!) {
+  products(limit: $limit) {
+    result {
+      ...ProductFragment
+    }
+    hasNext
+    nextCursor
+  }
+}
+    ${ProductFragmentFragmentDoc}`;
+
+/**
+ * __useGetProductsQuery__
+ *
+ * To run a query within a React component, call `useGetProductsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProductsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useGetProductsQuery(baseOptions: Apollo.QueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument, options);
+      }
+export function useGetProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductsQuery, GetProductsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument, options);
+        }
+export type GetProductsQueryHookResult = ReturnType<typeof useGetProductsQuery>;
+export type GetProductsLazyQueryHookResult = ReturnType<typeof useGetProductsLazyQuery>;
+export type GetProductsQueryResult = Apollo.QueryResult<GetProductsQuery, GetProductsQueryVariables>;
 export const GetUserDocument = gql`
     query GetUser($pk: Int!) {
   user(pk: $pk) {
@@ -246,36 +356,3 @@ export function useGetUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ge
 export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
 export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
 export type GetUserQueryResult = Apollo.QueryResult<GetUserQuery, GetUserQueryVariables>;
-export const VerifyJwtDocument = gql`
-    query VerifyJWT($token: String!) {
-  verifyJwt(token: $token)
-}
-    `;
-
-/**
- * __useVerifyJwtQuery__
- *
- * To run a query within a React component, call `useVerifyJwtQuery` and pass it any options that fit your needs.
- * When your component renders, `useVerifyJwtQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useVerifyJwtQuery({
- *   variables: {
- *      token: // value for 'token'
- *   },
- * });
- */
-export function useVerifyJwtQuery(baseOptions: Apollo.QueryHookOptions<VerifyJwtQuery, VerifyJwtQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<VerifyJwtQuery, VerifyJwtQueryVariables>(VerifyJwtDocument, options);
-      }
-export function useVerifyJwtLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VerifyJwtQuery, VerifyJwtQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<VerifyJwtQuery, VerifyJwtQueryVariables>(VerifyJwtDocument, options);
-        }
-export type VerifyJwtQueryHookResult = ReturnType<typeof useVerifyJwtQuery>;
-export type VerifyJwtLazyQueryHookResult = ReturnType<typeof useVerifyJwtLazyQuery>;
-export type VerifyJwtQueryResult = Apollo.QueryResult<VerifyJwtQuery, VerifyJwtQueryVariables>;
