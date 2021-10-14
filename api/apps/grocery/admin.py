@@ -1,14 +1,13 @@
-from apps.grocery.model import category, product
+from apps.grocery.models import Category, Product
 from django.contrib import admin
 
 
-@admin.register(category.Category)
-class UserAdmin(admin.ModelAdmin):
-    exclude=("slug",)
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    exclude = ("slug",)
 
-@admin.register(product.Product)
-class UserAdmin(admin.ModelAdmin):
-    exclude=("slug",)
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    exclude = ("slug",)
     list_display = ('title', )
-    fields = ('title','categories')
-
