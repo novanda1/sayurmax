@@ -1,3 +1,4 @@
+import { ProductStore } from "@/stores/product";
 import { RootStateContextValue } from "@/stores/StoreProvider";
 import withApollo from "lib/apollo/withApollo";
 import React from "react";
@@ -8,7 +9,10 @@ import { Main } from "src/ui/pages/Main";
 const Home = () => {
     return (
         <MainLayout {...RootStateContextValue}>
-            <Main {...RootStateContextValue} />
+            <Main
+                {...RootStateContextValue}
+                productStore={new ProductStore()}
+            />
         </MainLayout>
     );
 };
