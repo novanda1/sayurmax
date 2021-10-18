@@ -41,7 +41,7 @@ class Product(models.Model):
         _("Image Url"), max_length=250,)
     normal_price = models.BigIntegerField()
     dicount_price = models.BigIntegerField(
-      null=True, blank=True, default=None)
+        null=True, blank=True, default=None)
     item_unit = models.CharField(max_length=10, choices=ITEM_UNIT_CHOICES)
     information = models.TextField(_("Product Infromation"))
     nutrition = models.TextField(_("Product Nutrition"))
@@ -57,3 +57,16 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Product'
         verbose_name_plural = 'Products'
+
+
+class Cart(models.Model):
+    user_id = models.IntegerField(_("User ID"))
+    product_id = models.IntegerField(_("Product ID"))
+    amount = models.IntegerField(_("Product Amount"))
+
+    class Meta:
+        verbose_name = _("cart")
+        verbose_name_plural = _("carts")
+
+    def __str__(self):
+        return self.pk

@@ -10,6 +10,9 @@ from apps.graphql.queries.product import products
 from apps.graphql.schema.user import UserType, UserResponse
 from apps.graphql.schema.product import ProductResponse
 
+from apps.graphql.schema.cart import Cart
+from apps.graphql.mutations.cart import add_to_cart
+
 
 @strawberry.type
 class Query:
@@ -20,6 +23,8 @@ class Query:
     verify_jwt: bool = strawberry.field(resolver=verify_jwt)
 
     products: ProductResponse = strawberry.field(resolver=products)
+
+    add_to_cart: bool = strawberry.field(resolver=add_to_cart)
 
 
 @strawberry.type
