@@ -1,9 +1,20 @@
 import strawberry
-from apps.grocery.models import Cart
+from apps.grocery.models import Cart, Product
+from apps.user.models import User
 
 
 def add_to_cart(user_id: strawberry.ID, product_id: strawberry.ID, amount: int):
     new_cart = Cart(user_id=user_id, product_id=product_id, amount=amount)
+
+    try:
+        User.objects.get(pk=user_id)
+    except:
+        raise Exception('user not found')
+
+    try:
+        Product.objects.get(pk=product_id)
+    except:
+        raise Exception('product not found')
 
     try:
         new_cart.save()
