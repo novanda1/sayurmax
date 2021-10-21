@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.text import slugify
-from djmoney.models.fields import MoneyField
 from django.utils.translation import gettext as _
 
 

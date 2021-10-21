@@ -1,6 +1,7 @@
 import strawberry
 
 
+@strawberry.type
 class Cart:
     id: strawberry.ID
     user_id: strawberry.ID
