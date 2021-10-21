@@ -30,13 +30,13 @@ class ErrorFieldObj:
 
 @strawberry.input
 class CreateUserDto:
-    phone: int
+    phone: str
     secret: str
 
 
 @strawberry.input
 class LoginDto:
-    phone: int
+    phone: str
     secret: str
 
 
