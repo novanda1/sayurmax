@@ -11,7 +11,7 @@ from apps.graphql.schema.user import UserType, UserResponse
 from apps.graphql.schema.product import ProductResponse
 
 from apps.graphql.schema.cart import Cart
-from apps.graphql.mutations.cart import add_to_cart
+from apps.graphql.mutations.cart import add_to_cart, change_cart_amount, delete_cart
 
 
 @strawberry.type
@@ -24,13 +24,15 @@ class Query:
 
     products: ProductResponse = strawberry.field(resolver=products)
 
-    add_to_cart: bool = strawberry.field(resolver=add_to_cart)
-
 
 @strawberry.type
 class Mutation:
     register: UserResponse = strawberry.mutation(resolver=register)
     login: UserResponse = strawberry.mutation(resolver=login)
+
+    add_to_cart: Cart = strawberry.field(resolver=add_to_cart)
+    change_cart_amount: Cart = strawberry.field(resolver=change_cart_amount)
+    delete_cart: bool = strawberry.field(resolver=delete_cart)
 
 
 schema = strawberry.Schema(query=Query, mutation=Mutation)
