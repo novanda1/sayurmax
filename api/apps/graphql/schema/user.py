@@ -6,9 +6,9 @@ from typing import Optional, List
 class UserType:
     id: int
     email: Optional[str]
-    username: str
+    username: Optional[str]
     display_name: Optional[str]
-    phone: Optional[str]
+    phone: str
     created_at: str
     updated_at: str
 
