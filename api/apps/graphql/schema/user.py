@@ -5,8 +5,6 @@ from typing import Optional, List
 @strawberry.type
 class UserType:
     id: int
-    email: Optional[str]
-    username: Optional[str]
     display_name: Optional[str]
     phone: str
     created_at: str

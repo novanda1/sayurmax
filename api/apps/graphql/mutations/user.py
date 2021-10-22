@@ -5,14 +5,20 @@ from phonenumber_field.validators import validate_international_phonenumber
 
 from apps.user.models import User
 from apps.graphql.schema.user import UserResponse
+from apps.otp.otp import Whatsapp
 
 import jwt
 import validators
 
-from dotenv import load_dotenv
+from dotenv import load_dotenv, dotenv_values
 import os
 
-load_dotenv(dotenv_path='./.env.dev')
+config = {
+    **dotenv_values(".env.dev"),
+    **os.environ,
+}
+
+load_dotenv()
 
 
 class UserResponseObj:
@@ -44,7 +50,7 @@ ph = PasswordHasher()
 
 
 def register(options: CreateUserDto):
-    if options.secret != os.getenv("AUTH_SECRET"):
+    if options.secret != config['AUTH_SERCRET']:
         raise Exception("not allowed")
 
     # validation start
@@ -67,7 +73,14 @@ def register(options: CreateUserDto):
 
     # validation end
 
-    user = User(phone=options.phone)
+    wa = Whatsapp()
+    try:
+        res = wa.send(str(options.phone), "great")
+        print(str(options.phone))
+    except:
+        raise Exception("failed to send wa")
+
+    user = User(phone=str(options.phone))
     user.save()
 
     payload_data = {
