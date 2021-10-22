@@ -1,13 +1,13 @@
 from django.db import models
 
 
-class OTPUserCount(models.Model):
-    user_id = models.IntegerField(_("user id"))
+class UnverifPhone(models.Model):
+    phone = models.IntegerField(_("phone number"))
     count = models.IntegerField(_("otp count"))
 
     class Meta:
-        verbose_name = _("otpusercount")
-        verbose_name_plural = _("otpusercounts")
+        verbose_name = _("unverifphone")
+        verbose_name_plural = _("unverifphones")
 
     def __str__(self):
-        return self.count
+        return self.phone

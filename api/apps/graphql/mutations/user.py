@@ -73,13 +73,6 @@ def register(options: CreateUserDto):
 
     # validation end
 
-    wa = Whatsapp()
-    try:
-        res = wa.send(str(options.phone), "great")
-        print(str(options.phone))
-    except:
-        raise Exception("failed to send wa")
-
     user = User(phone=str(options.phone))
     user.save()
 
