@@ -72,6 +72,10 @@ def register_verif_otp(phone: str, otp: int):
     if OTP.verify(otp, user.count):
         user = User.objects.create(phone=phone)
         user.save()
+
+        if user.pk is not None:
+            UnverifPhone.objects.get(phone=phone).delete()
+
         return user
 
     raise Exception("wrong otp")
