@@ -1,9 +1,11 @@
 from apps.user.models import User
 from apps.otp.models import UnverifPhone
+from apps.otp.otp import Whatsapp
 
 import jwt
 import pyotp
 import base64
+from phonenumber_field.validators import validate_international_phonenumber
 
 from dotenv import load_dotenv, dotenv_values
 import os
@@ -20,7 +22,7 @@ def register_otp_call(phone: str):
     wa = Whatsapp()
 
     try:
-        validate_international_phonenumber(options.phone)
+        validate_international_phonenumber(phone)
     except:
         raise Exception("phone is invalid")
 
@@ -33,7 +35,7 @@ def register_otp_call(phone: str):
 
     try:
         unverif_phone = UnverifPhone.objects.get(phone=phone)
-    except ObjectDoesNotExist:
+    except:
         UnverifPhone.objects.create(phone=phone)
         unverif_phone = UnverifPhone.objects.get(phone=phone)
 
@@ -44,7 +46,7 @@ def register_otp_call(phone: str):
     otp_result = OTP.at(unverif_phone.count)
 
     try:
-        res = wa.send(str(options.phone), "OTP mu iki cuy: " + otp_result)
+        res = wa.send(str(phone), "OTP mu iki cuy: " + otp_result)
     except:
         raise Exception("failed to send wa")
 

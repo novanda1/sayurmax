@@ -5,7 +5,6 @@ from phonenumber_field.validators import validate_international_phonenumber
 
 from apps.user.models import User
 from apps.graphql.schema.user import UserResponse
-from apps.otp.otp import Whatsapp
 
 import jwt
 import validators
