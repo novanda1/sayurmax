@@ -21,17 +21,17 @@ load_dotenv()
 def register_otp_call(phone: str):
     wa = Whatsapp()
 
-    # try:
-    #     validate_international_phonenumber(phone)
-    # except:
-    #     raise Exception("phone is invalid")
+    try:
+        validate_international_phonenumber(phone)
+    except:
+        raise Exception("phone is invalid")
 
-    # try:
-    #     user = User.objects.get(phone=phone)
-    #     if user.pk is not None:
-    #         raise Exception("user already registered")
-    # except:
-    #     pass
+    try:
+        user = User.objects.get(phone=phone)
+        if user.pk is not None:
+            raise Exception("user already registered")
+    except:
+        pass
 
     try:
         unverif_phone = UnverifPhone.objects.get(phone=phone)
