@@ -4,7 +4,6 @@ from typing import List
 from apps.graphql.queries.hello import say_hello
 from apps.graphql.queries.user import get_users, get_user, verify_jwt
 
-from apps.graphql.mutations.user import register, login
 from apps.graphql.queries.product import products
 
 from apps.graphql.schema.user import UserResponse, UserType 
