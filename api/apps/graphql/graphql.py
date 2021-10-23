@@ -1,5 +1,6 @@
 import strawberry
 from typing import List
+from phonenumber_field.validators import validate_international_phonenumber
 
 from apps.graphql.queries.hello import say_hello
 from apps.graphql.queries.user import get_users, get_user, verify_jwt
