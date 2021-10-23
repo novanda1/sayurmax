@@ -32,4 +32,4 @@ yarn-error.log*
 .vercel
 
 
-# __pycache__
+__pycache__
