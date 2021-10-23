@@ -7,7 +7,7 @@ from apps.graphql.queries.user import get_users, get_user, verify_jwt
 from apps.graphql.mutations.user import register, login
 from apps.graphql.queries.product import products
 
-from apps.graphql.schema.user import UserType 
+from apps.graphql.schema.user import UserResponse, UserType 
 from apps.graphql.schema.product import ProductResponse
 
 from apps.graphql.schema.cart import Cart
@@ -33,9 +33,9 @@ class Mutation:
     # login: UserResponse = strawberry.mutation(resolver=login)
 
     register_otp: str = strawberry.mutation(resolver=register_otp_call)
-    register_otp_verif: UserType = strawberry.mutation(resolver=register_verif_otp)
+    register_otp_verif: UserResponse = strawberry.mutation(resolver=register_verif_otp)
     login_otp: str = strawberry.mutation(resolver=login_otp_call)
-    login_otp_verif: UserType = strawberry.mutation(resolver=login_verif_otp)
+    login_otp_verif: UserResponse = strawberry.mutation(resolver=login_verif_otp)
     
 
     add_to_cart: Cart = strawberry.mutation(resolver=add_to_cart)

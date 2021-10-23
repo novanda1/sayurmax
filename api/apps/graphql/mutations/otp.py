@@ -1,10 +1,10 @@
+from logging import log, raiseExceptions
 from apps.user.models import User
 from apps.otp.models import UnverifPhone
 from apps.otp.otp import Whatsapp
+from apps.graphql.services import register, login
 
-import jwt
 import pyotp
-import base64
 from phonenumber_field.validators import validate_international_phonenumber
 
 from dotenv import load_dotenv, dotenv_values
@@ -54,7 +54,7 @@ def register_otp_call(phone: str):
     return "OTP sent successfully"
 
 
-def register_verif_otp(phone: str, otp: int):
+def register_verif_otp(phone: str, otp: int, secret: str):
     try:
         unverif_user = UnverifPhone.objects.get(phone=phone)
     except:
@@ -70,13 +70,17 @@ def register_verif_otp(phone: str, otp: int):
     OTP = pyotp.HOTP(config['TOTP_32'])
 
     if OTP.verify(otp, unverif_user.count):
-        user = User.objects.create(phone=phone)
-        user.save()
 
-        if user.pk is not None:
-            UnverifPhone.objects.get(phone=phone).delete()
+        try:
+            result = register(phone=phone, secret=secret)
+            if result.error is not None:
+                raise Exception(result)
+        except:
+            pass
 
-        return user
+        UnverifPhone.objects.get(phone=phone).delete()
+
+        return result
 
     raise Exception("wrong otp")
 
@@ -109,7 +113,7 @@ def login_otp_call(phone: str):
     return "OTP sent successfully"
 
 
-def login_verif_otp(phone: str, otp: int):  
+def login_verif_otp(phone: str, otp: int, secret: str):
     try:
         unverif_phone = UnverifPhone.objects.get(phone=phone)
     except:
@@ -123,7 +127,15 @@ def login_verif_otp(phone: str, otp: int):
     OTP = pyotp.HOTP(config['TOTP_32'])
 
     if OTP.verify(otp, unverif_phone.count):
+
+        try:
+            result = login(phone=phone, secret=secret)
+            if result.error is not None:
+                raise Exception(result)
+        except:
+            pass
+
         unverif_phone.delete()
-        return user
+        return result
 
     raise Exception("wrong otp")

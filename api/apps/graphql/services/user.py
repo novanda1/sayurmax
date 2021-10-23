@@ -1,12 +1,6 @@
-from phonenumbers import phonenumber
-import strawberry
-from typing import Optional
-from argon2 import PasswordHasher
-from phonenumber_field.validators import validate_international_phonenumber
-
 from apps.user.models import User
-from apps.graphql.utils.dto.user import CreateUserDto, LoginDto
 from apps.graphql.utils.obj.user import ErrorFieldObj, UserResponseObj
+from apps.graphql.schema.user import UserResponse
 
 import jwt
 
@@ -21,8 +15,8 @@ config = {
 load_dotenv()
 
 
-def register(options: CreateUserDto):
-    if options.secret != config['AUTH_SERCRET']:
+def register(phone: str, secret: str) -> UserResponse:
+    if secret != config['AUTH_SERCRET']:
         raise Exception("not allowed")
 
     # validation start
@@ -45,7 +39,7 @@ def register(options: CreateUserDto):
 
     # validation end
 
-    user = User(phone=str(options.phone))
+    user = User(phone=str(phone))
     user.save()
 
     payload_data = {
@@ -68,8 +62,8 @@ def register(options: CreateUserDto):
             return UserResponseObj(user=user, error=None, token=token)
 
 
-def login(options: LoginDto):
-    if options.secret != os.getenv("AUTH_SECRET"):
+def login(phone: str, secret: str) -> UserResponse:
+    if secret != os.getenv("AUTH_SECRET"):
         raise Exception("not allowed")
 
     # try:
@@ -78,7 +72,7 @@ def login(options: LoginDto):
     #     return UserResponseObj(user=None, error=[ErrorFieldObj("phone", "phone number invalid")], token=None)
 
     try:
-        user = User.objects.get(phone=options.phone)
+        user = User.objects.get(phone=phone)
     except:
         return UserResponseObj(user=None, error=[ErrorFieldObj("phone", "phone number not registered")], token=None)
 
