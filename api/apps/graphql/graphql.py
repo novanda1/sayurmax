@@ -30,9 +30,9 @@ class Mutation:
     register: UserResponse = strawberry.mutation(resolver=register)
     login: UserResponse = strawberry.mutation(resolver=login)
 
-    add_to_cart: Cart = strawberry.field(resolver=add_to_cart)
-    change_cart_amount: Cart = strawberry.field(resolver=change_cart_amount)
-    delete_cart: bool = strawberry.field(resolver=delete_cart)
+    add_to_cart: Cart = strawberry.mutation(resolver=add_to_cart)
+    change_cart_amount: Cart = strawberry.mutation(resolver=change_cart_amount)
+    delete_cart: bool = strawberry.mutation(resolver=delete_cart)
 
 
 schema = strawberry.Schema(query=Query, mutation=Mutation)
