@@ -21,22 +21,23 @@ load_dotenv()
 def register_otp_call(phone: str):
     wa = Whatsapp()
 
-    try:
-        validate_international_phonenumber(phone)
-    except:
-        raise Exception("phone is invalid")
+    # try:
+    #     validate_international_phonenumber(phone)
+    # except:
+    #     raise Exception("phone is invalid")
 
-    try:
-        user = User.objects.get(phone=phone)
-        if user.pk is not None:
-            raise Exception("user already registered")
-    except:
-        pass
+    # try:
+    #     user = User.objects.get(phone=phone)
+    #     if user.pk is not None:
+    #         raise Exception("user already registered")
+    # except:
+    #     pass
 
     try:
         unverif_phone = UnverifPhone.objects.get(phone=phone)
     except:
-        UnverifPhone.objects.create(phone=phone)
+        unverif_phone = UnverifPhone(phone=phone)
+        unverif_phone.save()
         unverif_phone = UnverifPhone.objects.get(phone=phone)
 
     unverif_phone.count += 1
@@ -46,14 +47,14 @@ def register_otp_call(phone: str):
     otp_result = OTP.at(unverif_phone.count)
 
     try:
-        res = wa.send(str(phone), "OTP mu iki cuy: " + otp_result)
+        res = wa.send(str(phone), f"OTP mu iki cuy:  {otp_result}")
     except:
         raise Exception("failed to send wa")
 
     return "OTP sent successfully"
 
 
-def register_verif_otp(phone:str, otp: int):
+def register_verif_otp(phone: str, otp: int):
     try:
         user = UnverifPhone.objects.get(phone=phone)
     except:
@@ -65,12 +66,12 @@ def register_verif_otp(phone:str, otp: int):
             raise Exception("user already registered")
     except:
         pass
-    
+
     OTP = pyotp.HOTP(config['TOTP_32'])
 
     if OTP.verify(otp, user.count):
         user = User.objects.create(phone=phone)
         user.save()
         return user
-    
+
     raise Exception("wrong otp")

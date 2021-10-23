@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.translation import gettext as _
-from phonenumber_field.modelfields import PhoneNumberField
 
 
 class User(models.Model):

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # app
     'apps.grocery',
     'apps.user',
+    'apps.otp',
 
     # deps
     'phonenumber_field',

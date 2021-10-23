@@ -1,5 +1,4 @@
 import requests
-from datetime import datetime
 
 from dotenv import load_dotenv, dotenv_values
 import os
@@ -28,5 +27,9 @@ class Whatsapp:
             "to": to
         }
 
-        response = requests.post(self.base_url + self.send_text, data=payload, headers=self.headers)
-        raise Exception( response)
+        try:
+            response = requests.post(self.base_url + self.send_text, data=payload, headers=self.headers)
+        except:
+            raise Exception("failed fetch zuwinda api")
+
+        return response
