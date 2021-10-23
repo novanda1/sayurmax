@@ -56,7 +56,7 @@ def register_otp_call(phone: str):
 
 def register_verif_otp(phone: str, otp: int):
     try:
-        user = UnverifPhone.objects.get(phone=phone)
+        unverif_user = UnverifPhone.objects.get(phone=phone)
     except:
         raise Exception("user doesnt exist")
 
@@ -69,13 +69,61 @@ def register_verif_otp(phone: str, otp: int):
 
     OTP = pyotp.HOTP(config['TOTP_32'])
 
-    if OTP.verify(otp, user.count):
+    if OTP.verify(otp, unverif_user.count):
         user = User.objects.create(phone=phone)
         user.save()
 
         if user.pk is not None:
             UnverifPhone.objects.get(phone=phone).delete()
 
+        return user
+
+    raise Exception("wrong otp")
+
+
+def login_otp_call(phone: str):
+    wa = Whatsapp()
+
+    try:
+        User.objects.get(phone=phone)
+    except:
+        raise Exception("user is not exists")
+
+    try:
+        unverif_phone = UnverifPhone.objects.get(phone=phone)
+    except:
+        unverif_phone = UnverifPhone(phone=phone)
+        unverif_phone.save()
+
+    unverif_phone.count += 1
+    unverif_phone.save()
+
+    OTP = pyotp.HOTP(config['TOTP_32'])
+    otp_result = OTP.at(unverif_phone.count)
+
+    try:
+        wa.send(str(phone), f"OTP mu iki cuy:  {otp_result}")
+    except:
+        raise Exception("failed to send wa")
+
+    return "OTP sent successfully"
+
+
+def login_verif_otp(phone: str, otp: int):  
+    try:
+        unverif_phone = UnverifPhone.objects.get(phone=phone)
+    except:
+        raise Exception("user doesnt exist")
+
+    try:
+        user = User.objects.get(phone=phone)
+    except:
+        raise Exception("user doesnt exists")
+
+    OTP = pyotp.HOTP(config['TOTP_32'])
+
+    if OTP.verify(otp, unverif_phone.count):
+        unverif_phone.delete()
         return user
 
     raise Exception("wrong otp")

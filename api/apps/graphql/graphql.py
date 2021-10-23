@@ -13,7 +13,7 @@ from apps.graphql.schema.product import ProductResponse
 from apps.graphql.schema.cart import Cart
 from apps.graphql.mutations.cart import add_to_cart, change_cart_amount, delete_cart
 
-from apps.graphql.mutations.otp import register_otp_call, register_verif_otp
+from apps.graphql.mutations.otp import register_otp_call, register_verif_otp, login_otp_call, login_verif_otp
 
 
 @strawberry.type
@@ -34,6 +34,8 @@ class Mutation:
 
     register_otp: str = strawberry.mutation(resolver=register_otp_call)
     register_otp_verif: UserType = strawberry.mutation(resolver=register_verif_otp)
+    login_otp: str = strawberry.mutation(resolver=login_otp_call)
+    login_otp_verif: UserType = strawberry.mutation(resolver=login_verif_otp)
     
 
     add_to_cart: Cart = strawberry.mutation(resolver=add_to_cart)
