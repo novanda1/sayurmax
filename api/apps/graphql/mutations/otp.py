@@ -2,7 +2,7 @@ from logging import log, raiseExceptions
 from apps.user.models import User
 from apps.otp.models import UnverifPhone
 from apps.otp.otp import Whatsapp
-from apps.graphql.services import register, login
+from apps.graphql.services.user import register, login
 
 import pyotp
 from phonenumber_field.validators import validate_international_phonenumber
@@ -133,9 +133,12 @@ def login_verif_otp(phone: str, otp: int, secret: str):
             if result.error is not None:
                 raise Exception(result)
         except:
-            pass
+            result = login(phone=phone, secret=secret)
+            raise Exception(result)
 
         unverif_phone.delete()
+        result = login(phone=phone, secret=secret)
+
         return result
 
     raise Exception("wrong otp")
