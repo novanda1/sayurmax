@@ -1,6 +1,5 @@
 from apps.user.models import User
-from apps.graphql.utils.obj.user import ErrorFieldObj, UserResponseObj
-from apps.graphql.schema.user import UserResponse
+from apps.graphql.schema.user import UserResponse, FieldError
 
 import jwt
 
@@ -25,17 +24,17 @@ def register(phone: str, secret: str) -> UserResponse:
     # try:
     #     validate_international_phonenumber(options.phone)
     # except:
-    #     error_fields.append(ErrorFieldObj("phone", "phone number invalid"))
+    #     error_fields.append(FieldError("phone", "phone number invalid"))
 
     # try:
     #     user = User.objects.get(phone=options.phone)
     #     if user.pk is not None:
-    #         error_fields.append(ErrorFieldObj("phone", "already exists"))
+    #         error_fields.append(FieldError("phone", "already exists"))
     # except:
     #     pass
 
     # if error_fields:
-    #     return UserResponseObj(user=None, error=error_fields, token=None)
+    #     return UserResponse(user=None, error=error_fields, token=None)
 
     # validation end
 
@@ -53,13 +52,13 @@ def register(phone: str, secret: str) -> UserResponse:
     )
 
     if user.pk is None:
-        return UserResponseObj(user=None, error=[ErrorFieldObj("some field", "invalid input")])
+        return UserResponse(user=None, error=[FieldError("some field", "invalid input")])
     else:
         user_exist = User.objects.get(pk=user.pk)
         if user_exist.pk is None:
-            return UserResponseObj(user=None, error=[ErrorFieldObj("some field", "invalid input")])
+            return UserResponse(user=None, error=[FieldError("some field", "invalid input")])
         else:
-            return UserResponseObj(user=user, error=None, token=token)
+            return UserResponse(user=user, error=None, token=token)
 
 
 def login(phone: str, secret: str) -> UserResponse:
@@ -69,12 +68,12 @@ def login(phone: str, secret: str) -> UserResponse:
     # try:
     #     validate_international_phonenumber(options.phone)
     # except:
-    #     return UserResponseObj(user=None, error=[ErrorFieldObj("phone", "phone number invalid")], token=None)
+    #     return UserResponse(user=None, error=[FieldError("phone", "phone number invalid")], token=None)
 
     try:
         user = User.objects.get(phone=phone)
     except:
-        return UserResponse(user=None, error=[ErrorFieldObj("phone", "phone number not registered")], token=None)
+        return UserResponse(user=None, error=[FieldError("phone", "phone number not registered")], token=None)
 
     payload_data = {
         "sub": user.pk,
