@@ -56,7 +56,7 @@ def register_otp_call(phone: str):
     return "OTP sent successfully"
 
 
-def register_verif_otp(phone: str, otp: int, secret: str):
+def register_verif_otp(phone: str, otp: str, secret: str):
     try:
         unverif_user = UnverifPhone.objects.get(phone=phone)
     except:
@@ -115,7 +115,7 @@ def login_otp_call(phone: str):
     return "OTP sent successfully"
 
 
-def login_verif_otp(phone: str, otp: int, secret: str):
+def login_verif_otp(phone: str, otp: str, secret: str):
     try:
         unverif_phone = UnverifPhone.objects.get(phone=phone)
     except:
