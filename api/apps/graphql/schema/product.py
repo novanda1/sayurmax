@@ -1,7 +1,6 @@
 import strawberry
 from typing import List, Optional
 from enum import Enum
-from apps.grocery.models import item_choices
 
 
 # todo -> DRY

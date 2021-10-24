@@ -74,7 +74,7 @@ def login(phone: str, secret: str) -> UserResponse:
     try:
         user = User.objects.get(phone=phone)
     except:
-        return UserResponseObj(user=None, error=[ErrorFieldObj("phone", "phone number not registered")], token=None)
+        return UserResponse(user=None, error=[ErrorFieldObj("phone", "phone number not registered")], token=None)
 
     payload_data = {
         "sub": user.pk,
@@ -86,4 +86,4 @@ def login(phone: str, secret: str) -> UserResponse:
         key=os.getenv("JWT_SECRET")
     )
 
-    return UserResponseObj(user=user, error=None, token=token)
+    return UserResponse(user=user, error=None, token=token)
