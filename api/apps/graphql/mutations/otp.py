@@ -1,3 +1,4 @@
+from array import array
 from logging import log, raiseExceptions
 from apps.user.models import User
 from apps.otp.models import UnverifPhone
@@ -6,6 +7,7 @@ from apps.graphql.services.user import register, login
 
 import pyotp
 from phonenumber_field.validators import validate_international_phonenumber
+from random import randint
 
 from dotenv import load_dotenv, dotenv_values
 import os
@@ -40,7 +42,7 @@ def register_otp_call(phone: str):
         unverif_phone.save()
         unverif_phone = UnverifPhone.objects.get(phone=phone)
 
-    unverif_phone.count += 1
+    unverif_phone.count = randint(23, 9999)
     unverif_phone.save()
 
     OTP = pyotp.HOTP(config['TOTP_32'])
@@ -99,7 +101,7 @@ def login_otp_call(phone: str):
         unverif_phone = UnverifPhone(phone=phone)
         unverif_phone.save()
 
-    unverif_phone.count += 1
+    unverif_phone.count = randint(23, 9999)
     unverif_phone.save()
 
     OTP = pyotp.HOTP(config['TOTP_32'])
