@@ -49,7 +49,7 @@ def register(phone: str, secret: str) -> UserResponse:
 
     token = jwt.encode(
         payload=payload_data,
-        key=os.getenv("JWT_SECRET")
+        key=config["JWT_SECRET"]
     )
 
     if user.pk is None:
@@ -63,7 +63,7 @@ def register(phone: str, secret: str) -> UserResponse:
 
 
 def login(phone: str, secret: str) -> UserResponse:
-    if secret != os.getenv("AUTH_SECRET"):
+    if secret != config["AUTH_SECRET"]:
         raise Exception("not allowed")
 
     # try:
@@ -83,7 +83,7 @@ def login(phone: str, secret: str) -> UserResponse:
 
     token = jwt.encode(
         payload=payload_data,
-        key=os.getenv("JWT_SECRET")
+        key=config["JWT_SECRET"]
     )
 
     return UserResponse(user=user, error=None, token=token)
