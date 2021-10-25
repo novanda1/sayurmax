@@ -1,4 +1,3 @@
-from array import array
 from logging import log, raiseExceptions
 from apps.user.models import User
 from apps.otp.models import UnverifPhone
