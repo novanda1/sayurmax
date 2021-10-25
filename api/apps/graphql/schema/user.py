@@ -4,7 +4,7 @@ from typing import Optional, List
 
 @strawberry.type
 class UserType:
-    id: int
+    id: strawberry.ID
     display_name: Optional[str]
     phone: str
     created_at: str
