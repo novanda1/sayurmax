@@ -13,7 +13,7 @@ def authenticate_header(request: Request):
     auth = request.headers.get('Authorization')
     token = auth.split()[1]
 
-    valid = jwt.decode(token, const.jwt_secret)
+    valid = jwt.decode(token, const.jwt_secret, algorithms=["HS256"])
 
     if valid:
         return True
