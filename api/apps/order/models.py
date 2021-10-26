@@ -1,5 +1,7 @@
 from django.db import models
+from django.db.models.fields import UUIDField
 from django.utils.translation import gettext as _
+import uuid
 
 from apps.user.models import User
 
