@@ -7,7 +7,7 @@ from apps.user.models import User
 
 
 SHIPPING_CHOICES = [
-    (1, "COD")
+    (0, "COD")
 ]
 
 ORDER_STATUS_CODE = [
