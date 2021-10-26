@@ -18,7 +18,7 @@ ORDER_STATUS_CODE = [
 
 INVOICE_STATUS_CODE = [
     (0, "Unpdaid"),
-    (1, "Paid")
+    (1, "Paid"),
     (2, "Issued")
 ]
 
@@ -59,7 +59,7 @@ class OrderDetail(models.Model):
 
 
 class Invoice(models.Model):
-    invoice_number = models.AutoField(_("Invoice Number"))
+    invoice_number = models.AutoField(_("Invoice Number"), primary_key=True)
     order_id = models.ForeignKey(Order, verbose_name=_(
         "Order ID"), on_delete=models.CASCADE)
     invoice_status_code = models.SmallIntegerField(
