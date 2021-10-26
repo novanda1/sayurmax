@@ -1,21 +1,12 @@
 from apps.user.models import User
 from apps.graphql.schema.user import UserResponse, FieldError
+from apps.graphql.utils import const
 
 import jwt
 
-from dotenv import load_dotenv, dotenv_values
-import os
-
-config = {
-    **dotenv_values(".env.dev"),
-    **os.environ,
-}
-
-load_dotenv()
-
 
 def register(phone: str, secret: str) -> UserResponse:
-    if secret != config['AUTH_SERCRET']:
+    if secret != const.auth_secret:
         raise Exception("not allowed")
 
     # validation start
@@ -48,7 +39,7 @@ def register(phone: str, secret: str) -> UserResponse:
 
     token = jwt.encode(
         payload=payload_data,
-        key=config["JWT_SECRET"]
+        key=const.jwt_secret
     )
 
     if user.pk is None:
@@ -62,7 +53,7 @@ def register(phone: str, secret: str) -> UserResponse:
 
 
 def login(phone: str, secret: str) -> UserResponse:
-    if secret != config["AUTH_SECRET"]:
+    if secret != const.auth_secret:
         raise Exception("not allowed")
 
     # try:
@@ -82,7 +73,7 @@ def login(phone: str, secret: str) -> UserResponse:
 
     token = jwt.encode(
         payload=payload_data,
-        key=config["JWT_SECRET"]
+        key=const.jwt_secret
     )
 
     return UserResponse(user=user, error=None, token=token)

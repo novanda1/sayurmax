@@ -1,16 +1,7 @@
 from apps.user.models import User
+from apps.graphql.utils import const
+
 import jwt
-
-
-from dotenv import load_dotenv, dotenv_values
-import os
-
-config = {
-    **dotenv_values(".env.dev"),
-    **os.environ,
-}
-
-load_dotenv()
 
 
 def get_users():
@@ -26,7 +17,7 @@ def get_user(pk: str):
 def verify_jwt(token: str):
     valid = jwt.decode(
         token,
-        config['JWT_SECRET']
+        const.jwt_secret
     )
 
     if valid:

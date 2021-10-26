@@ -3,20 +3,11 @@ from apps.user.models import User
 from apps.otp.models import UnverifPhone
 from apps.otp.otp import Whatsapp
 from apps.graphql.services.user import register, login
+from apps.graphql.utils import const
 
 import pyotp
 from phonenumber_field.validators import validate_international_phonenumber
 from random import randint
-
-from dotenv import load_dotenv, dotenv_values
-import os
-
-config = {
-    **dotenv_values(".env.dev"),
-    **os.environ,
-}
-
-load_dotenv()
 
 
 def register_otp_call(phone: str):
@@ -44,7 +35,7 @@ def register_otp_call(phone: str):
     unverif_phone.count = randint(23, 9999)
     unverif_phone.save()
 
-    OTP = pyotp.HOTP(config['TOTP_32'])
+    OTP = pyotp.HOTP(const.topt_32)
     otp_result = OTP.at(unverif_phone.count)
 
     try:
@@ -68,7 +59,7 @@ def register_verif_otp(phone: str, otp: str, secret: str):
     except:
         pass
 
-    OTP = pyotp.HOTP(config['TOTP_32'])
+    OTP = pyotp.HOTP(const.topt_32)
 
     if OTP.verify(otp, unverif_user.count):
 
@@ -103,7 +94,7 @@ def login_otp_call(phone: str):
     unverif_phone.count = randint(23, 9999)
     unverif_phone.save()
 
-    OTP = pyotp.HOTP(config['TOTP_32'])
+    OTP = pyotp.HOTP(const.topt_32)
     otp_result = OTP.at(unverif_phone.count)
 
     try:
@@ -125,7 +116,7 @@ def login_verif_otp(phone: str, otp: str, secret: str):
     except:
         raise Exception("user doesnt exists")
 
-    OTP = pyotp.HOTP(config['TOTP_32'])
+    OTP = pyotp.HOTP(const.topt_32)
 
     if OTP.verify(otp, unverif_phone.count):
 
