@@ -26,7 +26,7 @@ INVOICE_STATUS_CODE = [
 class Order(models.Model):
     id = UUIDField(primary_key=True, default=uuid.uuid4,
                    editable=False, unique=True)
-    user_id = models.ForeignKey(
+    user = models.ForeignKey(
         User, verbose_name=_("user id"), on_delete=models.CASCADE)
     order_status_code = models.SmallIntegerField(
         _("Order Status Code"), choices=ORDER_STATUS_CODE)
@@ -42,7 +42,7 @@ class Order(models.Model):
 
 
 class OrderDetail(models.Model):
-    order_id = models.ForeignKey(Order, verbose_name=_(
+    order = models.ForeignKey(Order, verbose_name=_(
         "Order ID"), on_delete=models.CASCADE)
     amount = models.FloatField(_("Order amount"))
     # User have address informations, fill this with that id
@@ -60,7 +60,7 @@ class OrderDetail(models.Model):
 
 class Invoice(models.Model):
     invoice_number = models.AutoField(_("Invoice Number"), primary_key=True)
-    order_id = models.ForeignKey(Order, verbose_name=_(
+    order= models.ForeignKey(Order, verbose_name=_(
         "Order ID"), on_delete=models.CASCADE)
     invoice_status_code = models.SmallIntegerField(
         _("Invoice Status Code"), choices=INVOICE_STATUS_CODE)

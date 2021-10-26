@@ -19,3 +19,33 @@ class User(models.Model):
 
     def __str__(self):
         return str(self.phone)
+
+
+class UserDetail(models.Model):
+    user = models.ForeignKey(User, verbose_name=_(
+        "User ID"), on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _("userdetail")
+        verbose_name_plural = _("userdetails")
+
+    def __str__(self):
+        return self.id
+
+
+class Address(models.Model):
+    name = models.CharField(_("address label"), max_length=50)
+    recipient = models.CharField(_("recipient's name"), max_length=50)
+    phone = models.BigIntegerField(_("phone number"))
+    city = models.CharField(_("city"), max_length=50)
+    postal_code = models.BigIntegerField(_("Postal Code"))
+    address = models.CharField(_("address"), max_length=255)
+    user_detail = models.ForeignKey(UserDetail, verbose_name=_(
+        "user detail ID"), on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _("address")
+        verbose_name_plural = _("addresss")
+
+    def __str__(self):
+        return self.id
