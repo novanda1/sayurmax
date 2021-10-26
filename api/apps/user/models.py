@@ -22,6 +22,8 @@ class User(models.Model):
 
 
 class UserDetail(models.Model):
+    id = UUIDField(primary_key=True, default=uuid.uuid4,
+                   editable=False, unique=True)
     user = models.ForeignKey(User, verbose_name=_(
         "User ID"), on_delete=models.CASCADE)
 
@@ -34,6 +36,8 @@ class UserDetail(models.Model):
 
 
 class Address(models.Model):
+    id = UUIDField(primary_key=True, default=uuid.uuid4,
+                   editable=False, unique=True)
     name = models.CharField(_("address label"), max_length=50)
     recipient = models.CharField(_("recipient's name"), max_length=50)
     phone = models.BigIntegerField(_("phone number"))
