@@ -13,7 +13,7 @@ class OrderStatusCode(Enum):
 
 @strawberry.enum
 class ShippingChoices(Enum):
-    COD = 1
+    COD = 0
 
 
 @strawberry.enum

@@ -7,17 +7,17 @@ from apps.graphql.schema.order import OrderStatusCode, OrderType, ShippingChoice
 import strawberry
 
 
-def make_order(user_id: strawberry.ID, amount: float, address_id: strawberry.ID, shipname: int = ShippingChoices.COD):
+def make_order(user_id: strawberry.ID, amount: float, address_id: strawberry.ID, shipname: ShippingChoices):
     try:
         user = User.objects.get(id=user_id)
     except:
         return FieldError(field="user id", error="user didnt exists")
 
-    order = Order(user=user, order_status_code=OrderStatusCode.Unpaid)
+    order = Order(user=user, order_status_code=OrderStatusCode.Progress.value)
     order.save()
 
     order_detail = OrderDetail(
-        order=order, amount=amount, address=address_id, shipname=shipname)
+        order=order, amount=amount, address=address_id, shipName=shipname.value)
     order_detail.save()
 
     return OrderType(
