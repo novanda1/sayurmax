@@ -1,19 +1,10 @@
 import requests
-
-from dotenv import load_dotenv, dotenv_values
-import os
-
-config = {
-    **dotenv_values(".env.dev"),
-    **os.environ,
-}
-
-load_dotenv(dotenv_path='./.env.dev')
+from apps.graphql.utils import const
 
 
 class Whatsapp:
-    z_secret_token = config["ZUWINDA_TOKEN"]
-    z_instances_id = config["ZUWINDA_INSTANCE_ID"]
+    z_secret_token = const.zuwinda_token
+    z_instances_id = const.zuwinda_instance_id
 
     base_url = "https://api.zuwinda.com"
     send_text = "/v1.2/message/whatsapp/send-text"
@@ -28,7 +19,8 @@ class Whatsapp:
         }
 
         try:
-            response = requests.post(self.base_url + self.send_text, data=payload, headers=self.headers)
+            response = requests.post(
+                self.base_url + self.send_text, data=payload, headers=self.headers)
         except:
             raise Exception("failed fetch zuwinda api")
 
