@@ -1,8 +1,8 @@
 
 from apps.user.models import Address, User, UserDetail
-from apps.order.models import Order, OrderDetail
+from apps.order.models import Order, OrderDetail, Invoice
 from apps.graphql.schema.user import FieldError
-from apps.graphql.schema.order import OrderStatusCode, OrderType, ShippingChoices
+from apps.graphql.schema.order import OrderStatusCode, OrderType, ShippingChoices, InvoiceStatusCode
 
 import strawberry
 
@@ -19,6 +19,10 @@ def make_order(user_id: strawberry.ID, amount: float, address_id: strawberry.ID,
     order_detail = OrderDetail(
         order=order, amount=amount, address=address_id, shipName=shipname.value)
     order_detail.save()
+
+    invoice = Invoice(
+        order=order, invoice_status_code=InvoiceStatusCode.Unpaid.value)
+    invoice.save()
 
     return OrderType(
         id=order.id,
