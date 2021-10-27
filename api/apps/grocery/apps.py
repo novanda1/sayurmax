@@ -2,4 +2,5 @@ from django.apps import AppConfig
 
 
 class GroceryConfig(AppConfig):
-    name = 'grocery'
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'apps.grocery'
