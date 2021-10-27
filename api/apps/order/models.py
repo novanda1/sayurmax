@@ -38,10 +38,12 @@ class Order(models.Model):
         verbose_name_plural = _("Orders")
 
     def __str__(self):
-        return self.id
+        return f"{self.id}"
 
 
 class OrderDetail(models.Model):
+    id = UUIDField(primary_key=True, default=uuid.uuid4,
+                   editable=False, unique=True)
     order = models.ForeignKey(Order, verbose_name=_(
         "Order ID"), on_delete=models.CASCADE)
     amount = models.FloatField(_("Order amount"))
@@ -55,7 +57,7 @@ class OrderDetail(models.Model):
         verbose_name_plural = _("orderdetails")
 
     def __str__(self):
-        return self.id
+        return f"{self.id}"
 
 
 class Invoice(models.Model):
@@ -70,4 +72,4 @@ class Invoice(models.Model):
         verbose_name_plural = _("Invoices")
 
     def __str__(self):
-        return self.id
+        return f"{self.invoice_number}"
