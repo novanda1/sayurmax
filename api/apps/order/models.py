@@ -4,6 +4,7 @@ from django.utils.translation import gettext as _
 import uuid
 
 from apps.user.models import User
+from apps.grocery.models import Cart
 
 
 SHIPPING_CHOICES = [
@@ -28,6 +29,8 @@ class Order(models.Model):
                    editable=False, unique=True)
     user = models.ForeignKey(
         User, verbose_name=_("user id"), on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, verbose_name=_(""),
+                             on_delete=models.CASCADE)
     order_status_code = models.SmallIntegerField(
         _("Order Status Code"), choices=ORDER_STATUS_CODE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -62,7 +65,7 @@ class OrderDetail(models.Model):
 
 class Invoice(models.Model):
     invoice_number = models.AutoField(_("Invoice Number"), primary_key=True)
-    order= models.ForeignKey(Order, verbose_name=_(
+    order = models.ForeignKey(Order, verbose_name=_(
         "Order ID"), on_delete=models.CASCADE)
     invoice_status_code = models.SmallIntegerField(
         _("Invoice Status Code"), choices=INVOICE_STATUS_CODE)
