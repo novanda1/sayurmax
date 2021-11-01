@@ -7,6 +7,14 @@ from apps.user.models import User
 
 def add_to_cart(self, info: Info, product_id: str, amount: int):
     request: typing.Union[Request, WebSocket] = info.context["request"]
-    user_context = request.session.userId
+    
+    try:
+        userid = request.session['userid']
+    except:
+        raise Exception("not authenticated")
+
+    
+
+
 
     
