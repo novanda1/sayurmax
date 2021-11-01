@@ -4,6 +4,8 @@ from django.db.models.fields import UUIDField
 from django.utils.text import slugify
 from django.utils.translation import gettext as _
 
+from apps.user.models import User
+
 
 class Category(models.Model):
     title = models.CharField(max_length=50)
@@ -29,9 +31,6 @@ item_choices = [
 ]
 
 ITEM_UNIT_CHOICES = tuple((str(t), str(t)) for t in item_choices)
-
-# for it in ITEM_UNIT_CHOICES:
-#     ITEM_UNIT_CHOICES.append(tuple( zip(it, it)))
 
 
 class Product(models.Model):
@@ -63,9 +62,9 @@ class Product(models.Model):
 
 
 class Cart(models.Model):
-    user_id = models.IntegerField(_("User ID"))
-    product_id = models.IntegerField(_("Product ID"))
-    amount = models.IntegerField(_("Product Amount"))
+    user = models.ForeignKey(User, verbose_name=_(
+        "user"), on_delete=models.CASCADE)
+    total_price = models.BigIntegerField(_("Price Total"), default=0)
 
     class Meta:
         verbose_name = _("cart")
@@ -73,3 +72,18 @@ class Cart(models.Model):
 
     def __str__(self):
         return self.pk
+
+
+class CartProduct(models.Model):
+    product = models.ForeignKey(
+        Product, verbose_name=_("product"), on_delete=models.CASCADE)
+    amount = models.BigIntegerField(_("product amount"))
+    cart = models.ForeignKey(Cart, verbose_name=_(
+        "cart"), on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _("cartproduct")
+        verbose_name_plural = _("cartproducts")
+
+    def __str__(self):
+        return self.id
