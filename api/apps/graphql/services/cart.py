@@ -13,7 +13,15 @@ class CartServices:
 
     def add_new_product_to_cart(product, cart, amount):
         try:
+            user = User.objects.get(id=user_id)
+            cart = Cart.objects.get(user=user)
+        except:
+            cart = Cart(user=user, total_price=0)
+            cart.save()
+
+        try:
             pruduct = CartProduct(product=product, cart=cart, amount=amount)
+            
             product.save()
         except:
             raise Exception("CartProduct model: add error")
