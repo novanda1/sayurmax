@@ -31,5 +31,7 @@ class Mutation:
     login_otp: str = resolver.otp_mutation.login_otp_call
     login_otp_verif: UserResponse = resolver.otp_mutation.login_verif_otp
 
+    add_to_cart: Cart = resolver.cart_mutation.add_to_cart
+
 
 schema = strawberry.Schema(query=Query, mutation=Mutation)

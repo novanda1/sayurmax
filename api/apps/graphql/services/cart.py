@@ -1,4 +1,4 @@
-from apps.grocery.models import Cart, CartProduct
+from apps.grocery.models import Cart, CartProduct, Product
 
 
 class CartServices:
@@ -11,22 +11,31 @@ class CartServices:
 
         return cart
 
-    def add_new_product_to_cart(product, cart, amount):
+    def add_to_cart(self, userid, productid, amount):
         try:
-            user = User.objects.get(id=user_id)
+            user = User.objects.get(id=userid)
+        except:
+            raise Exception("user doesnt exists")
+
+        try:
             cart = Cart.objects.get(user=user)
         except:
             cart = Cart(user=user, total_price=0)
             cart.save()
 
         try:
-            pruduct = CartProduct(product=product, cart=cart, amount=amount)
-            
-            product.save()
+            product = Product.objects.get(id=productid)
+        except:
+            raise Exception("product not found")
+
+        try:
+            cart_pruduct = CartProduct(
+                product=product, cart=cart, amount=amount)
+            cart_product.save()
         except:
             raise Exception("CartProduct model: add error")
 
-        return product
+        return cart
 
     def edit_product_amount(cart_product_id, amount):
         try:
