@@ -12,10 +12,16 @@ from apps.graphql.schema.product import ProductResponse
 from apps.graphql.schema.cart import Cart
 # from apps.graphql.mutations.cart import add_to_cart, change_cart_amount, delete_cart
 
-from apps.graphql.mutations.otp import register_otp_call, register_verif_otp, login_otp_call, login_verif_otp
+# from apps.graphql.mutations.otp import register_otp_call, register_verif_otp, login_otp_call, login_verif_otp
 
 from apps.graphql.schema.order import OrderType
 # from apps.graphql.mutations.order import make_order
+
+
+#
+from apps.graphql.resolver import Resolver
+
+resolver = Resolver()
 
 
 @strawberry.type
@@ -31,16 +37,16 @@ class Query:
 
 @strawberry.type
 class Mutation:
-    # register: UserResponse = strawberry.mutation(resolver=register)
-    # login: UserResponse = strawberry.mutation(resolver=login)
-
-    register_otp: str = strawberry.mutation(resolver=register_otp_call)
+    # otp start
+    register_otp: str = strawberry.mutation(
+        resolver=resolver.otp_mutation.register_otp_call)
     register_otp_verif: UserResponse = strawberry.mutation(
-        resolver=register_verif_otp)
-    login_otp: str = strawberry.mutation(resolver=login_otp_call)
+        resolver=resolver.otp_mutation.register_verif_otp)
+    login_otp: str = strawberry.mutation(
+        resolver=resolver.otp_mutation.login_otp_call)
     login_otp_verif: UserResponse = strawberry.mutation(
-        resolver=login_verif_otp)
-
+        resolver=resolver.otp_mutation.login_verif_otp)
+    # otp end
 
 
 schema = strawberry.Schema(query=Query, mutation=Mutation)
