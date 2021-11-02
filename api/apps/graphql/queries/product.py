@@ -9,7 +9,7 @@ import strawberry
 
 class ProductQuery:
 
-    @strawberry.type
+    @strawberry.field
     def products(limit: int, after: Optional[str] = None):
         qs = Product.objects.all()
         paginator = CursorPaginator(qs, ordering=('-title', '-id'))
