@@ -13,10 +13,11 @@ from starlette.requests import Request
 from phonenumber_field.validators import validate_international_phonenumber
 from random import randint
 
+wa = Whatsapp()
+OTP = pyotp.HOTP(const.topt_32)
+
 
 class OtpMutation:
-    wa = Whatsapp()
-    OTP = pyotp.HOTP(const.topt_32)
 
     @strawberry.mutation
     def register_otp_call(self, phone: str):
@@ -43,10 +44,10 @@ class OtpMutation:
         unverif_phone.count = randint(23, 9999)
         unverif_phone.save()
 
-        otp_result = self.OTP.at(unverif_phone.count)
+        otp_result = OTP.at(unverif_phone.count)
 
         try:
-            res = self.wa.send(str(phone), f"OTP mu iki cuy:  {otp_result}")
+            res = wa.send(str(phone), f"OTP mu iki cuy:  {otp_result}")
         except:
             raise Exception("failed to send wa")
 
@@ -68,18 +69,22 @@ class OtpMutation:
         except:
             pass
 
-        if self.OTP.verify(otp, unverif_user.count):
+        if OTP.verify(otp, unverif_user.count):
 
             try:
                 result = register(phone=phone, secret=secret)
                 if result.error is not None:
                     raise Exception(result)
+
             except:
                 pass
 
-            UnverifPhone.objects.get(phone=phone).delete()
+            try:
+                request.session['userid'] = user.id
+            except:
+                raise Exception("failed to save session")
 
-            request.session['userid'] = user.id
+            UnverifPhone.objects.get(phone=phone).delete()
 
             return result
 
@@ -101,10 +106,10 @@ class OtpMutation:
         unverif_phone.count = randint(23, 9999)
         unverif_phone.save()
 
-        otp_result = self.OTP.at(unverif_phone.count)
+        otp_result = OTP.at(unverif_phone.count)
 
         try:
-            self.wa.send(str(phone), f"OTP mu iki cuy:  {otp_result}")
+            wa.send(str(phone), f"OTP mu iki cuy:  {otp_result}")
         except:
             raise Exception("failed to send wa")
 
@@ -124,7 +129,7 @@ class OtpMutation:
         except:
             raise Exception("user doesnt exists")
 
-        if self.OTP.verify(otp, unverif_phone.count):
+        if OTP.verify(otp, unverif_phone.count):
             try:
                 result = login(phone=phone, secret=secret)
                 if result.error is not None:
