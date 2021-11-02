@@ -17,11 +17,11 @@ resolver = Resolver()
 class Query:
     hello: str = strawberry.field(resolver=say_hello)
 
-    # users: List[UserType] = strawberry.field(resolver=get_users)
-    # user: UserType = strawberry.field(resolver=get_user)
-    # verify_jwt: bool = strawberry.field(resolver=verify_jwt)
+    users: List[UserType] = resolver.user_query.get_users
+    user: UserType = resolver.user_query.get_user
+    verify_jwt: bool = resolver.user_query.verify_jwt
 
-    # products: ProductResponse = strawberry.field(resolver=products)
+    # products: ProductResponse =products
 
 
 @strawberry.type
