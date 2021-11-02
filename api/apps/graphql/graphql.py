@@ -21,17 +21,15 @@ class Query:
     user: UserType = resolver.user_query.get_user
     verify_jwt: bool = resolver.user_query.verify_jwt
 
-    # products: ProductResponse =products
+    products: ProductResponse = resolver.product_query.products
 
 
 @strawberry.type
 class Mutation:
-    # otp start
     register_otp: str = resolver.otp_mutation.register_otp_call
     register_otp_verif: UserResponse = resolver.otp_mutation.register_verif_otp
     login_otp: str = resolver.otp_mutation.login_otp_call
     login_otp_verif: UserResponse = resolver.otp_mutation.login_verif_otp
-    # otp end
 
 
 schema = strawberry.Schema(query=Query, mutation=Mutation)

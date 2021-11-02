@@ -4,17 +4,22 @@ from apps.grocery.models import Product
 from typing import Optional
 from cursor_pagination import CursorPaginator
 
+import strawberry
 
-def products(limit: int, after: Optional[str] = None):
-    qs = Product.objects.all()
-    paginator = CursorPaginator(qs, ordering=('-title', '-id'))
-    page = paginator.page(first=limit, after=after)
 
-    class Data:
-        def __init__(self, result, has_next, next_cursor):
-            self.result = [ProductType(p.pk, p.title, p.slug, p.categories, p.image_url, p.normal_price,
-                                       p.dicount_price, p.item_unit, p.information, p.nutrition, p.how_to_keep) for p in result]
-            self.has_next = has_next
-            self.next_cursor = next_cursor
+class ProductQuery:
 
-    return Data([p for p in page], page.has_next, paginator.cursor(page[-1]))
+    @strawberry.type
+    def products(limit: int, after: Optional[str] = None):
+        qs = Product.objects.all()
+        paginator = CursorPaginator(qs, ordering=('-title', '-id'))
+        page = paginator.page(first=limit, after=after)
+
+        class Data:
+            def __init__(self, result, has_next, next_cursor):
+                self.result = [ProductType(p.pk, p.title, p.slug, p.categories, p.image_url, p.normal_price,
+                                           p.dicount_price, p.item_unit, p.information, p.nutrition, p.how_to_keep) for p in result]
+                self.has_next = has_next
+                self.next_cursor = next_cursor
+
+        return Data([p for p in page], page.has_next, paginator.cursor(page[-1]))
