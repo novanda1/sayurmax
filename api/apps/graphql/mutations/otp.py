@@ -7,6 +7,8 @@ from apps.graphql.utils import const
 
 import pyotp
 import strawberry
+from strawberry.types import Info
+from starlette.requests import Request
 
 from phonenumber_field.validators import validate_international_phonenumber
 from random import randint
@@ -51,7 +53,9 @@ class OtpMutation:
         return "OTP sent successfully"
 
     @strawberry.mutation
-    def register_verif_otp(self, phone: str, otp: str, secret: str):
+    def register_verif_otp(self, info: Info, phone: str, otp: str, secret: str):
+        request: Request = info.context["request"]
+
         try:
             unverif_user = UnverifPhone.objects.get(phone=phone)
         except:
@@ -74,6 +78,8 @@ class OtpMutation:
                 pass
 
             UnverifPhone.objects.get(phone=phone).delete()
+
+            request.session['userid'] = user.id
 
             return result
 
@@ -105,7 +111,9 @@ class OtpMutation:
         return "OTP sent successfully"
 
     @strawberry.mutation
-    def login_verif_otp(self, phone: str, otp: str, secret: str):
+    def login_verif_otp(self, info: Info, phone: str, otp: str, secret: str):
+        request: Request = info.context["request"]
+
         try:
             unverif_phone = UnverifPhone.objects.get(phone=phone)
         except:
@@ -127,6 +135,8 @@ class OtpMutation:
 
             unverif_phone.delete()
             result = login(phone=phone, secret=secret)
+
+            request.session['userid'] = user.id
 
             return result
 
