@@ -6,14 +6,17 @@ from apps.graphql.services.user import register, login
 from apps.graphql.utils import const
 
 import pyotp
+import strawberry
+
 from phonenumber_field.validators import validate_international_phonenumber
 from random import randint
 
 
-class OtpMutationResolver:
+class OtpMutation:
     wa = Whatsapp()
     OTP = pyotp.HOTP(const.topt_32)
 
+    @strawberry.mutation
     def register_otp_call(self, phone: str):
 
         try:
@@ -47,6 +50,7 @@ class OtpMutationResolver:
 
         return "OTP sent successfully"
 
+    @strawberry.mutation
     def register_verif_otp(self, phone: str, otp: str, secret: str):
         try:
             unverif_user = UnverifPhone.objects.get(phone=phone)
@@ -75,6 +79,7 @@ class OtpMutationResolver:
 
         raise Exception("wrong otp")
 
+    @strawberry.mutation
     def login_otp_call(self, phone: str):
         try:
             User.objects.get(phone=phone)
@@ -99,6 +104,7 @@ class OtpMutationResolver:
 
         return "OTP sent successfully"
 
+    @strawberry.mutation
     def login_verif_otp(self, phone: str, otp: str, secret: str):
         try:
             unverif_phone = UnverifPhone.objects.get(phone=phone)

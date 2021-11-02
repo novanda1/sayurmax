@@ -1,5 +1,8 @@
-from apps.graphql.mutations.otp import OtpMutationResolver
+from apps.graphql.mutations.otp import OtpMutation
+from apps.graphql.queries.user import UserQuery
 
 
 class Resolver:
-    otp_mutation: OtpMutationResolver = OtpMutationResolver()
+    user_query: UserQuery = UserQuery()
+
+    otp_mutation: OtpMutation = OtpMutation()
