@@ -2,6 +2,8 @@ from apps.user.models import User, UserAddress
 from apps.graphql.schema.user import UserResponse, FieldError, UserAddress as UserAddressType
 from apps.graphql.utils import const
 
+
+from typing import Optional
 import jwt
 
 
@@ -78,6 +80,47 @@ class UserServices:
             address=address,
             user=user
         )
+
+        user_address.save()
+
+        return UserAddressType(
+            id=user_address.id,
+            name=user_address.name,
+            recipient=user_address.recipient,
+            phone=user_address.phone,
+            city=user_address.city,
+            postal_code=user_address.postal_code,
+            address=user_address.address
+        )
+
+    def edit_user_address(
+        self,
+        id: str,
+        current_user_phone: str,
+        phone: Optional[str] = "",
+        name: Optional[str] = "",
+        recipient: Optional[str] = "",
+        city: Optional[str] = "",
+        postal_code: Optional[str] = "",
+        address: Optional[str] = ""
+    ):
+
+        try:
+            user = User.objects.get(phone=current_user_phone)
+        except:
+            raise Exception("user doesnt exists")
+
+        try:
+            user_address = UserAddress.objects.get(id = id)
+        except:
+            raise Exception("address not found")
+
+        user_address.phone = phone or user_address.phone
+        user_address.name = name or user_address.name
+        user_address.recipient = recipient or user_address.recipient
+        user_address.city = city or user_address.city
+        user_address.postal_code = postal_code or user_address.postal_code
+        user_address.address = address or user_address.address
 
         user_address.save()
 

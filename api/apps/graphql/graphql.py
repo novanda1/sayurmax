@@ -35,6 +35,7 @@ class Mutation:
     add_to_cart: Cart = resolver.cart_mutation.add_to_cart
 
     user_add_address: UserAddress = resolver.user_mutation.add_user_address
+    user_edit_address: UserAddress = resolver.user_mutation.edit_user_address
 
 
 schema = strawberry.Schema(query=Query, mutation=Mutation)
