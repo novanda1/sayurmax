@@ -2,7 +2,7 @@ from logging import log, raiseExceptions
 from apps.user.models import User
 from apps.otp.models import UnverifPhone
 from apps.otp.otp import Whatsapp
-from apps.graphql.services.user import register, login
+from apps.graphql.services.user import UserServices
 from apps.graphql.utils import const
 
 import pyotp
@@ -16,9 +16,10 @@ from random import randint
 wa = Whatsapp()
 OTP = pyotp.HOTP(const.topt_32)
 
+user_services = UserServices()
+
 
 class OtpMutation:
-
     @strawberry.mutation
     def register_otp_call(self, phone: str):
 
@@ -69,12 +70,7 @@ class OtpMutation:
             pass
 
         if OTP.verify(otp, unverif_user.count):
-            try:
-                result = register(phone=phone, secret=secret)
-            except:
-                result = register(phone=phone, secret=secret)
-                raise Exception(result)
-
+            result = user_services.register(phone=phone, secret=secret)
             if result.error is not None:
                 raise Exception(result)
             UnverifPhone.objects.get(phone=phone).delete()
@@ -121,16 +117,12 @@ class OtpMutation:
             raise Exception("user doesnt exists")
 
         if OTP.verify(otp, unverif_phone.count):
-            try:
-                result = login(phone=phone, secret=secret)
-                if result.error is not None:
-                    raise Exception(result)
-            except:
-                result = login(phone=phone, secret=secret)
-                raise Exception(result)
+            result = user_services.login(phone=phone, secret=secret)
+
+            if result.error is not None:
+                raise Exception(result.error)
 
             unverif_phone.delete()
-            result = login(phone=phone, secret=secret)
 
             return result
 
