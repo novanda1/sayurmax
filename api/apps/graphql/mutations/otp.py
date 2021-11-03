@@ -68,15 +68,14 @@ class OtpMutation:
             pass
 
         if OTP.verify(otp, unverif_user.count):
-
             try:
                 result = register(phone=phone, secret=secret)
-                if result.error is not None:
-                    raise Exception(result)
-
             except:
-                pass
+                result = register(phone=phone, secret=secret)
+                raise Exception(result)
 
+            if result.error is not None:
+                raise Exception(result)
             UnverifPhone.objects.get(phone=phone).delete()
 
             return result

@@ -8,7 +8,7 @@ class User(models.Model):
     id = UUIDField(primary_key=True, default=uuid.uuid4,
                    editable=False, unique=True)
     display_name = models.CharField(max_length=100, blank=True, null=True)
-    phone = models.CharField(_("phone number"), max_length=50)
+    phone = models.CharField(_("phone number"), max_length=50, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

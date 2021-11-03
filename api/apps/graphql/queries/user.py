@@ -12,8 +12,8 @@ class UserQuery:
         return users
 
     @strawberry.field
-    def get_user(pk: str):
-        user = User.objects.get(pk=pk)
+    def get_user(phone: str):
+        user = User.objects.get(phone=phone)
         return user
 
     @strawberry.field
