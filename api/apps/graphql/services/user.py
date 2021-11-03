@@ -111,7 +111,7 @@ class UserServices:
             raise Exception("user doesnt exists")
 
         try:
-            user_address = UserAddress.objects.get(id = id)
+            user_address = UserAddress.objects.get(id=id)
         except:
             raise Exception("address not found")
 
@@ -123,6 +123,19 @@ class UserServices:
         user_address.address = address or user_address.address
 
         user_address.save()
+
+        return UserAddressType(
+            id=user_address.id,
+            name=user_address.name,
+            recipient=user_address.recipient,
+            phone=user_address.phone,
+            city=user_address.city,
+            postal_code=user_address.postal_code,
+            address=user_address.address
+        )
+
+    def get_user_address(self, id):
+        user_address = UserAddress.objects.get(id=id)
 
         return UserAddressType(
             id=user_address.id,

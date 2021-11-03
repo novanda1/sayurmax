@@ -20,6 +20,7 @@ class Query:
     users: List[UserType] = resolver.user_query.get_users
     user: UserType = resolver.user_query.get_user
     verify_jwt: bool = resolver.user_query.verify_jwt
+    user_get_address: UserAddress = resolver.user_query.get_user_address
 
     products: ProductResponse = resolver.product_query.products
     product: ProductType = resolver.product_query.product
