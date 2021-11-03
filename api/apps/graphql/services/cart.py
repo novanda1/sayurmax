@@ -11,9 +11,9 @@ class CartServices:
 
         return cart
 
-    def add_to_cart(self, userid, productid, amount):
+    def add_to_cart(self, phone, productid, amount):
         try:
-            user = User.objects.get(id=userid)
+            user = User.objects.get(phone=phone)
         except:
             raise Exception("user doesnt exists")
 
