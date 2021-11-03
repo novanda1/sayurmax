@@ -21,9 +21,9 @@ class UserMutation:
         address: str
     ):
         request: Request = info.context["request"]
-        phone = get_phone_from_jwt(request=request)
+        current_user_phone = get_phone_from_jwt(request=request)
 
         address = user_services.add_user_address(
-            phone, name, recipient, city, postal_code, address)
+            current_user_phone, phone, name, recipient, city, postal_code, address)
 
         return address

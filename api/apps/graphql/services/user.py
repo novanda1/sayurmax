@@ -55,6 +55,7 @@ class UserServices:
 
     def add_user_address(
         self,
+        current_user_phone: str,
         phone: str,
         name: str,
         recipient: str,
@@ -64,7 +65,7 @@ class UserServices:
     ):
 
         try:
-            user = User.objects.get(phone=phone)
+            user = User.objects.get(phone=current_user_phone)
         except:
             raise Exception("user doesnt exists")
 
