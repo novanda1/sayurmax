@@ -30,11 +30,13 @@ class CartServices:
             raise Exception("product not found")
 
         try:
-            cart_product = CartProduct(
-                product=product, cart=cart, amount=amount)
+            cart_product = CartProduct.objects.get(
+                product=product, cart=cart)
         except:
-            raise Exception("CartProduct model: add error")
+            cart_product = CartProduct(
+                product=product, cart=cart)
 
+        cart_product.amount = amount
         cart_product.save()
 
         return cart
