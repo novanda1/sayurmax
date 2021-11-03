@@ -3,15 +3,6 @@ from apps.user.models import User
 
 
 class CartServices:
-    def create(user):
-        try:
-            cart = Cart.objects.create(user=user)
-            cart.save()
-        except:
-            raise Exception("failed to create user")
-
-        return cart
-
     def add_to_cart(self, phone, productid, amount):
         try:
             user = User.objects.get(phone=phone)
@@ -51,3 +42,17 @@ class CartServices:
         product.save()
 
         return product
+
+    def delete_cart_product(self, id, phone):
+        try:
+            product = CartProduct.objects.get(id)
+        except:
+            raise Exception("cart product not found")
+            
+
+        try:
+            product.delete()
+        except:
+            return False
+
+        return True

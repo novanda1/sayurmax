@@ -27,3 +27,14 @@ class CartMutation:
             phone=phone, productid=product_id, amount=amount)
 
         return cart
+
+    @strawberry.mutation(permission_classes=[JwtAuth])
+    def delete_cart_product(self, info: Info, id):
+        request: Request = info.context["request"]
+
+        try:
+            phone = get_phone_from_jwt(request=request)
+        except:
+            raise Exception("not authenticated")
+
+        cart_deleted = cart_services.delete_cart_product(id, phone)
