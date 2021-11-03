@@ -24,8 +24,7 @@ class User(models.Model):
 class UserDetail(models.Model):
     id = UUIDField(primary_key=True, default=uuid.uuid4,
                    editable=False, unique=True)
-    user = models.ForeignKey(User, verbose_name=_(
-        "User ID"), on_delete=models.CASCADE)
+    user = models.OneToOneField(to=User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _("userdetail")
@@ -35,7 +34,7 @@ class UserDetail(models.Model):
         return self.id
 
 
-class Address(models.Model):
+class UserAddress(models.Model):
     id = UUIDField(primary_key=True, default=uuid.uuid4,
                    editable=False, unique=True)
     name = models.CharField(_("address label"), max_length=50)
@@ -44,12 +43,12 @@ class Address(models.Model):
     city = models.CharField(_("city"), max_length=50)
     postal_code = models.BigIntegerField(_("Postal Code"))
     address = models.CharField(_("address"), max_length=255)
-    user_detail = models.ForeignKey(UserDetail, verbose_name=_(
-        "user detail ID"), on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name=_(
+        "user"), on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _("address")
-        verbose_name_plural = _("addresss")
+        verbose_name_plural = _("addresses")
 
     def __str__(self):
         return self.id
