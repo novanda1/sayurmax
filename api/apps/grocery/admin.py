@@ -10,4 +10,4 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     exclude = ("slug",)
-    list_display = ('title', )
+    list_display = ('title', 'id')

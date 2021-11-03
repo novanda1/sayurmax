@@ -1,4 +1,5 @@
 from apps.grocery.models import Cart, CartProduct, Product
+from apps.user.models import User
 
 
 class CartServices:
@@ -29,11 +30,12 @@ class CartServices:
             raise Exception("product not found")
 
         try:
-            cart_pruduct = CartProduct(
+            cart_product = CartProduct(
                 product=product, cart=cart, amount=amount)
-            cart_product.save()
         except:
             raise Exception("CartProduct model: add error")
+
+        cart_product.save()
 
         return cart
 

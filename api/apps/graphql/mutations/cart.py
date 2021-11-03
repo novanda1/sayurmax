@@ -9,8 +9,10 @@ from apps.graphql.services.cart import CartServices
 from apps.graphql.utils.authentication.default import JwtAuth, get_phone_from_jwt
 
 
+cart_services = CartServices()
+
+
 class CartMutation:
-    cart_services = CartServices()
 
     @strawberry.mutation(permission_classes=[JwtAuth])
     def add_to_cart(self, info: Info, product_id: str, amount: int):
@@ -21,10 +23,7 @@ class CartMutation:
         except:
             raise Exception("not authenticated")
 
-        try:
-            cart = self.cart_services.add_to_cart(
-                phone=phone, productid=product_id, amount=amount)
-        except:
-            raise Exception("add to cart service: failed")
+        cart = cart_services.add_to_cart(
+            phone=phone, productid=product_id, amount=amount)
 
         return cart
