@@ -55,8 +55,6 @@ class OtpMutation:
 
     @strawberry.mutation
     def register_verif_otp(self, info: Info, phone: str, otp: str, secret: str):
-        request: Request = info.context["request"]
-
         try:
             unverif_user = UnverifPhone.objects.get(phone=phone)
         except:
@@ -78,11 +76,6 @@ class OtpMutation:
 
             except:
                 pass
-
-            try:
-                request.session['userid'] = user.id
-            except:
-                raise Exception("failed to save session")
 
             UnverifPhone.objects.get(phone=phone).delete()
 
@@ -117,8 +110,6 @@ class OtpMutation:
 
     @strawberry.mutation
     def login_verif_otp(self, info: Info, phone: str, otp: str, secret: str):
-        request: Request = info.context["request"]
-
         try:
             unverif_phone = UnverifPhone.objects.get(phone=phone)
         except:
@@ -140,8 +131,6 @@ class OtpMutation:
 
             unverif_phone.delete()
             result = login(phone=phone, secret=secret)
-
-            request.session['userid'] = user.id
 
             return result
 
