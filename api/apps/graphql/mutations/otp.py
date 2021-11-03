@@ -29,10 +29,11 @@ class OtpMutation:
 
         try:
             user = User.objects.get(phone=phone)
-            if user.pk is not None:
-                raise Exception("user already registered")
         except:
             pass
+
+        if user.phone is not None:
+            raise Exception("user already registered")
 
         try:
             unverif_phone = UnverifPhone.objects.get(phone=phone)
