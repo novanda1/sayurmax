@@ -33,7 +33,7 @@ def register(phone: str, secret: str) -> UserResponse:
     user.save()
 
     payload_data = {
-        "sub": user.pk,
+        "sub": str(user.pk),
         "phone": user.phone,
     }
 
@@ -67,7 +67,7 @@ def login(phone: str, secret: str) -> UserResponse:
         return UserResponse(user=None, error=[FieldError("phone", "phone number not registered")], token=None)
 
     payload_data = {
-        "sub": user.pk,
+        "sub": str(user.pk),
         "phone": user.phone,
     }
 
