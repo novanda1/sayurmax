@@ -22,7 +22,7 @@ class Query:
     verify_jwt: bool = resolver.user_query.verify_jwt
 
     products: ProductResponse = resolver.product_query.products
-    products: ProductType = resolver.product_query.product
+    product: ProductType = resolver.product_query.product
 
 
 @strawberry.type
