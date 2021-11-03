@@ -1,34 +1,14 @@
-from apps.user.models import User
-from apps.graphql.schema.user import UserResponse, FieldError
+from apps.user.models import User, UserAddress
+from apps.graphql.schema.user import UserResponse, FieldError, UserAddress as UserAddressType
 from apps.graphql.utils import const
 
 import jwt
 
 
 class UserServices:
-    def register(phone: str, secret: str) -> UserResponse:
+    def register(phone: str, secret: str):
         if secret != const.auth_secret:
             raise Exception("not allowed")
-
-        # validation start
-        # error_fields = []
-
-        # try:
-        #     validate_international_phonenumber(options.phone)
-        # except:
-        #     error_fields.append(FieldError("phone", "phone number invalid"))
-
-        # try:
-        #     user = User.objects.get(phone=options.phone)
-        #     if user.pk is not None:
-        #         error_fields.append(FieldError("phone", "already exists"))
-        # except:
-        #     pass
-
-        # if error_fields:
-        #     return UserResponse(user=None, error=error_fields, token=None)
-
-        # validation end
 
         user = User(phone=str(phone))
         user.save()
@@ -52,14 +32,9 @@ class UserServices:
             else:
                 return UserResponse(user=user, error=None, token=token)
 
-    def login(phone: str, secret: str) -> UserResponse:
+    def login(phone: str, secret: str):
         if secret != const.auth_secret:
             raise Exception("not allowed")
-
-        # try:
-        #     validate_international_phonenumber(options.phone)
-        # except:
-        #     return UserResponse(user=None, error=[FieldError("phone", "phone number invalid")], token=None)
 
         try:
             user = User.objects.get(phone=phone)
@@ -77,3 +52,40 @@ class UserServices:
         )
 
         return UserResponse(user=user, error=None, token=token)
+
+    def add_user_address(
+        self,
+        phone: str,
+        name: str,
+        recipient: str,
+        city: str,
+        postal_code: str,
+        address: str
+    ):
+
+        try:
+            user = User.objects.get(phone=phone)
+        except:
+            raise Exception("user doesnt exists")
+
+        user_address = UserAddress(
+            phone=phone,
+            name=name,
+            recipient=recipient,
+            city=city,
+            postal_code=postal_code,
+            address=address,
+            user=user
+        )
+
+        user_address.save()
+
+        return UserAddressType(
+            id=user_address.id,
+            name=user_address.name,
+            recipient=user_address.recipient,
+            phone=user_address.phone,
+            city=user_address.city,
+            postal_code=user_address.postal_code,
+            address=user_address.address
+        )

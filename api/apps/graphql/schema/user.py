@@ -23,3 +23,14 @@ class UserResponse:
     user: Optional[UserType]
     error: Optional[List[FieldError]]
     token: Optional[str]
+
+
+@strawberry.type
+class UserAddress:
+    id: uuid.UUID
+    name: str
+    recipient: str
+    phone: str
+    city: str
+    postal_code: int
+    address: str

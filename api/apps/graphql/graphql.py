@@ -2,7 +2,7 @@ import strawberry
 from typing import List
 
 from apps.graphql.queries.hello import say_hello
-from apps.graphql.schema.user import UserResponse, UserType
+from apps.graphql.schema.user import UserResponse, UserType, UserAddress
 from apps.graphql.schema.product import ProductResponse, ProductType
 from apps.graphql.schema.cart import Cart
 from apps.graphql.schema.order import OrderType
@@ -33,6 +33,8 @@ class Mutation:
     login_otp_verif: UserResponse = resolver.otp_mutation.login_verif_otp
 
     add_to_cart: Cart = resolver.cart_mutation.add_to_cart
+
+    user_add_address: UserAddress = resolver.user_mutation.add_user_address
 
 
 schema = strawberry.Schema(query=Query, mutation=Mutation)

@@ -16,7 +16,7 @@ class CartMutation:
 
     @strawberry.mutation(permission_classes=[JwtAuth])
     def add_to_cart(self, info: Info, product_id: str, amount: int):
-        request: typing.Union[Request, WebSocket] = info.context["request"]
+        request: Request = info.context["request"]
 
         try:
             phone = get_phone_from_jwt(request=request)
