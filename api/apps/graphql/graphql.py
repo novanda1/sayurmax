@@ -3,7 +3,7 @@ from typing import List
 
 from apps.graphql.queries.hello import say_hello
 from apps.graphql.schema.user import UserResponse, UserType
-from apps.graphql.schema.product import ProductResponse
+from apps.graphql.schema.product import ProductResponse, ProductType
 from apps.graphql.schema.cart import Cart
 from apps.graphql.schema.order import OrderType
 
@@ -22,6 +22,7 @@ class Query:
     verify_jwt: bool = resolver.user_query.verify_jwt
 
     products: ProductResponse = resolver.product_query.products
+    products: ProductType = resolver.product_query.product
 
 
 @strawberry.type

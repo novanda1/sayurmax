@@ -23,3 +23,8 @@ class ProductQuery:
                 self.next_cursor = next_cursor
 
         return Data([p for p in page], page.has_next, paginator.cursor(page[-1]))
+
+    @strawberry.field
+    def product(id: strawberry.ID):
+        product = Product.objects.get(id=id)
+        return product
