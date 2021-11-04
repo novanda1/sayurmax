@@ -1,4 +1,5 @@
 import strawberry
+import uuid
 from strawberry.types import Info
 
 from apps.grocery.models import Cart, Product
@@ -29,7 +30,7 @@ class CartMutation:
         return cart
 
     @strawberry.mutation(permission_classes=[JwtAuth])
-    def delete_cart_product(self, info: Info, id):
+    def delete_cart_product(self, info: Info, id: uuid.UUID):
         request: Request = info.context["request"]
 
         try:
