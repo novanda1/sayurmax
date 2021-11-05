@@ -7,7 +7,7 @@ declare global {
 }
 
 export const cordovaHttpFetchImpl = async (url: string, options: any) => {
-    const cordova: any = window.cordova as any;
+    const cordova: any = window.cordova;
     //if cordova is not available use web fetch
     if (!cordova) {
         return fetch(url, options);
