@@ -16,3 +16,10 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+ion-app {
+    max-width: 475px;
+    margin: 0 auto;
+}
+</style>
