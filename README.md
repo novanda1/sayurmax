@@ -1,4 +1,6 @@
 # Sayurmax
+The grocery app  
+under development ☺
 
 ## Structure
 
