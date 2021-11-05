@@ -7,16 +7,16 @@ declare global {
 }
 
 export const cordovaHttpFetchImpl = async (url: string, options: any) => {
-    let cordova: any = window.cordova as any;
+    const cordova: any = window.cordova as any;
     //if cordova is not available use web fetch
     if (!cordova) {
         return fetch(url, options);
     }
-    let http = cordova.plugin.http;
+    const http = cordova.plugin.http;
     http.setDataSerializer("json");
     options.data = JSON.parse(options.body);
     options.method = options.method.toLowerCase();
-    let response: any = await new Promise((resolve, reject) => {
+    const response: any = await new Promise((resolve, reject) => {
         http.sendRequest(url, options, resolve, reject);
     });
     const responseBody =
@@ -25,7 +25,7 @@ export const cordovaHttpFetchImpl = async (url: string, options: any) => {
             : response.data;
     const headers = new Headers();
     Object.entries(response.headers).forEach(function ([key, value]) {
-        headers.append(key, <string>value);
+        headers.append(key, value as string);
     });
     return new Response(responseBody, {
         status: response.status,
