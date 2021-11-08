@@ -8,7 +8,7 @@ import jwt
 
 
 class UserServices:
-    def register(phone: str, secret: str):
+    def register(self, phone: str, secret: str):
         if secret != const.auth_secret:
             raise Exception("not allowed")
 
@@ -34,7 +34,7 @@ class UserServices:
             else:
                 return UserResponse(user=user, error=None, token=token)
 
-    def login(phone: str, secret: str):
+    def login(self, phone: str, secret: str):
         if secret != const.auth_secret:
             raise Exception("not allowed")
 

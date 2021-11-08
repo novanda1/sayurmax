@@ -28,10 +28,8 @@ class Query:
 
 @strawberry.type
 class Mutation:
-    register_otp: str = resolver.otp_mutation.register_otp_call
-    register_otp_verif: UserResponse = resolver.otp_mutation.register_verif_otp
-    login_otp: str = resolver.otp_mutation.login_otp_call
-    login_otp_verif: UserResponse = resolver.otp_mutation.login_verif_otp
+    auth_call: str = resolver.otp_mutation.auth_call
+    auth_verif: UserResponse = resolver.otp_mutation.auth_verif
 
     add_to_cart: Cart = resolver.cart_mutation.add_to_cart
 
