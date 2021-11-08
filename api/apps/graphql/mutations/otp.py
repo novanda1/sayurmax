@@ -49,7 +49,7 @@ class OtpMutation:
         otp_result = OTP.at(unverif_phone.count)
 
         try:
-            res = wa.send(str(phone), f"OTP mu iki cuy:  {otp_result}")
+            res = wa.send(str(phone), wa.auth_message % (otp_result,))
         except:
             raise Exception("failed to send wa")
 
@@ -98,7 +98,7 @@ class OtpMutation:
         otp_result = OTP.at(unverif_phone.count)
 
         try:
-            wa.send(str(phone), f"OTP mu iki cuy:  {otp_result}")
+            wa.send(str(phone), wa.auth_message % (otp_result,))
         except:
             raise Exception("failed to send wa")
 
