@@ -80,15 +80,7 @@ class UserServices:
 
         user_address.save()
 
-        return UserAddressType(
-            id=user_address.id,
-            name=user_address.name,
-            recipient=user_address.recipient,
-            phone=user_address.phone,
-            city=user_address.city,
-            postal_code=user_address.postal_code,
-            address=user_address.address
-        )
+        return user_address
 
     def edit_user_address(
         self,
@@ -121,25 +113,12 @@ class UserServices:
 
         user_address.save()
 
-        return UserAddressType(
-            id=user_address.id,
-            name=user_address.name,
-            recipient=user_address.recipient,
-            phone=user_address.phone,
-            city=user_address.city,
-            postal_code=user_address.postal_code,
-            address=user_address.address
-        )
+        return user_address
 
     def get_user_address(self, id):
         user_address = UserAddress.objects.get(id=id)
+        return user_address
 
-        return UserAddressType(
-            id=user_address.id,
-            name=user_address.name,
-            recipient=user_address.recipient,
-            phone=user_address.phone,
-            city=user_address.city,
-            postal_code=user_address.postal_code,
-            address=user_address.address
-        )
+    def get_user_addresses(self, phone):
+        user_addresses = UserAddress.objects.filter(user__phone=phone)
+        return user_addresses

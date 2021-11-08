@@ -6,6 +6,7 @@ from apps.graphql.services.user import UserServices
 
 import jwt
 import strawberry
+from strawberry.types import Info
 
 
 user_services = UserServices()
@@ -37,4 +38,12 @@ class UserQuery:
     @strawberry.field(permission_classes=[JwtAuth])
     def get_user_address(id: str):
         address = user_services.get_user_address(id)
+        return address
+
+    @strawberry.field(permission_classes=[JwtAuth])
+    def get_user_addresses(self, info: Info):
+        request: Request = info.context["request"]
+        phone = get_phone_from_jwt(request=request)
+
+        address = user_services.get_user_addresses(phone)
         return address
