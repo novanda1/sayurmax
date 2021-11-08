@@ -37,5 +37,5 @@ class OtpMutation:
         return "OTP sent successfully"
 
     @strawberry.mutation
-    def auth_verif(self, info: Info, phone: str, otp: str, secret: str):
-        verified = otp_services.verif(phone, otp, secret)
+    def auth_verif(self, info: Info, phone: str, otp: str):
+        verified = otp_services.verif(phone, otp)

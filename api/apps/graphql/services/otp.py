@@ -39,10 +39,10 @@ class OtpServices:
             try:
                 # user already exist (signin)
                 User.objects.get(phone=phone)
-                user = user_services.login(secret)
+                user = user_services.login(phone)
             except:
                 # user not exist (signup)
-                user = user_services.register(phone, secret)
+                user = user_services.register(phone)
 
             if result.error is not None:
                 raise Exception(result)
