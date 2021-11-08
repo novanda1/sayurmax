@@ -17,10 +17,12 @@ class ProductQuery:
 
         class Data:
             def __init__(self, result, has_next, next_cursor):
+                real_next_cursor = next_cursor if has_next else ""
+
                 self.result = [ProductType(p.pk, p.title, p.slug, p.categories.all(), p.image_url, p.normal_price,
                                            p.dicount_price, p.item_unit, p.information, p.nutrition, p.how_to_keep) for p in result]
                 self.has_next = has_next
-                self.next_cursor = next_cursor
+                self.next_cursor = real_next_cursor
 
         return Data([p for p in page], page.has_next, paginator.cursor(page[-1]))
 
