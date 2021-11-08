@@ -11,7 +11,7 @@ class Whatsapp:
 
     headers = {"x-access-key": z_secret_token}
 
-    auth_message = "Kode OTP Grocery anda adalah: %d"
+    auth_message = "Kode OTP Grocery anda adalah: %s"
 
     def send(self, to: str, content: str):
         payload = {
