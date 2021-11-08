@@ -37,8 +37,8 @@ class ItemUnit(models.Model):
     title = models.CharField(_("Item Unit Title"), max_length=10)
 
     class Meta:
-        verbose_name = _("itemunit")
-        verbose_name_plural = _("itemunits")
+        verbose_name = _("Item Unit")
+        verbose_name_plural = _("Item Units")
 
     def __str__(self):
         return self.title
