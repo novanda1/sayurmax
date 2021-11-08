@@ -2,7 +2,7 @@
 from apps.user.models import Address, User, UserDetail
 from apps.order.models import Order, OrderDetail, Invoice
 from apps.graphql.schema.user import FieldError
-from apps.graphql.schema.order import OrderStatusCode, OrderType, ShippingChoices, InvoiceStatusCode
+from apps.graphql.schema.order import OrderStatusCode, OrderType, InvoiceStatusCode
 
 import strawberry
 
@@ -12,7 +12,6 @@ class OrderService:
         user_id: strawberry.ID,
         amount: float,
         address_id: strawberry.ID,
-        shipname: ShippingChoices
     ):
         try:
             user = User.objects.get(id=user_id)

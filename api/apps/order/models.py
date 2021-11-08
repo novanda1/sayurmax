@@ -3,18 +3,15 @@ from django.db.models.fields import UUIDField
 from django.utils.translation import gettext as _
 import uuid
 
-from apps.user.models import User
+from apps.user.models import User, UserAddress
 from apps.grocery.models import Cart
 
 
-SHIPPING_CHOICES = [
-    (0, "COD")
-]
-
 ORDER_STATUS_CODE = [
     (0, "Progress"),
-    (1, "Completed"),
-    (2, "Cancelled"),
+    (1, "Cancelled"),
+    (2, "on Deliver"),
+    (3, "Completed"),
 ]
 
 INVOICE_STATUS_CODE = [
@@ -50,10 +47,8 @@ class OrderDetail(models.Model):
     order = models.ForeignKey(Order, verbose_name=_(
         "Order ID"), on_delete=models.CASCADE)
     amount = models.FloatField(_("Order amount"))
-    # User have address informations, fill this with that id
-    address = models.SmallIntegerField(_("Address"))
-    shipName = models.SmallIntegerField(
-        _("Shipping Name Status Code"), choices=SHIPPING_CHOICES)
+    address = models.ForeignKey(UserAddress, verbose_name=_(
+        "Address"), on_delete=models.SET_DEFAULT, default="deleted")
 
     class Meta:
         verbose_name = _("orderdetail")

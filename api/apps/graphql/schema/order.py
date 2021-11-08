@@ -12,11 +12,6 @@ class OrderStatusCode(Enum):
 
 
 @strawberry.enum
-class ShippingChoices(Enum):
-    COD = 0
-
-
-@strawberry.enum
 class InvoiceStatusCode(Enum):
     Unpaid = 0
     Paid = 1
