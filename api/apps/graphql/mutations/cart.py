@@ -38,4 +38,6 @@ class CartMutation:
         except:
             raise Exception("not authenticated")
 
-        cart_deleted = cart_services.delete_cart_product(id, phone)
+        cart_deleted = cart_services.delete_cart_product(id)
+
+        return cart_deleted

@@ -45,10 +45,9 @@ class CartServices:
 
     def delete_cart_product(self, id, phone):
         try:
-            product = CartProduct.objects.get(id)
+            product = CartProduct.objects.get(pk=id)
         except:
             raise Exception("cart product not found")
-            
 
         try:
             product.delete()
