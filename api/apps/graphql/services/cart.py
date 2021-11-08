@@ -34,7 +34,7 @@ class CartServices:
 
     def edit_product_amount(cart_product_id, amount):
         try:
-            product = CartProduct.objects.get(id=cart_product_id)
+            product = CartProduct.objects.filter(product__id=cart_product_id)
         except:
             raise Exception("cart product not found")
 

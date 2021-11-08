@@ -1,6 +1,6 @@
 import strawberry
 from typing import List, Optional
-from enum import Enum
+from uuid import UUID
 
 
 @strawberry.type
@@ -12,7 +12,7 @@ class CategoryType:
 
 @strawberry.type
 class ProductType:
-    id: int
+    id: UUID
     title: str
     slug: str
     categories: Optional[List[CategoryType]]

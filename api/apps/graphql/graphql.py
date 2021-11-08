@@ -4,7 +4,7 @@ from typing import List
 from apps.graphql.queries.hello import say_hello
 from apps.graphql.schema.user import UserResponse, UserType, UserAddress
 from apps.graphql.schema.product import ProductResponse, ProductType
-from apps.graphql.schema.cart import Cart
+from apps.graphql.schema.cart import Cart, CartProduct
 from apps.graphql.schema.order import OrderType
 
 
@@ -32,7 +32,8 @@ class Mutation:
     auth_call: str = resolver.otp_mutation.auth_call
     auth_verif: UserResponse = resolver.otp_mutation.auth_verif
 
-    add_to_cart: Cart = resolver.cart_mutation.add_to_cart
+    add_to_cart: CartProduct = resolver.cart_mutation.add_to_cart
+    edit_cart_product_amount: CartProduct = resolver.cart_mutation.edit_cart_product
 
     user_add_address: UserAddress = resolver.user_mutation.add_user_address
     user_edit_address: UserAddress = resolver.user_mutation.edit_user_address

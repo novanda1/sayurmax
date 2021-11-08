@@ -7,7 +7,7 @@ from apps.user.models import User
 
 from apps.graphql.services.cart import CartServices
 
-from apps.graphql.utils.authentication.default import JwtAuth
+from apps.graphql.utils.authentication.default import JwtAuth, get_phone_from_jwt
 
 
 cart_services = CartServices()
@@ -16,6 +16,9 @@ cart_services = CartServices()
 class CartMutation:
     @strawberry.mutation(permission_classes=[JwtAuth])
     def add_to_cart(self, info: Info, product_id: str, amount: int):
+        request: Request = info.context["request"]
+        phone  = get_phone_from_jwt(request=request)
+
         cart = cart_services.add_to_cart(
             phone=phone, productid=product_id, amount=amount)
 
