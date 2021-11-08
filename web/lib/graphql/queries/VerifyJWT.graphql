@@ -1,3 +1,0 @@
-query VerifyJWT($token: String!) {
-    verifyJwt(token: $token)
-}

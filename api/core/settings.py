@@ -142,6 +142,7 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'https://studio.apollographql.com',
     'http://localhost:3000',
+    'http://localhost:8081'
 ]
 CORS_ALLOW_HEADERS = ('content-disposition', 'accept-encoding',
                       'content-type', 'accept', 'origin', 'authorization')

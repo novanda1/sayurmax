@@ -1,5 +1,0 @@
-query GetUser($pk: Int!) {
-    user(pk: $pk) {
-        ...UserFragment
-    }
-}

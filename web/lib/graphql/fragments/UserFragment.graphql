@@ -1,9 +1,0 @@
-fragment UserFragment on UserType {
-    id
-    email
-    username
-    displayName
-    phone
-    createdAt
-    updatedAt
-}
