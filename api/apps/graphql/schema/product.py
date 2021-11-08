@@ -3,15 +3,6 @@ from typing import List, Optional
 from enum import Enum
 
 
-# todo -> DRY
-@strawberry.enum
-class ItemUnitEnum(Enum):
-    pack = "pack"
-    gram = "gram"
-    kg = "kg"
-    pcs = "pcs"
-
-
 @strawberry.type
 class CategoryType:
     id: int
@@ -28,7 +19,7 @@ class ProductType:
     image_url: str
     normal_price: int
     dicount_price: Optional[int]
-    item_unit: ItemUnitEnum
+    item_unit: str
     information: Optional[str]
     nutrition: Optional[str]
     how_to_keep: Optional[str]
