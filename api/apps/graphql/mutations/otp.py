@@ -1,4 +1,3 @@
-from apps.otp.models import UnverifPhone
 from apps.otp.otp import Whatsapp
 from apps.graphql.services.user import UserServices
 from apps.graphql.services.otp import OtpServices
@@ -10,7 +9,6 @@ from strawberry.types import Info
 from starlette.requests import Request
 
 from phonenumber_field.validators import validate_international_phonenumber
-from random import randint
 
 wa = Whatsapp()
 OTP = pyotp.HOTP(const.topt_32)
@@ -39,3 +37,4 @@ class OtpMutation:
     @strawberry.mutation
     def auth_verif(self, info: Info, phone: str, otp: str):
         verified = otp_services.verif(phone, otp)
+        return verified

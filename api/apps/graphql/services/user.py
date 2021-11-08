@@ -9,8 +9,11 @@ import jwt
 
 class UserServices:
     def register(self, phone: str):
-        user = User(phone=str(phone))
-        user.save()
+        try:
+            user = User(phone=str(phone))
+            user.save()
+        except:
+            raise Exception("failed to create user")
 
         payload_data = {
             "sub": str(user.pk),

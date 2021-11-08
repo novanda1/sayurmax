@@ -1,9 +1,12 @@
 import pyotp
 import hashlib
+from random import randint
 
 from apps.user.models import User
+from apps.otp.models import UnverifPhone
 from apps.graphql.services.user import UserServices
 from apps.graphql.utils import const
+
 
 # just wanna set secret (s) and change default interval but got an unexpected keyword argument 'interval'
 # argument reference https://github.com/pyauth/pyotp/blob/develop/src/pyotp/totp.py
@@ -28,7 +31,7 @@ class OtpServices:
 
         return otp_result
 
-    def verif(self, phone, otp, secret):
+    def verif(self, phone, otp):
         # check wheter user already request an OTP
         try:
             unverif_user = UnverifPhone.objects.get(phone=phone)
@@ -39,10 +42,10 @@ class OtpServices:
             try:
                 # user already exist (signin)
                 User.objects.get(phone=phone)
-                user = user_services.login(phone)
+                result = user_services.login(phone)
             except:
                 # user not exist (signup)
-                user = user_services.register(phone)
+                result = user_services.register(phone)
 
             if result.error is not None:
                 raise Exception(result)
