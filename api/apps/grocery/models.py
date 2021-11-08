@@ -33,6 +33,17 @@ item_choices = [
 ITEM_UNIT_CHOICES = tuple((str(t), str(t)) for t in item_choices)
 
 
+class ItemUnit(models.Model):
+    title = models.CharField(_("Item Unit Title"), max_length=10)
+
+    class Meta:
+        verbose_name = _("itemunit")
+        verbose_name_plural = _("itemunits")
+
+    def __str__(self):
+        return self.title
+
+
 class Product(models.Model):
     id = UUIDField(primary_key=True, default=uuid.uuid4,
                    editable=False, unique=True)
@@ -44,7 +55,8 @@ class Product(models.Model):
     normal_price = models.BigIntegerField()
     dicount_price = models.BigIntegerField(
         null=True, blank=True, default=None)
-    item_unit = models.CharField(max_length=10, choices=ITEM_UNIT_CHOICES)
+    item_unit = models.ForeignKey(ItemUnit, verbose_name=_(
+        "Item Unit"), on_delete=models.PROTECT)
     information = models.TextField(_("Product Infromation"))
     nutrition = models.TextField(_("Product Nutrition"))
     how_to_keep = models.TextField(_("How To Keep"))
