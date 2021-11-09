@@ -1,5 +1,7 @@
 from apps.grocery.models import Cart, CartProduct, Product
 from apps.user.models import User
+from apps.graphql.schema.cart import CartProduct as CartProductType, TypeOfProduct, Cart as CartType
+from apps.graphql.schema.product import ProductType
 
 
 class CartServices:
@@ -30,11 +32,31 @@ class CartServices:
         cart_product.amount = amount
         cart_product.save()
 
-        return cart
+        product_data = ProductType(
+            product.id,
+            product.title,
+            product.slug,
+            product.categories.all(),
+            product.image_url,
+            product.normal_price,
+            product.dicount_price,
+            product.item_unit,
+            product.information,
+            product.nutrition,
+            product.how_to_keep,
+        )
 
-    def edit_product_amount(cart_product_id, amount):
+        return CartProductType(
+            id=cart_product.id,
+            amount=cart_product.amount,
+            product=product_data,
+            cart=cart
+        )
+
+    def edit_product_amount(self, product_id, amount, product_type):
         try:
-            product = CartProduct.objects.filter(product__id=cart_product_id)
+            product = CartProduct.objects.filter(
+                product__pk=product_id)[0] if product_type == TypeOfProduct.PRODUCT else CartProduct.objects.filter(id=product_id)
         except:
             raise Exception("cart product not found")
 
