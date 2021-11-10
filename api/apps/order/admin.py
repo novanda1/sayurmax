@@ -38,7 +38,7 @@ class DayFilter(admin.SimpleListFilter):
         )
 
     def queryset(self, request, queryset):
-        if self.value() == 0: 
+        if self.value() == 0:
             return queryset.filter(created_at__range=yesterday__value)
         elif self.value() == 1:
             return queryset.filter(created_at__range=this_day__value)
@@ -59,37 +59,17 @@ class InvoiceStatusFilter(admin.SimpleListFilter):
 class InvoiceDetailInline(admin.StackedInline):
     model = Invoice
 
-    # def has_change_permission(self, request, obj=None):
-    #     return False
-
     def has_delete_permission(self, request, obj=None):
         return False
-
-    # def has_add_permission(self, request, obj=None):
-    #     return False
-
-
-# class OrderDetailInline(admin.StackedInline):
-#     model = OrderDetail
-
-#     def has_change_permission(self, request, obj=None):
-#         return False
-
-#     def has_delete_permission(self, request, obj=None):
-#         return False
-
-#     def has_add_permission(self, request, obj=None):
-#         return False
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'order_status_code',)
-    fields = ('order_status_code', 'interact_status_code',  )
+    fields = ('order_status_code', 'interact_status_code',)
     list_filter = [DayFilter, InvoiceStatusFilter, ]
     inlines = [
         InvoiceDetailInline,
-        # OrderDetailInline
     ]
 
     def has_add_permission(self, request, obj=None):
