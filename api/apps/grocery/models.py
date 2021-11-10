@@ -65,7 +65,6 @@ class Product(models.Model):
 
 class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    total_price = models.BigIntegerField(_("Price Total"), default=0)
 
     class Meta:
         verbose_name = _("cart")

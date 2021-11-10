@@ -12,9 +12,9 @@ class CartServices:
             raise Exception("user doesnt exists")
 
         try:
-            cart = Cart.objects.get(user=user)
+            cart = Cart.objects.get(user__phone=phone)
         except:
-            cart = Cart(user=user, total_price=0)
+            cart = Cart(user=user)
             cart.save()
 
         try:
@@ -106,12 +106,10 @@ class CartServices:
         except:
             return CartType(
                 id=cart.id,
-                total_price=cart.total_price,
                 cart_product=[]
             )
 
         return CartType(
             id=cart.id,
-            total_price=cart.total_price,
             cart_product=cart_product
         )
