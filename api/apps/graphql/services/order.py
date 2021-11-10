@@ -2,7 +2,7 @@
 from typing import List
 
 from apps.user.models import UserAddress, User
-from apps.order.models import Order, Invoice, OrderItem
+from apps.order.models import Order, OrderItem
 from apps.grocery.models import Cart, CartProduct
 
 from apps.graphql.schema.user import FieldError

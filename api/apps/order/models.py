@@ -27,16 +27,17 @@ ORDER_INTERACTIVITY_CODE = [
 
 
 class Order(models.Model):
-    id = UUIDField(primary_key=True, default=uuid.uuid4,
-                   editable=False, unique=True)
+    id = models.AutoField(_("Invoice Number"), primary_key=True)
     user = models.ForeignKey(
         User, verbose_name=_("user id"), on_delete=models.CASCADE)
     address = models.ForeignKey(UserAddress, verbose_name=_(
         "Address"), on_delete=models.SET_NULL, blank=True, null=True)
     order_status_code = models.SmallIntegerField(
-        _("Order Status Code"), choices=ORDER_STATUS_CODE, default=0)
+        _("Order Status"), choices=ORDER_STATUS_CODE, default=0)
     interact_status_code = models.SmallIntegerField(
         _("Interact Status"), default=0, choices=ORDER_INTERACTIVITY_CODE)
+    invoice_status_code = models.SmallIntegerField(
+        _("Invoice Status"), choices=INVOICE_STATUS_CODE, default=0)
     total = models.FloatField(_("Order amount"), default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -46,7 +47,7 @@ class Order(models.Model):
         verbose_name_plural = _("Orders")
 
     def __str__(self):
-        return f"{self.id}"
+        return f"#{self.id}"
 
 
 class OrderItem(models.Model):
@@ -65,17 +66,3 @@ class OrderItem(models.Model):
     def __str__(self):
         return f"{self.id}"
 
-
-class Invoice(models.Model):
-    invoice_number = models.AutoField(_("Invoice Number"), primary_key=True)
-    order = models.OneToOneField(
-        Order, verbose_name=_("Order"), on_delete=models.CASCADE)
-    invoice_status_code = models.SmallIntegerField(
-        _("Invoice Status Code"), choices=INVOICE_STATUS_CODE, default=0)
-
-    class Meta:
-        verbose_name = _("Invoice")
-        verbose_name_plural = _("Invoices")
-
-    def __str__(self):
-        return f"{self.invoice_number}"

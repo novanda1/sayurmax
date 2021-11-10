@@ -37,7 +37,7 @@ class OrderItem:
 
 @strawberry.type
 class Order:
-    id: UUID
+    id: strawberry.ID
     status: OrderStatusCode
     address: UserAddress
     total: int
