@@ -36,6 +36,8 @@ class CartServices:
             product.id,
             product.title,
             product.slug,
+            # the reason to not use "product" directly is just for changing this categories
+            # @todo make it better
             product.categories.all(),
             product.image_url,
             product.normal_price,
