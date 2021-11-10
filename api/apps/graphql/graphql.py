@@ -1,5 +1,5 @@
 import strawberry
-from typing import List
+from typing import List, Optional   
 
 from apps.graphql.queries.hello import say_hello
 from apps.graphql.schema.user import UserResponse, UserType, UserAddress
@@ -25,6 +25,8 @@ class Query:
 
     products: ProductResponse = resolver.product_query.products
     product: ProductType = resolver.product_query.product
+
+    cart: Cart = resolver.cart_query.get_cart
 
 
 @strawberry.type

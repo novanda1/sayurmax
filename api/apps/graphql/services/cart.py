@@ -52,7 +52,6 @@ class CartServices:
             id=cart_product.id,
             amount=cart_product.amount,
             product=product_data,
-            cart=cart
         )
 
     def edit_product_amount(self, product_id, amount, product_type):
@@ -65,7 +64,23 @@ class CartServices:
         product.amount = amount
         product.save()
 
-        return product
+        product_data = ProductType(
+            product.id,
+            product.title,
+            product.slug,
+            # the reason to not use "product" directly is just for changing this categories
+            # @todo make it better
+            product.categories.all(),
+            product.image_url,
+            product.normal_price,
+            product.dicount_price,
+            product.item_unit,
+            product.information,
+            product.nutrition,
+            product.how_to_keep,
+        )
+
+        return product_data
 
     def delete_cart_product(self, id, phone):
         try:
@@ -79,3 +94,29 @@ class CartServices:
             return False
 
         return True
+
+    def get_cart(self, phone):
+        try:
+            user: User(phone=phone)
+        except:
+            raise Exception("user not found")
+
+        try:
+            cart = Cart.objects.get(user=user)
+        except:
+            raise Exception("cart not found")
+
+        try:
+            cart_product = CartProduct.objects.get(cart__id=cart.id)
+        except:
+            return CartType(
+                id=cart_id,
+                total_price=cart.total_price,
+                cart_product=[]
+            )
+
+        return CartType(
+            id=cart_id,
+            total_price=cart.total_price,
+            cart_product=cart_product
+        )
