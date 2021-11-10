@@ -42,7 +42,8 @@ class DayFilter(admin.SimpleListFilter):
             return queryset.filter(created_at__range=yesterday__value)
         elif self.value() == 1:
             return queryset.filter(created_at__range=this_day__value)
-        return
+        else:
+            return queryset.filter()
 
 
 class InvoiceStatusFilter(admin.SimpleListFilter):
@@ -53,7 +54,7 @@ class InvoiceStatusFilter(admin.SimpleListFilter):
         return ((e.value, f"{e.name}") for e in InvoiceStatusCode)
 
     def queryset(self, request, queryset):
-        return queryset.filter(invoice__invoice_status_code=self.value())
+        return queryset.filter(invoice__invoice_status_code=self.value()) if self.value() else queryset.filter()
 
 
 class InvoiceDetailInline(admin.StackedInline):
