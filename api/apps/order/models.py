@@ -15,7 +15,7 @@ ORDER_STATUS_CODE = [
 ]
 
 INVOICE_STATUS_CODE = [
-    (0, "Unpdaid"),
+    (0, "Unpaid"),
     (1, "Paid"),
     (2, "Issued")
 ]
