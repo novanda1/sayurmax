@@ -1,11 +1,11 @@
 import strawberry
-from typing import List, Optional   
+from typing import List, Optional
 
 from apps.graphql.queries.hello import say_hello
 from apps.graphql.schema.user import UserResponse, UserType, UserAddress
 from apps.graphql.schema.product import ProductResponse, ProductType
 from apps.graphql.schema.cart import Cart, CartProduct
-from apps.graphql.schema.order import OrderType
+from apps.graphql.schema.order import Order
 
 
 from apps.graphql.resolver import Resolver
@@ -39,6 +39,8 @@ class Mutation:
 
     user_add_address: UserAddress = resolver.user_mutation.add_user_address
     user_edit_address: UserAddress = resolver.user_mutation.edit_user_address
+
+    make_order: Order = resolver.order_mutation.make_order
 
 
 schema = strawberry.Schema(query=Query, mutation=Mutation)

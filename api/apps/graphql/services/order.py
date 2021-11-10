@@ -1,9 +1,12 @@
 
-from apps.user.models import Address, User, UserDetail
-from apps.order.models import Order, OrderDetail, Invoice
-from apps.graphql.schema.user import FieldError
-from apps.graphql.schema.order import OrderStatusCode, OrderType, InvoiceStatusCode
+from typing import List
 
+from apps.user.models import UserAddress, User
+from apps.order.models import Order, Invoice, OrderItem
+from apps.grocery.models import Cart, CartProduct
+
+from apps.graphql.schema.user import FieldError
+from apps.graphql.schema.order import Order as OrderType, OrderItem as OrderItemType, OrderStatusCode
 
 
 class OrderService:
@@ -13,26 +16,71 @@ class OrderService:
         phone
     ):
         try:
-            user = User.objects.get(id=user_id)
+            user = User.objects.get(phone=phone)
         except:
-            return FieldError(field="user id", error="user didnt exists")
+            raise Exception("user not found")
 
-        order = Order(
-            user=user, order_status_code=OrderStatusCode.Progress.value)
+        try:
+            address = UserAddress.objects.get(id=address_id)
+        except:
+            raise Exception("address not found")
+
+        try:
+            cart = Cart.objects.get(user=user)
+        except:
+            raise Exception("cart not found")
+
+        try:
+            cart_product = CartProduct.objects.filter(cart=cart) or []
+        except:
+            pass
+
+        try:
+            order = Order(
+                user=user,
+                address=address,
+                order_status_code=OrderStatusCode.Progress.value,
+                total=0
+            )
+            order.save()
+        except:
+            raise Exception("failed add order")
+
+        order_items = []
+        total = 0
+
+        for c in cart_product:
+            order_item = OrderItem(
+                order=order,
+                product_id=c.product.id,
+                at_price=c.product.dicount_price or c.product.normal_price,
+                qty=c.amount
+            )
+
+            order_item.save()
+
+            new_item = OrderItemType(
+                id=order_item.id,
+                product=c.product,
+                qty=order_item.qty
+            )
+
+            order_items.append(new_item)
+
+            coming_price = new_item.qty * \
+                c.product.dicount_price or c.product.normal_price
+
+            total += coming_price
+
+        order.total = total
         order.save()
-
-        order_detail = OrderDetail(
-            order=order, amount=amount, address=address_id, shipName=shipname.value)
-        order_detail.save()
-
-        invoice = Invoice(
-            order=order, invoice_status_code=InvoiceStatusCode.Unpaid.value)
-        invoice.save()
 
         return OrderType(
             id=order.id,
-            user=user,
-            created_at=order.created_at,
+            status=OrderStatusCode.Progress.value,
+            address=order.address,
+            total=order.total,
+            items=order_items,
             updated_at=order.updated_at,
-            status=order.order_status_code
+            created_at=order.created_at
         )

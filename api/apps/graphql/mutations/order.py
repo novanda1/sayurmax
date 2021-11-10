@@ -1,7 +1,7 @@
 from strawberry import mutation
 from strawberry.types import Info
 from uuid import UUID
-from starlette.request import Request
+from starlette.requests import Request
 
 from apps.graphql.utils.authentication.default import JwtAuth, get_phone_from_jwt
 from apps.graphql.services.order import OrderService
@@ -14,5 +14,7 @@ class OrderMutation:
     def make_order(self, info: Info, address_id: UUID):
         request: Request = info.context["request"]
         phone = get_phone_from_jwt(request=request)
-        
-        order_service.create(address_id, phone)
+
+        result = order_service.create(address_id, phone)
+
+        return result

@@ -53,6 +53,7 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, verbose_name=_(
         "Order ID"), on_delete=models.CASCADE)
     product_id = UUIDField()  # not sure what kind of relation between product
+    at_price = models.BigIntegerField(_("At price"))
     qty = models.BigIntegerField(_("Quantity"))
 
     class Meta:
