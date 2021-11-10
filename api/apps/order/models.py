@@ -32,10 +32,10 @@ class Order(models.Model):
     user = models.ForeignKey(
         User, verbose_name=_("user id"), on_delete=models.CASCADE)
     address = models.ForeignKey(UserAddress, verbose_name=_(
-        "Address"), on_delete=models.SET_DEFAULT, default="deleted")
+        "Address"), on_delete=models.SET_NULL, blank=True, null=True)
     order_status_code = models.SmallIntegerField(
         _("Order Status Code"), choices=ORDER_STATUS_CODE, default=0)
-    total = models.FloatField(_("Order amount"), default=0.0)
+    total = models.FloatField(_("Order amount"), default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

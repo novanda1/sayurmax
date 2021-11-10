@@ -22,8 +22,7 @@ from apps.graphql.graphql import schema
 
 admin.site.site_header = 'Grocery Admin'
 admin.site.site_title = 'Grocery'
-admin.site.index_title= 'Admin'
-
+admin.site.index_title = 'Admin'
 
 
 urlpatterns = [
