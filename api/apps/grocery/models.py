@@ -5,6 +5,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext as _
 
 from apps.user.models import User
+from apps.graphql.utils.slugify import unique_slugify
 
 
 class Category(models.Model):
@@ -15,7 +16,7 @@ class Category(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        unique_slugify(self, self.title)
         super(Category, self).save(*args, **kwargs)
 
     class Meta:
@@ -55,7 +56,7 @@ class Product(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        unique_slugify(self, self.title)
         super(Product, self).save(*args, **kwargs)
 
     class Meta:
