@@ -4,14 +4,13 @@ from apps.order.models import Order, OrderDetail, Invoice
 from apps.graphql.schema.user import FieldError
 from apps.graphql.schema.order import OrderStatusCode, OrderType, InvoiceStatusCode
 
-import strawberry
 
 
 class OrderService:
     def create(
-        user_id: strawberry.ID,
-        amount: float,
-        address_id: strawberry.ID,
+        self,
+        address_id,
+        phone
     ):
         try:
             user = User.objects.get(id=user_id)

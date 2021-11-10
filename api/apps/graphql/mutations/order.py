@@ -1,10 +1,18 @@
-import strawberry
+from strawberry import mutation
+from strawberry.types import Info
+from uuid import UUID
+from starlette.request import Request
 
-from apps.graphql.schema.order import 
+from apps.graphql.utils.authentication.default import JwtAuth, get_phone_from_jwt
 from apps.graphql.services.order import OrderService
 
+order_service = OrderService()
+
+
 class OrderMutation:
-    def make_order(user_id: strawberry.ID, amount: float, address_id: strawberry.ID):
-        order_service = OrderService()
-        result = order_service.create(
-            user_id=user_id, amount=amount, address_id=address_id, shipname=shipname)
+    @mutation(permission_classes=[JwtAuth])
+    def make_order(self, info: Info, address_id: UUID):
+        request: Request = info.context["request"]
+        phone = get_phone_from_jwt(request=request)
+        
+        order_service.create(address_id, phone)

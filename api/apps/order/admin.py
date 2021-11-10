@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.utils.translation import gettext as _
 from django.contrib.admin import RelatedFieldListFilter
 
-from apps.order.models import Order, OrderDetail, Invoice
+from apps.order.models import Order, OrderItem, Invoice
 from apps.graphql.schema.order import InvoiceStatusCode
 
 day_min_1 = datetime.datetime.today() - datetime.timedelta(days=1)
@@ -69,17 +69,17 @@ class InvoiceDetailInline(admin.StackedInline):
         return False
 
 
-class OrderDetailInline(admin.StackedInline):
-    model = OrderDetail
+# class OrderDetailInline(admin.StackedInline):
+#     model = OrderDetail
 
-    def has_change_permission(self, request, obj=None):
-        return False
+#     def has_change_permission(self, request, obj=None):
+#         return False
 
-    def has_delete_permission(self, request, obj=None):
-        return False
+#     def has_delete_permission(self, request, obj=None):
+#         return False
 
-    def has_add_permission(self, request, obj=None):
-        return False
+#     def has_add_permission(self, request, obj=None):
+#         return False
 
 
 @admin.register(Order)
@@ -89,7 +89,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = [DayFilter, InvoiceStatusFilter, ]
     inlines = [
         InvoiceDetailInline,
-        OrderDetailInline
+        # OrderDetailInline
     ]
 
     def has_add_permission(self, request, obj=None):

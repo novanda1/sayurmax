@@ -11,7 +11,7 @@ ORDER_STATUS_CODE = [
     (0, "Progress"),
     (1, "Cancelled"),
     (2, "on Deliver"),
-    (3, "Completed"),
+    (3, "Completed")
 ]
 
 INVOICE_STATUS_CODE = [
@@ -20,16 +20,22 @@ INVOICE_STATUS_CODE = [
     (2, "Issued")
 ]
 
+ORDER_INTERACTIVITY_CODE = [
+    (0, "Not replied yet"),
+    (1, "Said \"YA\" Already"),
+]
+
 
 class Order(models.Model):
     id = UUIDField(primary_key=True, default=uuid.uuid4,
                    editable=False, unique=True)
     user = models.ForeignKey(
         User, verbose_name=_("user id"), on_delete=models.CASCADE)
-    cart = models.ForeignKey(Cart, verbose_name=_(""),
-                             on_delete=models.CASCADE)
+    address = models.ForeignKey(UserAddress, verbose_name=_(
+        "Address"), on_delete=models.SET_DEFAULT, default="deleted")
     order_status_code = models.SmallIntegerField(
-        _("Order Status Code"), choices=ORDER_STATUS_CODE)
+        _("Order Status Code"), choices=ORDER_STATUS_CODE, default=0)
+    total = models.FloatField(_("Order amount"), default=0.0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -41,18 +47,17 @@ class Order(models.Model):
         return f"{self.id}"
 
 
-class OrderDetail(models.Model):
+class OrderItem(models.Model):
     id = UUIDField(primary_key=True, default=uuid.uuid4,
                    editable=False, unique=True)
     order = models.ForeignKey(Order, verbose_name=_(
         "Order ID"), on_delete=models.CASCADE)
-    amount = models.FloatField(_("Order amount"))
-    address = models.ForeignKey(UserAddress, verbose_name=_(
-        "Address"), on_delete=models.SET_DEFAULT, default="deleted")
+    product_id = UUIDField()  # not sure what kind of relation between product
+    qty = models.BigIntegerField(_("Quantity"))
 
     class Meta:
-        verbose_name = _("orderdetail")
-        verbose_name_plural = _("orderdetails")
+        verbose_name = _("Order Item")
+        verbose_name_plural = _("Order Items")
 
     def __str__(self):
         return f"{self.id}"
@@ -60,8 +65,8 @@ class OrderDetail(models.Model):
 
 class Invoice(models.Model):
     invoice_number = models.AutoField(_("Invoice Number"), primary_key=True)
-    order = models.ForeignKey(Order, verbose_name=_(
-        "Order ID"), on_delete=models.CASCADE)
+    order = models.OneToOneField(
+        Order, verbose_name=_("Order"), on_delete=models.CASCADE)
     invoice_status_code = models.SmallIntegerField(
         _("Invoice Status Code"), choices=INVOICE_STATUS_CODE)
 
