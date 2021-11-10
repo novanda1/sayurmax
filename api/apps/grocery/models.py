@@ -48,9 +48,9 @@ class Product(models.Model):
         null=True, blank=True, default=None)
     item_unit = models.ForeignKey(ItemUnit, verbose_name=_(
         "Item Unit"), on_delete=models.PROTECT)
-    information = models.TextField(_("Product Infromation"))
-    nutrition = models.TextField(_("Product Nutrition"))
-    how_to_keep = models.TextField(_("How To Keep"))
+    information = models.TextField(_("Product Infromation"), blank=True)
+    nutrition = models.TextField(_("Product Nutrition"), blank=True)
+    how_to_keep = models.TextField(_("How To Keep"), blank=True)
 
     def __str__(self):
         return self.title
