@@ -65,8 +65,8 @@ class InvoiceDetailInline(admin.StackedInline):
     def has_delete_permission(self, request, obj=None):
         return False
 
-    def has_add_permission(self, request, obj=None):
-        return False
+    # def has_add_permission(self, request, obj=None):
+    #     return False
 
 
 # class OrderDetailInline(admin.StackedInline):
@@ -85,7 +85,7 @@ class InvoiceDetailInline(admin.StackedInline):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'order_status_code',)
-    fields = ('order_status_code',)
+    fields = ('order_status_code', 'interact_status_code',  )
     list_filter = [DayFilter, InvoiceStatusFilter, ]
     inlines = [
         InvoiceDetailInline,

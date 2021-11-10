@@ -35,6 +35,8 @@ class Order(models.Model):
         "Address"), on_delete=models.SET_NULL, blank=True, null=True)
     order_status_code = models.SmallIntegerField(
         _("Order Status Code"), choices=ORDER_STATUS_CODE, default=0)
+    interact_status_code = models.SmallIntegerField(
+        _("Interact Status"), default=0, choices=ORDER_INTERACTIVITY_CODE)
     total = models.FloatField(_("Order amount"), default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -69,7 +71,7 @@ class Invoice(models.Model):
     order = models.OneToOneField(
         Order, verbose_name=_("Order"), on_delete=models.CASCADE)
     invoice_status_code = models.SmallIntegerField(
-        _("Invoice Status Code"), choices=INVOICE_STATUS_CODE)
+        _("Invoice Status Code"), choices=INVOICE_STATUS_CODE, default=0)
 
     class Meta:
         verbose_name = _("Invoice")
