@@ -23,16 +23,6 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
 
-item_choices = [
-    "pack",
-    "gram",
-    "kg",
-    "pcs"
-]
-
-ITEM_UNIT_CHOICES = tuple((str(t), str(t)) for t in item_choices)
-
-
 class ItemUnit(models.Model):
     title = models.CharField(_("Item Unit Title"), max_length=10)
 
