@@ -97,26 +97,21 @@ class CartServices:
 
     def get_cart(self, phone):
         try:
-            user: User(phone=phone)
-        except:
-            raise Exception("user not found")
-
-        try:
-            cart = Cart.objects.get(user=user)
+            cart = Cart.objects.get(user__phone = phone)
         except:
             raise Exception("cart not found")
 
         try:
-            cart_product = CartProduct.objects.get(cart__id=cart.id)
+            cart_product = CartProduct.objects.filter(cart=cart.id)
         except:
             return CartType(
-                id=cart_id,
+                id=cart.id,
                 total_price=cart.total_price,
                 cart_product=[]
             )
 
         return CartType(
-            id=cart_id,
+            id=cart.id,
             total_price=cart.total_price,
             cart_product=cart_product
         )
