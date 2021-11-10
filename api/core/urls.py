@@ -20,6 +20,12 @@ from strawberry.django.views import GraphQLView
 
 from apps.graphql.graphql import schema
 
+admin.site.site_header = 'Grocery Admin'
+admin.site.site_title = 'Grocery'
+admin.site.index_title= 'Admin'
+
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("graphql/", GraphQLView.as_view(schema=schema)),
