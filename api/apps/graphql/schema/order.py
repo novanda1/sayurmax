@@ -33,6 +33,7 @@ class OrderItem:
     id: UUID
     product: ProductType
     qty: int
+    at_price: int
 
 
 @strawberry.type

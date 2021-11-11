@@ -62,7 +62,8 @@ class OrderService:
             new_item = OrderItemType(
                 id=order_item.id,
                 product=c.product,
-                qty=order_item.qty
+                qty=order_item.qty,
+                at_price=order_item.at_price
             )
 
             order_items.append(new_item)
