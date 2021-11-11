@@ -28,6 +28,8 @@ class Query:
 
     cart: Cart = resolver.cart_query.get_cart
 
+    order: Order = resolver.order_query.order
+
 
 @strawberry.type
 class Mutation:

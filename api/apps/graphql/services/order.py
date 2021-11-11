@@ -100,3 +100,30 @@ class OrderService:
         cart.delete()
 
         return result
+
+    def order(self, id):
+        try:
+            order = Order.objects.get(id=id)
+        except:
+            raise Exception("not found")
+
+        order_items = OrderItem.objects.filter(order=order)
+        address = UserAddress(
+            id=order.address.id,
+            name=order.address.name,
+            recipient=order.address.recipient,
+            phone=order.address.phone,
+            city=order.address.city,
+            postal_code=order.address.postal_code,
+            address=order.address.address
+        ),
+
+        order_type = OrderType(
+            id=order.id,
+            status=OrderStatusCode[order.order_status_code],
+            address=address,
+            total=order.total,
+            items=order_items,
+            created_at=order.created_at,
+            updated_at=order.updated_at
+        )
