@@ -24,9 +24,9 @@ class OrderMutation:
             order_items = ""
 
             for index, p in enumerate(order.items):
-                item = "%s. %s %s %s : %s \n" % (
+                item = "%s. (%s %s) %s : %s \n" % (
                     index+1, p.qty, p.product.item_unit, p.product.title, rupiah_format(p.at_price, True))
-                order_items = item
+                order_items += item
 
             order_items += "\ntotal: %s" % (rupiah_format(order.total, True),)
 
