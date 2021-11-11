@@ -10,6 +10,11 @@ class UserType:
     phone: str
     created_at: str
     updated_at: str
+    
+@strawberry.input
+class UserDto:
+    display_name: Optional[str]
+    phone: Optional[str]
 
 
 @strawberry.type
@@ -34,3 +39,4 @@ class UserAddress:
     city: str
     postal_code: int
     address: str
+    

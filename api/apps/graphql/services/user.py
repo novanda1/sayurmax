@@ -1,6 +1,7 @@
 from apps.user.models import User, UserAddress
 from apps.graphql.schema.user import UserResponse, FieldError, UserAddress as UserAddressType
 from apps.graphql.utils import const
+from apps.graphql.schema.user import UserDto
 
 
 from typing import Optional
@@ -51,6 +52,19 @@ class UserServices:
         )
 
         return UserResponse(user=user, error=None, token=token)
+
+    def edit_user(self, options: UserDto):
+        try:
+            user = User.objects.get(phone=options.phone)
+        except:
+            raise Exception("user doesnt exists")
+
+        user.phone = options.phone or user.phone
+        user.display_name = options.display_name or user.display_name
+
+        user.save()
+
+        return user
 
     def add_user_address(
         self,

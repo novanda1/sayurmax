@@ -6,11 +6,22 @@ from strawberry.types import Info
 
 from apps.graphql.utils.authentication.default import JwtAuth, get_phone_from_jwt
 from apps.graphql.services.user import UserServices
+from apps.graphql.schema.user import UserDto
 
 user_services = UserServices()
 
 
 class UserMutation:
+    @strawberry.mutation(permission_classes=[JwtAuth])
+    def edit_user(
+        self,
+        info: Info,
+        options: UserDto
+    ):
+        user = user_services.edit_user(options)
+        
+        return user
+
     @strawberry.mutation(permission_classes=[JwtAuth])
     def add_user_address(
         self,

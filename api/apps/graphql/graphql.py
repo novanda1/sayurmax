@@ -37,6 +37,7 @@ class Mutation:
     add_to_cart: CartProduct = resolver.cart_mutation.add_to_cart
     edit_cart_product_amount: CartProduct = resolver.cart_mutation.edit_cart_product
 
+    user_edit: UserType = resolver.user_mutation.edit_user
     user_add_address: UserAddress = resolver.user_mutation.add_user_address
     user_edit_address: UserAddress = resolver.user_mutation.edit_user_address
 
