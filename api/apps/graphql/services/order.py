@@ -74,14 +74,25 @@ class OrderService:
             total += coming_price
 
         order.total = total
-        order.save()
 
-        return OrderType(
-            id=order.id,
-            status=OrderStatusCode.Progress.value,
-            address=order.address,
-            total=order.total,
-            items=order_items,
-            updated_at=order.updated_at,
-            created_at=order.created_at
-        )
+        try:
+            order.save()
+        except:
+            raise Exception("failed to make order")
+
+        try:
+            result = OrderType(
+                id=order.id,
+                status=OrderStatusCode.Progress.value,
+                address=order.address,
+                total=order.total,
+                items=order_items,
+                updated_at=order.updated_at,
+                created_at=order.created_at
+            )
+        except:
+            raise Exception("failed to make order")
+
+        cart.delete()
+
+        return result
