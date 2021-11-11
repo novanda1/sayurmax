@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'apps.user',
     'apps.otp',
     'apps.order',
+    'apps.bot',
 
     # deps
     'phonenumber_field',
