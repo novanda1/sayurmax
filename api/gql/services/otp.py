@@ -9,6 +9,7 @@ from utils import const
 
 
 # just wanna set secret (s) and change default interval but got an unexpected keyword argument 'interval'
+# it should be pyotp.HOTP(s=const.topt_32, interval=60)
 # argument reference https://github.com/pyauth/pyotp/blob/develop/src/pyotp/totp.py
 OTP = pyotp.HOTP(const.topt_32, 6, hashlib.sha1, None, None, 60)
 
