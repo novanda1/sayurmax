@@ -1,5 +1,5 @@
 import requests
-from apps.graphql.utils import const
+from utils import const
 
 
 class Whatsapp:

@@ -1,5 +1,5 @@
 from apps.user.models import User
-from apps.graphql.utils import const
+from utils import const
 from apps.graphql.utils.authentication.default import JwtAuth, get_phone_from_jwt
 from apps.graphql.services.user import UserServices
 

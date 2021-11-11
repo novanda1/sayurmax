@@ -6,7 +6,7 @@ from starlette.websockets import WebSocket
 from strawberry.permission import BasePermission
 from strawberry.types import Info
 
-from apps.graphql.utils import const
+from utils import const
 
 
 def authenticate_header(request: Request):

@@ -5,7 +5,7 @@ from random import randint
 from apps.user.models import User
 from apps.otp.models import UnverifPhone
 from apps.graphql.services.user import UserServices
-from apps.graphql.utils import const
+from utils import const
 
 
 # just wanna set secret (s) and change default interval but got an unexpected keyword argument 'interval'

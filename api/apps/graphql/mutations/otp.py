@@ -1,7 +1,7 @@
-from apps.graphql.utils.whatsapp import Whatsapp
+from utils.whatsapp import Whatsapp
 from apps.graphql.services.user import UserServices
 from apps.graphql.services.otp import OtpServices
-from apps.graphql.utils import const
+from utils import const
 
 import pyotp
 import strawberry

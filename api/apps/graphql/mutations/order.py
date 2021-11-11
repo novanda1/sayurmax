@@ -5,8 +5,8 @@ from starlette.requests import Request
 
 from apps.graphql.utils.authentication.default import JwtAuth, get_phone_from_jwt
 from apps.graphql.services.order import OrderService
-from apps.graphql.utils.whatsapp import Whatsapp
-from apps.graphql.utils.rupiah import rupiah_format
+from utils.whatsapp import Whatsapp
+from utils.rupiah import rupiah_format
 
 order_service = OrderService()
 wa = Whatsapp()

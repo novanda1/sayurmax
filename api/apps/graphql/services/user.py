@@ -1,6 +1,6 @@
 from apps.user.models import User, UserAddress
 from apps.graphql.schema.user import UserResponse, FieldError, UserAddress as UserAddressType
-from apps.graphql.utils import const
+from utils import const
 from apps.graphql.schema.user import UserDto
 
 

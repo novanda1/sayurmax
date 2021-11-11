@@ -5,7 +5,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext as _
 
 from apps.user.models import User
-from apps.graphql.utils.slugify import unique_slugify
+from utils.slugify import unique_slugify
 
 
 class Category(models.Model):
