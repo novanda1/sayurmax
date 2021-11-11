@@ -1,7 +1,7 @@
 from apps.grocery.models import Cart, CartProduct, Product
 from apps.user.models import User
-from apps.graphql.schema.cart import CartProduct as CartProductType, TypeOfProduct, Cart as CartType
-from apps.graphql.schema.product import ProductType
+from gql.schema.cart import CartProduct as CartProductType, TypeOfProduct, Cart as CartType
+from gql.schema.product import ProductType
 
 
 class CartServices:

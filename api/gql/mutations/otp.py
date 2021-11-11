@@ -1,6 +1,6 @@
 from utils.whatsapp import Whatsapp
-from apps.graphql.services.user import UserServices
-from apps.graphql.services.otp import OtpServices
+from gql.services.user import UserServices
+from gql.services.otp import OtpServices
 from utils import const
 
 import pyotp

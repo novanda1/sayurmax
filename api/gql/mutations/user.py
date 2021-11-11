@@ -4,9 +4,9 @@ import uuid
 from typing import Optional
 from strawberry.types import Info
 
-from apps.graphql.utils.authentication.default import JwtAuth, get_phone_from_jwt
-from apps.graphql.services.user import UserServices
-from apps.graphql.schema.user import UserDto
+from gql.utils.authentication.default import JwtAuth, get_phone_from_jwt
+from gql.services.user import UserServices
+from gql.schema.user import UserDto
 
 user_services = UserServices()
 

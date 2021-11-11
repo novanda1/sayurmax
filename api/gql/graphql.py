@@ -1,14 +1,14 @@
 import strawberry
 from typing import List, Optional
 
-from apps.graphql.queries.hello import say_hello
-from apps.graphql.schema.user import UserResponse, UserType, UserAddress
-from apps.graphql.schema.product import ProductResponse, ProductType
-from apps.graphql.schema.cart import Cart, CartProduct
-from apps.graphql.schema.order import Order
+from gql.queries.hello import say_hello
+from gql.schema.user import UserResponse, UserType, UserAddress
+from gql.schema.product import ProductResponse, ProductType
+from gql.schema.cart import Cart, CartProduct
+from gql.schema.order import Order
 
 
-from apps.graphql.resolver import Resolver
+from gql.resolver import Resolver
 
 resolver = Resolver()
 

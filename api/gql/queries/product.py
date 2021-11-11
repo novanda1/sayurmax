@@ -1,4 +1,4 @@
-from apps.graphql.schema.product import ProductType
+from gql.schema.product import ProductType
 from apps.grocery.models import Product
 
 from typing import Optional

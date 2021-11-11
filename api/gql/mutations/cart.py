@@ -4,9 +4,9 @@ from strawberry.types import Info
 
 from apps.grocery.models import Cart, Product
 from apps.user.models import User
-from apps.graphql.services.cart import CartServices
-from apps.graphql.utils.authentication.default import JwtAuth, get_phone_from_jwt
-from apps.graphql.schema.cart import TypeOfProduct
+from gql.services.cart import CartServices
+from gql.utils.authentication.default import JwtAuth, get_phone_from_jwt
+from gql.schema.cart import TypeOfProduct
 
 
 cart_services = CartServices()

@@ -3,8 +3,8 @@ from strawberry.types import Info
 from uuid import UUID
 from starlette.requests import Request
 
-from apps.graphql.utils.authentication.default import JwtAuth, get_phone_from_jwt
-from apps.graphql.services.order import OrderService
+from gql.utils.authentication.default import JwtAuth, get_phone_from_jwt
+from gql.services.order import OrderService
 from utils.whatsapp import Whatsapp
 from utils.rupiah import rupiah_format
 

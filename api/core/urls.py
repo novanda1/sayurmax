@@ -18,7 +18,7 @@ from django.urls import path, include
 
 from strawberry.django.views import GraphQLView
 
-from apps.graphql.graphql import schema
+from gql.graphql import schema
 
 admin.site.site_header = 'Grocery Admin'
 admin.site.site_title = 'Grocery'

@@ -3,8 +3,8 @@ from enum import Enum
 from uuid import UUID
 from typing import List
 
-from apps.graphql.schema.user import UserType, UserAddress
-from apps.graphql.schema.product import ProductType
+from gql.schema.user import UserType, UserAddress
+from gql.schema.product import ProductType
 
 
 @strawberry.enum

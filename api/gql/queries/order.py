@@ -2,8 +2,8 @@ import strawberry
 from strawberry.types import Info
 from starlette.requests import Request
 
-from apps.graphql.services.order import OrderService
-from apps.graphql.utils.authentication.default import JwtAuth, get_phone_from_jwt
+from gql.services.order import OrderService
+from gql.utils.authentication.default import JwtAuth, get_phone_from_jwt
 
 order_services = OrderService()
 

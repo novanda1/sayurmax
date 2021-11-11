@@ -4,7 +4,7 @@ from random import randint
 
 from apps.user.models import User
 from apps.otp.models import UnverifPhone
-from apps.graphql.services.user import UserServices
+from gql.services.user import UserServices
 from utils import const
 
 
