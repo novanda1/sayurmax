@@ -32,6 +32,10 @@ class OrderService:
 
         try:
             cart_product = CartProduct.objects.filter(cart=cart) or []
+
+            # if there is no cart items
+            if not cart_product:
+                raise Exception("please add some product to cart")
         except:
             pass
 
