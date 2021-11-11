@@ -127,3 +127,38 @@ class OrderService:
             created_at=order.created_at,
             updated_at=order.updated_at
         )
+
+    def orders(self, phone):
+        try:
+            user = User.objects.get(phone=phone)
+        except:
+            raise Exception("cant find user")
+
+        orders = Order.objects.filter(user=user)
+
+        orders_arr = []
+
+        for order in orders:
+            address = UserAddress(
+                id=order.address.id,
+                name=order.address.name,
+                recipient=order.address.recipient,
+                phone=order.address.phone,
+                city=order.address.city,
+                postal_code=order.address.postal_code,
+                address=order.address.address
+            ),
+
+            order_type = OrderType(
+                id=order.id,
+                status=OrderStatusCode[order.order_status_code],
+                address=address,
+                total=order.total,
+                items=order_items,
+                created_at=order.created_at,
+                updated_at=order.updated_at
+            )
+
+            orders_arr.append(order_type)
+
+        return orders_arr

@@ -29,6 +29,7 @@ class Query:
     cart: Cart = resolver.cart_query.get_cart
 
     order: Order = resolver.order_query.order
+    orders: Order = resolver.order_query.orders
 
 
 @strawberry.type
