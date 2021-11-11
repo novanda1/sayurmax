@@ -2,10 +2,10 @@ import strawberry
 from typing import List, Optional
 
 from gql.queries.hello import say_hello
-from gql.schema.user import UserResponse, UserType, UserAddress
-from gql.schema.product import ProductResponse, ProductType
-from gql.schema.cart import Cart, CartProduct
-from gql.schema.order import Order
+from gql.types.user import UserResponse, UserType, UserAddress
+from gql.types.product import ProductResponse, ProductType
+from gql.types.cart import Cart, CartProduct
+from gql.types.order import Order
 
 
 from gql.resolver import Resolver

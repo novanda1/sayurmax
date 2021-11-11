@@ -6,7 +6,7 @@ from strawberry.types import Info
 
 from gql.utils.authentication.default import JwtAuth, get_phone_from_jwt
 from gql.services.user import UserServices
-from gql.schema.user import UserDto
+from gql.types.user import UserDto
 
 user_services = UserServices()
 

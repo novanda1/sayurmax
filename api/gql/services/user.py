@@ -1,7 +1,7 @@
 from apps.user.models import User, UserAddress
-from gql.schema.user import UserResponse, FieldError, UserAddress as UserAddressType
+from gql.types.user import UserResponse, FieldError, UserAddress as UserAddressType
 from utils import const
-from gql.schema.user import UserDto
+from gql.types.user import UserDto
 
 
 from typing import Optional

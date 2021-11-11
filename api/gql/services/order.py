@@ -5,8 +5,8 @@ from apps.user.models import UserAddress, User
 from apps.order.models import Order, OrderItem
 from apps.grocery.models import Cart, CartProduct
 
-from gql.schema.user import FieldError
-from gql.schema.order import Order as OrderType, OrderItem as OrderItemType, OrderStatusCode
+from gql.types.user import FieldError
+from gql.types.order import Order as OrderType, OrderItem as OrderItemType, OrderStatusCode
 
 
 class OrderService:

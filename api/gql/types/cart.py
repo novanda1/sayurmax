@@ -3,7 +3,7 @@ from enum import Enum
 from uuid import UUID
 from typing import List, Optional
 
-from gql.schema.product import ProductType
+from gql.types.product import ProductType
 
 
 @strawberry.type

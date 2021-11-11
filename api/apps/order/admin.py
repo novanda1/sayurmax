@@ -5,7 +5,7 @@ from django.utils.translation import gettext as _
 from django.contrib.admin import RelatedFieldListFilter
 
 from apps.order.models import Order, OrderItem
-from gql.schema.order import InvoiceStatusCode
+from gql.types.order import InvoiceStatusCode
 
 day_min_1 = datetime.datetime.today() - datetime.timedelta(days=1)
 day_min_2 = datetime.datetime.today() - datetime.timedelta(days=2)
