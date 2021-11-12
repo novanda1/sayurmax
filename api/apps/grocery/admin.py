@@ -11,6 +11,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     exclude = ("slug",)
     list_display = ('title', 'id')
+    filter_horizontal = ('categories',)
 
 
 @admin.register(ItemUnit)
