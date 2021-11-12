@@ -12,6 +12,7 @@ class ProductAdmin(admin.ModelAdmin):
     exclude = ("slug",)
     list_display = ('title', 'id')
     filter_horizontal = ('categories',)
+    search_fields = ['title']
 
 
 @admin.register(ItemUnit)
