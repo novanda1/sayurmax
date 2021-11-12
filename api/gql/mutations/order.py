@@ -25,7 +25,7 @@ class OrderMutation:
 
             for index, p in enumerate(order.items):
                 item = wa.order_item_message % (
-                    index+1, p.qty, p.product.item_unit, p.product.title, rupiah_format(p.at_price, True))
+                    index+1, p.qty, p.product.item_unit, p.product.title, rupiah_format(p.at_price * p.qty, True))
                 order_items += item
 
             wa.send(phone, wa.order_message %
