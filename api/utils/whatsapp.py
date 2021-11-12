@@ -12,7 +12,9 @@ class Whatsapp:
     headers = {"x-access-key": z_secret_token}
 
     auth_message = "Kode OTP Grocery anda adalah: %s"
-    order_message = "Hi %s, Here is your order list\n%s\n\n Do you agree with that? (y|N)"
+    order_message = "Hi %s, Here is your order list:\n\n%s\n\
+        \ntotal: %s \n\nDo you agree with that? (y|N)"
+    order_item_message = "%s. (%s %s) %s: %s \n"
 
     def send(self, to: str, content: str):
         payload = {

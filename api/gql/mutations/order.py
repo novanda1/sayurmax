@@ -24,12 +24,11 @@ class OrderMutation:
             order_items = ""
 
             for index, p in enumerate(order.items):
-                item = "%s. (%s %s) %s : %s \n" % (
+                item = wa.order_item_message % (
                     index+1, p.qty, p.product.item_unit, p.product.title, rupiah_format(p.at_price, True))
                 order_items += item
 
-            order_items += "\ntotal: %s" % (rupiah_format(order.total, True),)
-
-            wa.send(phone, wa.order_message % (phone, order_items))
+            wa.send(phone, wa.order_message %
+                    (phone, order_items, rupiah_format(order.total, True)))
 
         return order
