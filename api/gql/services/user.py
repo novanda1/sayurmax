@@ -5,6 +5,8 @@ from gql.types.user import UserDto
 
 
 from typing import Optional
+import datetime
+import pytz
 import jwt
 
 
@@ -19,6 +21,7 @@ class UserServices:
         payload_data = {
             "sub": str(user.pk),
             "phone": user.phone,
+            "exp": datetime.datetime.now() + datetime.timedelta(days=7)
         }
 
         token = jwt.encode(
@@ -44,6 +47,7 @@ class UserServices:
         payload_data = {
             "sub": str(user.pk),
             "phone": user.phone,
+            "exp": datetime.datetime.now(tz=pytz.utc) + datetime.timedelta(days=7)
         }
 
         token = jwt.encode(
