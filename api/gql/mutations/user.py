@@ -46,12 +46,12 @@ class UserMutation:
         self,
         info: Info,
         id: uuid.UUID,
-        name: Optional[str] = "",
-        recipient: Optional[str] = "",
-        phone: Optional[str] = "",
-        city: Optional[str] = "",
-        postal_code: Optional[str] = "",
-        address: Optional[str] = ""
+        name: Optional[str],
+        recipient: Optional[str],
+        phone: Optional[str],
+        city: Optional[str],
+        postal_code: Optional[str],
+        address: Optional[str]
     ):
 
         request: Request = info.context["request"]
