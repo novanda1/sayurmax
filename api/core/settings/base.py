@@ -140,3 +140,6 @@ DATABASES = {
         'PORT': const.db_port,
     }
 }
+
+CORS_ALLOWED_ORIGINS = const.cors_allowed_origins
+ALLOWED_HOSTS = const.allowed_hosts

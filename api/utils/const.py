@@ -19,3 +19,5 @@ db_user = config['DATABASE_USER']
 db_password = config['DATABASE_PASSWORD']
 db_host = config['DATABASE_HOST']
 db_port = config['DATABASE_PORT']
+cors_allowed_origins = config['CORS_ALLOWED_ORIGINS'].split(" ")
+allowed_hosts = config['ALLOWED_HOSTS'].split(" ")
