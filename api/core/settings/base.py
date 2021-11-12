@@ -34,6 +34,10 @@ ROOT_URLCONF = 'core.urls'
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_interface',
+    # 'flat_responsive', # only if django version < 2.0
+    # 'flat', # only if django version < 1.9
+    'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -154,3 +158,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+SILENCED_SYSTEM_CHECKS = ['security.W019']
