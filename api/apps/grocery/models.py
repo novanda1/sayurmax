@@ -43,6 +43,7 @@ class Product(models.Model):
     categories = models.ManyToManyField(Category)
     image_url = models.CharField(
         _("Image Url"), max_length=250,)
+    seller_price = models.BigIntegerField(_("Price from seller"))
     normal_price = models.BigIntegerField()
     dicount_price = models.BigIntegerField(
         null=True, blank=True, default=None)
