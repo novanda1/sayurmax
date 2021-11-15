@@ -3,7 +3,8 @@
     "private": true,
     "workspaces": {
         "packages": [
-            "timun"
+            "timun",
+            "telo"
         ]
     },
     "repository": "git@github.com:novanda1/sayurmax.git",
