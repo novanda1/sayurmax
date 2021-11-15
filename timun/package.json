@@ -1,20 +1,24 @@
 {
-  "name": "@sayurmax/timun",
-  "license": "MIT",
-  "dependencies": {
-    "graphql": "^16.0.1",
-    "graphql-tag": "^2.12.6",
-    "isomorphic-unfetch": "^3.1.0"
-  },
-  "devDependencies": {
-    "@graphql-codegen/cli": "2.2.2",
-    "@graphql-codegen/typescript": "2.3.1",
-    "@graphql-codegen/typescript-document-nodes": "2.2.0",
-    "@graphql-codegen/typescript-graphql-request": "^4.3.0",
-    "@graphql-codegen/typescript-operations": "2.2.0",
-    "typescript": "^4.4.4"
-  },
-  "scripts": {
-    "gen": "graphql-codegen --config codegen.yml"
-  }
+    "name": "@sayurmax/timun",
+    "license": "MIT",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "dependencies": {
+        "graphql": "^16.0.1",
+        "graphql-tag": "^2.12.6",
+        "isomorphic-unfetch": "^3.1.0"
+    },
+    "devDependencies": {
+        "@graphql-codegen/cli": "2.2.2",
+        "@graphql-codegen/typescript": "2.3.1",
+        "@graphql-codegen/typescript-document-nodes": "2.2.0",
+        "@graphql-codegen/typescript-graphql-request": "^4.3.0",
+        "@graphql-codegen/typescript-operations": "2.2.0",
+        "typescript": "^4.4.4"
+    },
+    "scripts": {
+        "gen": "graphql-codegen --config codegen.yml",
+        "build": "tsc",
+        "watch": "tsc -w"
+    }
 }

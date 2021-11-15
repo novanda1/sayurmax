@@ -1219,7 +1219,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sayurmax/timun@workspace:timun":
+"@sayurmax/timun@workspace:^, @sayurmax/timun@workspace:timun":
   version: 0.0.0-use.local
   resolution: "@sayurmax/timun@workspace:timun"
   dependencies:
@@ -1232,6 +1232,14 @@ __metadata:
     graphql-tag: ^2.12.6
     isomorphic-unfetch: ^3.1.0
     typescript: ^4.4.4
+  languageName: unknown
+  linkType: soft
+
+"@sayurmax/wortel@workspace:wortel":
+  version: 0.0.0-use.local
+  resolution: "@sayurmax/wortel@workspace:wortel"
+  dependencies:
+    "@sayurmax/timun": "workspace:^"
   languageName: unknown
   linkType: soft
 
