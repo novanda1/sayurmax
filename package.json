@@ -1,0 +1,12 @@
+{
+    "name": "grocery",
+    "private": true,
+    "workspaces": {
+        "packages": [
+            "timun"
+        ]
+    },
+    "repository": "git@github.com:novanda1/sayurmax.git",
+    "author": "Novanda Ahsan <novandaahsan1@gmail.com>",
+    "license": "MIT"
+}
