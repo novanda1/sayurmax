@@ -766,6 +766,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@graphql-codegen/typescript-document-nodes@npm:2.2.0":
+  version: 2.2.0
+  resolution: "@graphql-codegen/typescript-document-nodes@npm:2.2.0"
+  dependencies:
+    "@graphql-codegen/plugin-helpers": ^2.3.0
+    "@graphql-codegen/visitor-plugin-common": 2.5.0
+    auto-bind: ~4.0.0
+    tslib: ~2.3.0
+  peerDependencies:
+    graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
+  checksum: a4c60b8d0272079b38b833a3c56dc3e746d3b86cee023fe66497aadf66c1f59e845e069bdcd581ba39a3835871e1a9b31e8542ead7ce79fb075c72d0c13053bd
+  languageName: node
+  linkType: hard
+
+"@graphql-codegen/typescript-graphql-request@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "@graphql-codegen/typescript-graphql-request@npm:4.3.0"
+  dependencies:
+    "@graphql-codegen/plugin-helpers": ^2.3.0
+    "@graphql-codegen/visitor-plugin-common": 2.5.0
+    auto-bind: ~4.0.0
+    tslib: ~2.3.0
+  peerDependencies:
+    graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    graphql-request: ^3.4.0
+    graphql-tag: ^2.0.0
+  checksum: ee1027f4cbc7c1bbf8375e1063eeca22ee5448e0e8f04be8ae373ee284141bc39ae47eb7ee666f04ff745ffa0098244b344a25772f07bffed0cb128df6304244
+  languageName: node
+  linkType: hard
+
 "@graphql-codegen/typescript-operations@npm:2.2.0":
   version: 2.2.0
   resolution: "@graphql-codegen/typescript-operations@npm:2.2.0"
@@ -1195,9 +1225,11 @@ __metadata:
   dependencies:
     "@graphql-codegen/cli": 2.2.2
     "@graphql-codegen/typescript": 2.3.1
+    "@graphql-codegen/typescript-document-nodes": 2.2.0
+    "@graphql-codegen/typescript-graphql-request": ^4.3.0
     "@graphql-codegen/typescript-operations": 2.2.0
     graphql: ^16.0.1
-    graphql-request: ^3.6.1
+    graphql-tag: ^2.12.6
     isomorphic-unfetch: ^3.1.0
     typescript: ^4.4.4
   languageName: unknown
@@ -2654,7 +2686,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-request@npm:^3.3.0, graphql-request@npm:^3.6.1":
+"graphql-request@npm:^3.3.0":
   version: 3.6.1
   resolution: "graphql-request@npm:3.6.1"
   dependencies:
@@ -2676,7 +2708,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-tag@npm:^2.11.0":
+"graphql-tag@npm:^2.11.0, graphql-tag@npm:^2.12.6":
   version: 2.12.6
   resolution: "graphql-tag@npm:2.12.6"
   dependencies:
@@ -2702,12 +2734,6 @@ __metadata:
   checksum: e2fbddc78ac93b84af5b1871cdced5ce796102373b91f888983e8bae26856788833aa641f5da15b9e4da05cef2edcc82b744a86a27e7e1ef6c9ce422571ab16c
   languageName: node
   linkType: hard
-
-"grocery@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "grocery@workspace:."
-  languageName: unknown
-  linkType: soft
 
 "has-ansi@npm:^2.0.0":
   version: 2.0.0
@@ -4414,6 +4440,12 @@ __metadata:
   checksum: cab8f25ae6f1434abee8d80023d7e72b598cf1327164ddab31003c51215526801e40b66c5e65d658a0af1e9d6478cadcb4c745f4bd6751f97d8644786c0978b0
   languageName: node
   linkType: hard
+
+"sayurmax@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "sayurmax@workspace:."
+  languageName: unknown
+  linkType: soft
 
 "scuid@npm:^1.1.0":
   version: 1.1.0
