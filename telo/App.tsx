@@ -4,15 +4,12 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { Ionicons } from "@expo/vector-icons";
 
 function HomeScreen({ navigation }: any) {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Home screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate("Details")}
-      />
     </View>
   );
 }
@@ -20,7 +17,7 @@ function HomeScreen({ navigation }: any) {
 function CatalogScreen() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings!</Text>
+      <Text>Catalog</Text>
     </View>
   );
 }
@@ -45,9 +42,17 @@ const TabOrder = createMaterialTopTabNavigator();
 
 function OrderScreen() {
   return (
-    <TabOrder.Navigator>
+    <TabOrder.Navigator
+      screenOptions={{
+        tabBarScrollEnabled: true,
+        tabBarItemStyle: { width: 100},
+      }}
+    >
       <TabOrder.Screen name="ordermenu1" component={OrderMenu1Screen} />
       <TabOrder.Screen name="ordermenu2" component={OrderMenu2Screen} />
+      <TabOrder.Screen name="ordermenu3" component={OrderMenu2Screen} />
+      <TabOrder.Screen name="ordermenu4" component={OrderMenu2Screen} />
+      <TabOrder.Screen name="ordermenu5" component={OrderMenu2Screen} />
     </TabOrder.Navigator>
   );
 }
@@ -66,11 +71,17 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Tab.Navigator>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: () => {
+              return <Ionicons name="ios-information-circle" />;
+            },
+          })}
+        >
           <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Catalog" component={CatalogScreen} />
           <Tab.Screen name="Order" component={OrderScreen} />
-          <Tab.Screen name="Settings" component={AccountScreen} />
+          <Tab.Screen name="Account" component={AccountScreen} />
         </Tab.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
