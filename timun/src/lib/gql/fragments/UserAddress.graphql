@@ -1,0 +1,9 @@
+fragment UserAddress on UserAddress {
+    id
+    name
+    recipient
+    phone
+    city
+    postalCode
+    address
+}

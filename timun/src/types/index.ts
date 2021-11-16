@@ -161,7 +161,7 @@ export type Query = {
   cart: Cart;
   hello: Scalars['String'];
   order: Order;
-  orders: Order;
+  orders: Array<Order>;
   product: ProductType;
   products: ProductResponse;
   user: UserType;
@@ -239,12 +239,87 @@ export type UserType = {
   updatedAt: Scalars['String'];
 };
 
+export type CategoryFragment = { __typename?: 'CategoryType', id: number, slug: string, title: string };
+
+export type ItemFragment = { __typename?: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename?: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } };
+
+export type OrderFragment = { __typename?: 'Order', id: string, status: OrderStatusCode, total: number, updatedAt: string, createdAt: string, address: { __typename?: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string }, items: Array<{ __typename?: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename?: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } }> };
+
+export type ProductFragment = { __typename?: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined };
+
+export type UserAddressFragment = { __typename?: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string };
+
 export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type HelloQuery = { __typename?: 'Query', hello: string };
 
+export type OrdersQueryVariables = Exact<{ [key: string]: never; }>;
 
+
+export type OrdersQuery = { __typename?: 'Query', orders: Array<{ __typename?: 'Order', id: string, status: OrderStatusCode, total: number, updatedAt: string, createdAt: string, address: { __typename?: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string }, items: Array<{ __typename?: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename?: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } }> }> };
+
+export const UserAddressFragmentDoc = gql`
+    fragment UserAddress on UserAddress {
+  id
+  name
+  recipient
+  phone
+  city
+  postalCode
+  address
+}
+    `;
+export const CategoryFragmentDoc = gql`
+    fragment Category on CategoryType {
+  id
+  slug
+  title
+}
+    `;
+export const ProductFragmentDoc = gql`
+    fragment Product on ProductType {
+  id
+  title
+  slug
+  categories {
+    ...Category
+  }
+  imageUrl
+  normalPrice
+  dicountPrice
+  itemUnit
+  information
+  nutrition
+  howToKeep
+}
+    ${CategoryFragmentDoc}`;
+export const ItemFragmentDoc = gql`
+    fragment Item on OrderItem {
+  id
+  atPrice
+  qty
+  product {
+    ...Product
+  }
+}
+    ${ProductFragmentDoc}`;
+export const OrderFragmentDoc = gql`
+    fragment Order on Order {
+  id
+  status
+  address {
+    ...UserAddress
+  }
+  total
+  items {
+    ...Item
+  }
+  updatedAt
+  createdAt
+}
+    ${UserAddressFragmentDoc}
+${ItemFragmentDoc}`;
 export const HelloDocument = gql`
     query Hello {
   hello
@@ -277,3 +352,37 @@ export function useHelloLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Hell
 export type HelloQueryHookResult = ReturnType<typeof useHelloQuery>;
 export type HelloLazyQueryHookResult = ReturnType<typeof useHelloLazyQuery>;
 export type HelloQueryResult = Apollo.QueryResult<HelloQuery, HelloQueryVariables>;
+export const OrdersDocument = gql`
+    query Orders {
+  orders {
+    ...Order
+  }
+}
+    ${OrderFragmentDoc}`;
+
+/**
+ * __useOrdersQuery__
+ *
+ * To run a query within a React component, call `useOrdersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOrdersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOrdersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useOrdersQuery(baseOptions?: Apollo.QueryHookOptions<OrdersQuery, OrdersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<OrdersQuery, OrdersQueryVariables>(OrdersDocument, options);
+      }
+export function useOrdersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OrdersQuery, OrdersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<OrdersQuery, OrdersQueryVariables>(OrdersDocument, options);
+        }
+export type OrdersQueryHookResult = ReturnType<typeof useOrdersQuery>;
+export type OrdersLazyQueryHookResult = ReturnType<typeof useOrdersLazyQuery>;
+export type OrdersQueryResult = Apollo.QueryResult<OrdersQuery, OrdersQueryVariables>;
