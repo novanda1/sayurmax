@@ -171,6 +171,7 @@ class OrderService:
 
             order_type = OrderType(
                 id=order.id,
+                user=user,
                 status=order.order_status_code,
                 address=order.address,
                 total=order.total,

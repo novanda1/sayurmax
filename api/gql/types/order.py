@@ -34,6 +34,7 @@ class OrderItem:
 @strawberry.type
 class Order:
     id: strawberry.ID
+    user: UserType
     status: OrderStatusCode
     address: UserAddress
     total: int
