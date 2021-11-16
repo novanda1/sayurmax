@@ -4,6 +4,7 @@ from starlette.requests import Request
 
 from gql.services.order import OrderService
 from gql.utils.authentication.default import JwtAuth, get_phone_from_jwt
+from gql.types.order import OrderStatusCode
 
 order_services = OrderService()
 
@@ -15,13 +16,13 @@ class OrderQuery:
         return order
 
     @strawberry.field(permission_classes=[JwtAuth])
-    def orders(self, info: Info):
+    def orders(self, info: Info, status: OrderStatusCode):
         request: Request = info.context['request']
-        
-        try: 
+
+        try:
             phone = get_phone_from_jwt(request)
         except:
             raise Exception("phone ")
 
-        orders = order_services.orders(phone=phone)
+        orders = order_services.orders(phone=phone, status=status)
         return orders
