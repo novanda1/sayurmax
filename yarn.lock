@@ -3980,11 +3980,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sayurmax/telo@workspace:telo"
   dependencies:
+    "@apollo/client": ^3.4.17
     "@babel/core": ^7.9.0
     "@expo-google-fonts/roboto": ^0.2.0
     "@react-navigation/bottom-tabs": ^6.0.9
     "@react-navigation/material-top-tabs": ^6.0.6
     "@react-navigation/native": ^6.0.6
+    "@sayurmax/timun": "workspace:^"
     "@types/react": ~16.9.35
     "@types/react-native": ~0.63.2
     babel-preset-expo: ^8.5.1
@@ -4007,7 +4009,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sayurmax/timun@workspace:timun":
+"@sayurmax/timun@workspace:^, @sayurmax/timun@workspace:timun":
   version: 0.0.0-use.local
   resolution: "@sayurmax/timun@workspace:timun"
   dependencies:

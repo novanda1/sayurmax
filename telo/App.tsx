@@ -15,32 +15,22 @@ import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { config } from "./src/config/theme";
 import { MainNavigation } from "./src/navigations/MainNavigation";
+import { ApolloProvider } from "@apollo/client";
+import { createApolloClient } from "@sayurmax/timun/src/apollo-client";
 
-// extend the theme
 export const theme = extendTheme({ config });
-export default function App() {
-  let [fontsLoaded] = useFonts({
-    "Roboto-Light": Roboto_300Light,
-    "Roboto-LightItalic": Roboto_300Light_Italic,
-    "Roboto-Regular": Roboto_400Regular,
-    "Roboto-Italic": Roboto_400Regular_Italic,
-    "Roboto-Medium": Roboto_500Medium,
-    "Roboto-MediumItalic": Roboto_500Medium_Italic,
-    "Roboto-Bold": Roboto_700Bold,
-    "Roboto-BoldItalic": Roboto_700Bold_Italic,
-  });
+const client = createApolloClient();
 
-  if (!fontsLoaded) {
-    return <>loading..</>;
-  } else {
-    return (
-      <NativeBaseProvider>
+export default function App() {
+  return (
+    <NativeBaseProvider>
+      <ApolloProvider client={client}>
         <SafeAreaProvider>
           <NavigationContainer>
             <MainNavigation />
           </NavigationContainer>
         </SafeAreaProvider>
-      </NativeBaseProvider>
-    );
-  }
+      </ApolloProvider>
+    </NativeBaseProvider>
+  );
 }
