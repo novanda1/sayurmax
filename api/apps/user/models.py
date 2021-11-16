@@ -31,7 +31,7 @@ class UserDetail(models.Model):
         verbose_name_plural = _("userdetails")
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 
 class UserAddress(models.Model):
@@ -51,4 +51,4 @@ class UserAddress(models.Model):
         verbose_name_plural = _("addresses")
 
     def __str__(self):
-        return self.id
+        return str(self.id)
