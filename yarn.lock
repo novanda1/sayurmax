@@ -1761,6 +1761,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@egjs/hammerjs@npm:^2.0.17":
+  version: 2.0.17
+  resolution: "@egjs/hammerjs@npm:2.0.17"
+  dependencies:
+    "@types/hammerjs": ^2.0.36
+  checksum: 8945137cec5837edd70af3f2e0ea621543eb0aa3b667e6269ec6485350f4d120c2434b37c7c30b1cf42a65275dd61c1f24626749c616696d3956ac0c008c4766
+  languageName: node
+  linkType: hard
+
 "@emotion/is-prop-valid@npm:^0.8.8":
   version: 0.8.8
   resolution: "@emotion/is-prop-valid@npm:0.8.8"
@@ -3543,6 +3552,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-navigation/stack@npm:^6.0.11":
+  version: 6.0.11
+  resolution: "@react-navigation/stack@npm:6.0.11"
+  dependencies:
+    "@react-navigation/elements": ^1.2.1
+    color: ^3.1.3
+    warn-once: ^0.1.0
+  peerDependencies:
+    "@react-navigation/native": ^6.0.0
+    react: "*"
+    react-native: "*"
+    react-native-gesture-handler: ">= 1.0.0"
+    react-native-safe-area-context: ">= 3.0.0"
+    react-native-screens: ">= 3.0.0"
+  checksum: 26a9652a67688982dc4f117c3617694b0d8f8c95ca1a5261782be2f5dd50943c6e7cfc625e78c9536c7a5c767ddf0290ea517cc33ae3086264888870d3ddef80
+  languageName: node
+  linkType: hard
+
 "@react-stately/checkbox@npm:^3.0.3":
   version: 3.0.3
   resolution: "@react-stately/checkbox@npm:3.0.3"
@@ -3986,6 +4013,7 @@ __metadata:
     "@react-navigation/bottom-tabs": ^6.0.9
     "@react-navigation/material-top-tabs": ^6.0.6
     "@react-navigation/native": ^6.0.6
+    "@react-navigation/stack": ^6.0.11
     "@sayurmax/timun": "workspace:^"
     "@types/react": ~16.9.35
     "@types/react-native": ~0.63.2
@@ -3998,8 +4026,9 @@ __metadata:
     react: 16.13.1
     react-dom: 16.13.1
     react-native: "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz"
+    react-native-gesture-handler: ^1.10.3
     react-native-safe-area-context: 3.2.0
-    react-native-screens: ^3.9.0
+    react-native-screens: ~3.4.0
     react-native-svg: 12.1.1
     react-native-tab-view: ^3.1.1
     react-native-web: ~0.13.12
@@ -4186,6 +4215,13 @@ __metadata:
     "@types/minimatch": "*"
     "@types/node": "*"
   checksum: 6ae717fedfdfdad25f3d5a568323926c64f52ef35897bcac8aca8e19bc50c0bd84630bbd063e5d52078b2137d8e7d3c26eabebd1a2f03ff350fff8a91e79fc19
+  languageName: node
+  linkType: hard
+
+"@types/hammerjs@npm:^2.0.36":
+  version: 2.0.40
+  resolution: "@types/hammerjs@npm:2.0.40"
+  checksum: d815bd0a156159624e3f053fc06b6e1b30ee3d1fb31710211f4c615a212fe2a5e7f8580845c9474a0c4f0a65aef2eb9bb0d4166f688112b50d782f3ddb6df4d4
   languageName: node
   linkType: hard
 
@@ -13878,15 +13914,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-freeze@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "react-freeze@npm:1.0.0"
-  peerDependencies:
-    react: ^17.0.0
-  checksum: c746b9d369c77296c277626cf7dd5ff24d49657e2f16412d14f845d1b428588184c0009374119f7dec24be37ab8c134d15aa4ecd57360c874880af508dcc577b
-  languageName: node
-  linkType: hard
-
 "react-is@npm:^16.12.0, react-is@npm:^16.13.0, react-is@npm:^16.7.0, react-is@npm:^16.8.1, react-is@npm:^16.8.4":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -13901,6 +13928,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-gesture-handler@npm:^1.10.3":
+  version: 1.10.3
+  resolution: "react-native-gesture-handler@npm:1.10.3"
+  dependencies:
+    "@egjs/hammerjs": ^2.0.17
+    fbjs: ^3.0.0
+    hoist-non-react-statics: ^3.3.0
+    invariant: ^2.2.4
+    prop-types: ^15.7.2
+  checksum: fd06147df96fe0b38752c653a2d4bf49570396922719939a31b494197fd30e6775e4c5e73f889af808204dcfbc087eb00f31a0b676c838d5a35e2b017ae9a419
+  languageName: node
+  linkType: hard
+
 "react-native-safe-area-context@npm:3.2.0":
   version: 3.2.0
   resolution: "react-native-safe-area-context@npm:3.2.0"
@@ -13911,16 +13951,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-screens@npm:^3.9.0":
-  version: 3.9.0
-  resolution: "react-native-screens@npm:3.9.0"
+"react-native-screens@npm:~3.4.0":
+  version: 3.4.0
+  resolution: "react-native-screens@npm:3.4.0"
   dependencies:
-    react-freeze: ^1.0.0
     warn-once: ^0.1.0
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: bf2dff55c2f5ca2a7d9e564ce42c6601d443b39f73933c9943ae5ab280eb9d0d119621212b8e841d55c4d65ad283df67bd31371f49624ebf12ca5b652cb00f36
+  checksum: 7d47c1c4f1e2f033221c1d1dec8f990bd3e95c2d9a8d1ec7628b4acbee23ae4dd69eb292013b8491155a79ddfadd1805e8e1e239392df902b7a4681473e58796
   languageName: node
   linkType: hard
 

@@ -1,3 +1,11 @@
 const { createMetroConfiguration } = require("expo-yarn-workspaces");
 
-module.exports = createMetroConfiguration(__dirname);
+const y = createMetroConfiguration(__dirname);
+
+module.exports = {
+  ...y,
+  resolver: {
+    ...y.resolver,
+    sourceExts: ["jsx", "js", "ts", "tsx"],
+  },
+};

@@ -10,7 +10,17 @@ const Tab = createBottomTabNavigator();
 
 export function MainNavigation() {
   return (
-    <Tab.Navigator initialRouteName="Order">
+    <Tab.Navigator
+      initialRouteName="Order"
+      screenOptions={({ route }) => {
+        if (route.name === "Order") {
+          return {
+            headerShown: false,
+          };
+        }
+        return {};
+      }}
+    >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Catalog" component={CatalogScreen} />
       <Tab.Screen name="Order" component={OrderScreen} />
