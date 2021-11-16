@@ -1,98 +1,119 @@
+import {
+  Center,
+  Code,
+  extendTheme,
+  Heading,
+  HStack,
+  Link,
+  NativeBaseProvider,
+  Switch,
+  Text,
+  useColorMode,
+  VStack,
+} from "native-base";
 import React from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { Ionicons } from "@expo/vector-icons";
+import { MainNavigation } from "./src/navigations/MainNavigation";
+import Expo from "expo";
+import {
+  useFonts,
+  Roboto_100Thin,
+  Roboto_100Thin_Italic,
+  Roboto_300Light,
+  Roboto_300Light_Italic,
+  Roboto_400Regular,
+  Roboto_400Regular_Italic,
+  Roboto_500Medium,
+  Roboto_500Medium_Italic,
+  Roboto_700Bold,
+  Roboto_700Bold_Italic,
+  Roboto_900Black,
+  Roboto_900Black_Italic,
+} from "@expo-google-fonts/roboto";
 
-function HomeScreen({ navigation }: any) {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home screen</Text>
-    </View>
-  );
-}
-
-function CatalogScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Catalog</Text>
-    </View>
-  );
-}
-
-function OrderMenu1Screen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
-
-function OrderMenu2Screen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
-
-const TabOrder = createMaterialTopTabNavigator();
-
-function OrderScreen() {
-  return (
-    <TabOrder.Navigator
-      screenOptions={{
-        tabBarScrollEnabled: true,
-        tabBarItemStyle: { width: 100},
-      }}
-    >
-      <TabOrder.Screen name="ordermenu1" component={OrderMenu1Screen} />
-      <TabOrder.Screen name="ordermenu2" component={OrderMenu2Screen} />
-      <TabOrder.Screen name="ordermenu3" component={OrderMenu2Screen} />
-      <TabOrder.Screen name="ordermenu4" component={OrderMenu2Screen} />
-      <TabOrder.Screen name="ordermenu5" component={OrderMenu2Screen} />
-    </TabOrder.Navigator>
-  );
-}
-
-function AccountScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
-
-const Tab = createBottomTabNavigator();
-
-export default function App() {
-  return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: () => {
-              return <Ionicons name="ios-information-circle" />;
-            },
-          })}
-        >
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Catalog" component={CatalogScreen} />
-          <Tab.Screen name="Order" component={OrderScreen} />
-          <Tab.Screen name="Account" component={AccountScreen} />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+// Define the config
+const config = {
+  useSystemColorMode: false,
+  initialColorMode: "dark",
+  fontConfig: {
+    Roboto: {
+      100: {
+        normal: Roboto_300Light,
+        italic: Roboto_300Light_Italic,
+      },
+      200: {
+        normal: Roboto_300Light,
+        italic: Roboto_300Light_Italic,
+      },
+      300: {
+        normal: Roboto_300Light,
+        italic: Roboto_300Light_Italic,
+      },
+      400: {
+        normal: Roboto_400Regular,
+        italic: Roboto_400Regular_Italic,
+      },
+      500: {
+        normal: Roboto_500Medium,
+        italic: Roboto_500Medium_Italic,
+      },
+      700: {
+        normal: Roboto_700Bold,
+        italic: Roboto_700Bold_Italic,
+      },
+    },
   },
-});
+
+  fonts: {
+    heading: "Roboto",
+    body: "Roboto",
+    mono: "Roboto",
+  },
+};
+
+// extend the theme
+export const theme = extendTheme({ config });
+export default function App() {
+  let [fontsLoaded] = useFonts({
+    "Roboto-Light": Roboto_300Light,
+    "Roboto-LightItalic": Roboto_300Light_Italic,
+    "Roboto-Regular": Roboto_400Regular,
+    "Roboto-Italic": Roboto_400Regular_Italic,
+    "Roboto-Medium": Roboto_500Medium,
+    "Roboto-MediumItalic": Roboto_500Medium_Italic,
+    "Roboto-Bold": Roboto_700Bold,
+    "Roboto-BoldItalic": Roboto_700Bold_Italic,
+  });
+
+  if (!fontsLoaded) {
+    return <>loading..</>;
+  } else {
+    return (
+      <NativeBaseProvider>
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <MainNavigation />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </NativeBaseProvider>
+    );
+  }
+}
+// Color Switch Component
+function ToggleDarkMode() {
+  const { colorMode, toggleColorMode } = useColorMode();
+  return (
+    <HStack space={2} alignItems="center">
+      <Text>Dark</Text>
+      <Switch
+        isChecked={colorMode === "light" ? true : false}
+        onToggle={toggleColorMode}
+        aria-label={
+          colorMode === "light" ? "switch to dark mode" : "switch to light mode"
+        }
+      />
+      <Text>Light</Text>
+    </HStack>
+  );
+}

@@ -1,42 +1,54 @@
 {
-  "main": "index.js",
   "name": "@sayurmax/telo",
+  "main": "__generated__/AppEntry.js",
+  "keywords": [
+    "react",
+    "expo",
+    "template",
+    "typescript",
+    "nativebase"
+  ],
+  "license": "MIT",
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
     "web": "expo start --web",
-    "start": "react-native start",
-    "test": "jest"
+    "eject": "expo eject",
+    "postinstall": "expo-yarn-workspaces postinstall"
   },
   "dependencies": {
-    "@babel/runtime": "^7.16.3",
+    "@expo-google-fonts/roboto": "^0.2.0",
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/material-top-tabs": "^6.0.6",
     "@react-navigation/native": "^6.0.6",
-    "expo": "~41.0.1",
-    "expo-splash-screen": "~0.10.2",
-    "expo-updates": "~0.5.4",
+    "babel-preset-expo": "^8.5.1",
+    "expo": "~42.0.0",
+    "expo-font": "~9.2.1",
+    "expo-status-bar": "~1.0.4",
+    "native-base": "3.2.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-native": "~0.63.4",
-    "react-native-gesture-handler": "~1.10.2",
-    "react-native-pager-view": "5.0.12",
-    "react-native-reanimated": "~2.1.0",
-    "react-native-screens": "~3.0.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native-safe-area-context": "3.2.0",
+    "react-native-screens": "^3.9.0",
+    "react-native-svg": "12.1.1",
     "react-native-tab-view": "^3.1.1",
-    "react-native-unimodules": "~0.13.3",
-    "react-native-web": "~0.13.12"
+    "react-native-web": "~0.13.12",
+    "styled-components": "^5.3.0",
+    "styled-system": "^5.1.5"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
-    "babel-preset-expo": "~8.3.0",
-    "jest-expo": "~41.0.0",
+    "expo-yarn-workspaces": "^1.6.0",
     "typescript": "~4.0.0"
   },
-  "jest": {
-    "preset": "react-native"
+  "bugs": {
+    "url": "https://github.com/GeekyAnts/nativebase-templates/issues"
   },
+  "homepage": "https://github.com/GeekyAnts/nativebase-templates#readme",
+  "author": "Aditya Jamuar",
   "private": true
 }
