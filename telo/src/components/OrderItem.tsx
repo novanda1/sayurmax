@@ -7,6 +7,18 @@ interface Props {
 }
 
 export const OrderItem = ({ data }: Props) => {
+  const date = new Date(data.createdAt);
+  const formatedDate =
+    date.getDay() +
+    "-" +
+    date.getMonth() +
+    "-" +
+    date.getFullYear() +
+    " " +
+    date.getHours() +
+    ":" +
+    date.getMinutes();
+
   return (
     <>
       <Box
@@ -22,8 +34,8 @@ export const OrderItem = ({ data }: Props) => {
           <Text fontFamily="body" fontWeight={600} fontSize="sm">
             Order #{data.id}
           </Text>
-          <Text fontFamily="body" fontWeight="light" fontSize="xs">
-            {data.createdAt}
+          <Text fontFamily="body" fontWeight="medium" fontSize="xs">
+            {formatedDate}
           </Text>
         </HStack>
         <VStack>
