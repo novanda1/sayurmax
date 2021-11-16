@@ -1,0 +1,7 @@
+fragment User on UserType {
+    id
+    displayName
+    phone
+    createdAt
+    updatedAt
+}

@@ -1,13 +1,16 @@
 fragment Order on Order {
     id
     status
-    address {
-        ...UserAddress
-    }
     total
+    updatedAt
+    createdAt
     items {
         ...Item
     }
-    updatedAt
-    createdAt
+    address {
+        ...UserAddress
+    }
+    user {
+        ...User
+    }
 }

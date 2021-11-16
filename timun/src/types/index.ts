@@ -117,6 +117,7 @@ export type Order = {
   status: OrderStatusCode;
   total: Scalars['Int'];
   updatedAt: Scalars['String'];
+  user: UserType;
 };
 
 export type OrderItem = {
@@ -249,9 +250,11 @@ export type CategoryFragment = { __typename?: 'CategoryType', id: number, slug: 
 
 export type ItemFragment = { __typename?: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename?: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } };
 
-export type OrderFragment = { __typename?: 'Order', id: string, status: OrderStatusCode, total: number, updatedAt: string, createdAt: string, address: { __typename?: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string }, items: Array<{ __typename?: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename?: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } }> };
+export type OrderFragment = { __typename?: 'Order', id: string, status: OrderStatusCode, total: number, updatedAt: string, createdAt: string, items: Array<{ __typename?: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename?: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } }>, address: { __typename?: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string }, user: { __typename?: 'UserType', id: any, displayName?: string | null | undefined, phone: string, createdAt: string, updatedAt: string } };
 
 export type ProductFragment = { __typename?: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined };
+
+export type UserFragment = { __typename?: 'UserType', id: any, displayName?: string | null | undefined, phone: string, createdAt: string, updatedAt: string };
 
 export type UserAddressFragment = { __typename?: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string };
 
@@ -265,19 +268,8 @@ export type OrdersQueryVariables = Exact<{
 }>;
 
 
-export type OrdersQuery = { __typename?: 'Query', orders: Array<{ __typename?: 'Order', id: string, status: OrderStatusCode, total: number, updatedAt: string, createdAt: string, address: { __typename?: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string }, items: Array<{ __typename?: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename?: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } }> }> };
+export type OrdersQuery = { __typename?: 'Query', orders: Array<{ __typename?: 'Order', id: string, status: OrderStatusCode, total: number, updatedAt: string, createdAt: string, items: Array<{ __typename?: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename?: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } }>, address: { __typename?: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string }, user: { __typename?: 'UserType', id: any, displayName?: string | null | undefined, phone: string, createdAt: string, updatedAt: string } }> };
 
-export const UserAddressFragmentDoc = gql`
-    fragment UserAddress on UserAddress {
-  id
-  name
-  recipient
-  phone
-  city
-  postalCode
-  address
-}
-    `;
 export const CategoryFragmentDoc = gql`
     fragment Category on CategoryType {
   id
@@ -312,22 +304,46 @@ export const ItemFragmentDoc = gql`
   }
 }
     ${ProductFragmentDoc}`;
+export const UserAddressFragmentDoc = gql`
+    fragment UserAddress on UserAddress {
+  id
+  name
+  recipient
+  phone
+  city
+  postalCode
+  address
+}
+    `;
+export const UserFragmentDoc = gql`
+    fragment User on UserType {
+  id
+  displayName
+  phone
+  createdAt
+  updatedAt
+}
+    `;
 export const OrderFragmentDoc = gql`
     fragment Order on Order {
   id
   status
-  address {
-    ...UserAddress
-  }
   total
+  updatedAt
+  createdAt
   items {
     ...Item
   }
-  updatedAt
-  createdAt
+  address {
+    ...UserAddress
+  }
+  user {
+    ...User
+  }
 }
-    ${UserAddressFragmentDoc}
-${ItemFragmentDoc}`;
+    ${ItemFragmentDoc}
+${UserAddressFragmentDoc}
+${UserFragmentDoc}`;
 export const HelloDocument = gql`
     query Hello {
   hello
