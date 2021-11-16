@@ -9,10 +9,11 @@ from gql.types.product import ProductType
 
 @strawberry.enum
 class OrderStatusCode(Enum):
-    Progress = 0
-    Completed = 1
-    OnDelivery = 2
-    Cancelled = 3
+    Unverified = 0
+    Progress = 1
+    Completed = 2
+    OnDelivery = 3
+    Cancelled = 4
 
 
 @strawberry.enum
@@ -20,12 +21,6 @@ class InvoiceStatusCode(Enum):
     Unpaid = 0
     Paid = 1
     Issued = 2
-
-
-@strawberry.enum
-class InteractionStatusCode(Enum):
-    NO = 0
-    YES = 1
 
 
 @strawberry.type
