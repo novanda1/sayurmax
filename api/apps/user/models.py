@@ -43,6 +43,7 @@ class UserAddress(models.Model):
     city = models.CharField(_("city"), max_length=50)
     postal_code = models.BigIntegerField(_("Postal Code"))
     address = models.CharField(_("address"), max_length=255)
+    detail = models.TextField(_("Address Detail"))
     user = models.ForeignKey(User, verbose_name=_(
         "user"), on_delete=models.CASCADE)
 
