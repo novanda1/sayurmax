@@ -1,8 +1,9 @@
 import React from "react";
-import { Text, View } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { OrderUnverifScreen } from "./OrderUnverif";
-import { OrderUndeliverScreen } from "./OrderUndeliver";
+import { OrderProgressScreen } from "./OrderProgress";
+import { OrderOnDeliveryScreen } from "./OrderOnDelivery";
+import { OrderCompletedScreen } from "./OrderCompleted";
 
 interface Props {}
 
@@ -18,7 +19,9 @@ export const OrderScreen = (props: Props) => {
       }}
     >
       <TabOrder.Screen name="Unverified" component={OrderUnverifScreen} />
-      <TabOrder.Screen name="Undeliver" component={OrderUndeliverScreen} />
+      <TabOrder.Screen name="On Progress" component={OrderProgressScreen} />
+      <TabOrder.Screen name="On Delivery" component={OrderOnDeliveryScreen} />
+      <TabOrder.Screen name="Completed" component={OrderCompletedScreen} />
     </TabOrder.Navigator>
   );
 };

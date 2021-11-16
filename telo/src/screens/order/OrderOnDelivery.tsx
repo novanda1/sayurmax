@@ -6,10 +6,10 @@ import { ScrollView, Box } from "native-base";
 
 interface Props {}
 
-export const OrderUnverifScreen = (props: Props) => {
+export const OrderOnDeliveryScreen = (props: Props) => {
   const { data } = useOrdersQuery({
     variables: {
-      status: OrderStatusCode.Unverified,
+      status: OrderStatusCode.OnDelivery,
     },
   });
 
