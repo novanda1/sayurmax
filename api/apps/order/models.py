@@ -8,21 +8,17 @@ from apps.grocery.models import Cart
 
 
 ORDER_STATUS_CODE = [
-    (0, "Progress"),
-    (1, "Cancelled"),
-    (2, "on Deliver"),
-    (3, "Completed")
+    (0, "Unverified"),
+    (1, "On Progress"),
+    (2, "On Delivery"),
+    (3, "Completed"),
+    (4, "Cancelled"),
 ]
 
 INVOICE_STATUS_CODE = [
     (0, "Unpaid"),
     (1, "Paid"),
     (2, "Issued")
-]
-
-ORDER_INTERACTIVITY_CODE = [
-    (0, "Not replied yet"),
-    (1, "Said \"YA\" Already"),
 ]
 
 
@@ -34,8 +30,6 @@ class Order(models.Model):
         "Address"), on_delete=models.SET_NULL, blank=True, null=True)
     order_status_code = models.SmallIntegerField(
         _("Order Status"), choices=ORDER_STATUS_CODE, default=0)
-    interact_status_code = models.SmallIntegerField(
-        _("Interact Status"), default=0, choices=ORDER_INTERACTIVITY_CODE)
     invoice_status_code = models.SmallIntegerField(
         _("Invoice Status"), choices=INVOICE_STATUS_CODE, default=0)
     total = models.FloatField(_("Order amount"), default=0)
@@ -65,4 +59,3 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.id}"
-
