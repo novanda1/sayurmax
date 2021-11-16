@@ -131,7 +131,8 @@ export enum OrderStatusCode {
   Cancelled = 'Cancelled',
   Completed = 'Completed',
   OnDelivery = 'OnDelivery',
-  Progress = 'Progress'
+  Progress = 'Progress',
+  Unverified = 'Unverified'
 }
 
 export type ProductResponse = {
@@ -174,6 +175,11 @@ export type Query = {
 
 export type QueryOrderArgs = {
   id: Scalars['ID'];
+};
+
+
+export type QueryOrdersArgs = {
+  status: OrderStatusCode;
 };
 
 
@@ -254,7 +260,9 @@ export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type HelloQuery = { __typename?: 'Query', hello: string };
 
-export type OrdersQueryVariables = Exact<{ [key: string]: never; }>;
+export type OrdersQueryVariables = Exact<{
+  status: OrderStatusCode;
+}>;
 
 
 export type OrdersQuery = { __typename?: 'Query', orders: Array<{ __typename?: 'Order', id: string, status: OrderStatusCode, total: number, updatedAt: string, createdAt: string, address: { __typename?: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string }, items: Array<{ __typename?: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename?: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } }> }> };
@@ -353,8 +361,8 @@ export type HelloQueryHookResult = ReturnType<typeof useHelloQuery>;
 export type HelloLazyQueryHookResult = ReturnType<typeof useHelloLazyQuery>;
 export type HelloQueryResult = Apollo.QueryResult<HelloQuery, HelloQueryVariables>;
 export const OrdersDocument = gql`
-    query Orders {
-  orders {
+    query Orders($status: OrderStatusCode!) {
+  orders(status: $status) {
     ...Order
   }
 }
@@ -372,10 +380,11 @@ export const OrdersDocument = gql`
  * @example
  * const { data, loading, error } = useOrdersQuery({
  *   variables: {
+ *      status: // value for 'status'
  *   },
  * });
  */
-export function useOrdersQuery(baseOptions?: Apollo.QueryHookOptions<OrdersQuery, OrdersQueryVariables>) {
+export function useOrdersQuery(baseOptions: Apollo.QueryHookOptions<OrdersQuery, OrdersQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<OrdersQuery, OrdersQueryVariables>(OrdersDocument, options);
       }
