@@ -3,10 +3,11 @@ from typing import List
 
 from apps.user.models import UserAddress, User
 from apps.order.models import Order, OrderItem
-from apps.grocery.models import Cart, CartProduct
+from apps.grocery.models import Cart, CartProduct, Product
 
-from gql.types.user import FieldError
-from gql.types.order import Order as OrderType, OrderItem as OrderItemType, OrderStatusCode
+from gql.types.user import FieldError, UserAddress as UserAddressType
+from gql.types.order import Order as OrderType, OrderItem as OrderItemType, OrderStatusCode, OrderItem as OrderItemType
+from gql.types.product import ProductType
 
 
 class OrderService:
@@ -108,7 +109,7 @@ class OrderService:
             raise Exception("not found")
 
         order_items = OrderItem.objects.filter(order=order)
-        address = UserAddress(
+        address = UserAddressType(
             id=order.address.id,
             name=order.address.name,
             recipient=order.address.recipient,
@@ -136,23 +137,41 @@ class OrderService:
 
         orders = Order.objects.filter(user=user)
 
-        orders_arr = []
+        orders_arr = list()
 
         for order in orders:
-            address = UserAddress(
-                id=order.address.id,
-                name=order.address.name,
-                recipient=order.address.recipient,
-                phone=order.address.phone,
-                city=order.address.city,
-                postal_code=order.address.postal_code,
-                address=order.address.address
-            ),
+            order_items = list()
+            for o in OrderItem.objects.filter(order__id=order.id):
+                order_item_product = Product.objects.get(id=o.product_id)
+                product = ProductType(
+                    order_item_product.id,
+                    order_item_product.title,
+                    order_item_product.slug,
+                    # the reason to not use "order_item_product" directly is just for changing this categories
+                    # @todo make it better
+                    order_item_product.categories.all(),
+                    order_item_product.image_url,
+                    order_item_product.normal_price,
+                    order_item_product.dicount_price,
+                    order_item_product.item_unit,
+                    order_item_product.information,
+                    order_item_product.nutrition,
+                    order_item_product.how_to_keep,
+                )
+
+                items = OrderItemType(
+                    id=o.id,
+                    product=product,
+                    qty=o.qty,
+                    at_price=o.at_price
+                )
+                
+                order_items.append(items)
 
             order_type = OrderType(
                 id=order.id,
-                status=OrderStatusCode[order.order_status_code],
-                address=address,
+                status=order.order_status_code,
+                address=order.address,
                 total=order.total,
                 items=order_items,
                 created_at=order.created_at,
