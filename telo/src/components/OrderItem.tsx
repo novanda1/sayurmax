@@ -14,7 +14,7 @@ export const OrderItem = ({ data }: Props) => {
     <>
       <Box
         bg="white"
-        borderLeftWidth={2}
+        borderLeftWidth={4}
         width="100%"
         borderColor="red.500"
         px={2}

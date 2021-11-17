@@ -38,7 +38,15 @@ function OrderStatus() {
 
 export const OrderScreen = (props: Props) => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={() => ({
+        headerStyle: {
+          borderBottomWidth: 0,
+          borderBottomColor: "transparent",
+          elevation: 0,
+        },
+      })}
+    >
       <Stack.Screen
         name="Order"
         options={{

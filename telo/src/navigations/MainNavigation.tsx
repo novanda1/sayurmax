@@ -16,9 +16,20 @@ export function MainNavigation() {
         if (route.name === "Order Root") {
           return {
             headerShown: false,
+            headerStyle: {
+              borderBottomWidth: 0,
+              borderBottomColor: "transparent",
+              elevation: 0,
+            },
           };
         }
-        return {};
+        return {
+          headerStyle: {
+            borderBottomWidth: 0,
+            borderBottomColor: "transparent",
+            elevation: 0,
+          },
+        };
       }}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
