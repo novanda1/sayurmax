@@ -4,9 +4,12 @@ import { ScrollView } from "react-native-gesture-handler";
 interface Props {}
 
 const OrderDetail = (props: Props) => {
-  return <ScrollView>
+  console.log(props);
+  return (
+    <ScrollView>
       <div>halo</div>
-  </ScrollView>;
+    </ScrollView>
+  );
 };
 
 export default OrderDetail;
