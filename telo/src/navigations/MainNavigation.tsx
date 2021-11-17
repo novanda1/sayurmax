@@ -23,7 +23,11 @@ export function MainNavigation() {
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Catalog" component={CatalogScreen} />
-      <Tab.Screen name="Order Root" component={OrderScreen} />
+      <Tab.Screen
+        options={{ tabBarLabel: "Order" }}
+        name="Order Root"
+        component={OrderScreen}
+      />
       <Tab.Screen name="Account" component={AccountScreen} />
     </Tab.Navigator>
   );
