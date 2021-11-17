@@ -1,29 +1,20 @@
 import React from "react";
 import { Box, HStack, VStack, Text } from "native-base";
 import { Order } from "@sayurmax/timun";
+import { formatDate } from "../utils/date";
 
 interface Props {
   data: Order;
 }
 
 export const OrderItem = ({ data }: Props) => {
-  const date = new Date(data.createdAt);
-  const formatedDate =
-    date.getDay() +
-    "-" +
-    date.getMonth() +
-    "-" +
-    date.getFullYear() +
-    " " +
-    date.getHours() +
-    ":" +
-    date.getMinutes();
+  const formatedDate = formatDate(data.createdAt);
 
   return (
     <>
       <Box
         bg="white"
-        borderLeftWidth={2}
+        borderLeftWidth={4}
         width="100%"
         borderColor="red.500"
         px={2}

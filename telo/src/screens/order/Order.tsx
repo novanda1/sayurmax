@@ -23,6 +23,9 @@ function OrderStatus() {
         tabBarScrollEnabled: true,
         tabBarItemStyle: { width: 100 },
         tabBarLabelStyle: { fontSize: 12, textTransform: "capitalize" },
+        tabBarActiveTintColor: "green",
+        tabBarInactiveTintColor: "gray",
+        tabBarIndicatorStyle: { backgroundColor: "green" },
       }}
     >
       <TabOrder.Screen name="Unverified" component={OrderUnverifScreen} />
@@ -35,7 +38,15 @@ function OrderStatus() {
 
 export const OrderScreen = (props: Props) => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={() => ({
+        headerStyle: {
+          borderBottomWidth: 0,
+          borderBottomColor: "transparent",
+          elevation: 0,
+        },
+      })}
+    >
       <Stack.Screen
         name="Order"
         options={{

@@ -1,63 +1,69 @@
 {
-    "name": "@sayurmax/telo",
-    "main": "__generated__/AppEntry.js",
-    "keywords": [
-        "react",
-        "expo",
-        "template",
-        "typescript",
-        "nativebase"
-    ],
-    "license": "MIT",
-    "scripts": {
-        "start": "expo start",
-        "android": "expo start --android",
-        "ios": "expo start --ios",
-        "web": "expo start --web",
-        "eject": "expo eject",
-        "postinstall": "expo-yarn-workspaces postinstall"
-    },
-    "dependencies": {
-        "@apollo/client": "^3.4.17",
-        "@expo-google-fonts/roboto": "^0.2.0",
-        "@expo/ngrok": "^4.1.0",
-        "@react-navigation/bottom-tabs": "^6.0.9",
-        "@react-navigation/material-top-tabs": "^6.0.6",
-        "@react-navigation/native": "^6.0.6",
-        "@react-navigation/stack": "^6.0.11",
-        "@sayurmax/timun": "workspace:^",
-        "babel-preset-expo": "^8.5.1",
-        "expo": "~42.0.0",
-        "expo-font": "~9.2.1",
-        "expo-status-bar": "~1.0.4",
-        "native-base": "3.2.1",
-        "react": "16.13.1",
-        "react-dom": "16.13.1",
-        "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
-        "react-native-gesture-handler": "^1.10.3",
-        "react-native-safe-area-context": "3.2.0",
-        "react-native-screens": "~3.4.0",
-        "react-native-svg": "12.1.1",
-        "react-native-tab-view": "^3.1.1",
-        "react-native-web": "~0.13.12",
-        "styled-components": "^5.3.0",
-        "styled-system": "^5.1.5"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.9.0",
-        "@types/react": "~16.9.35",
-        "@types/react-native": "~0.63.2",
-        "expo-yarn-workspaces": "^1.6.0",
-        "typescript": "~4.0.0"
-    },
-    "author": {
-        "name": "Novanda Ahsan",
-        "url": "https://github.com/novanda1"
-    },
-    "private": true,
-    "expo-yarn-workspaces": {
-        "symlinks": [
-            "react-native-unimodules"
-        ]
-    }
+  "name": "@sayurmax/telo",
+  "main": "__generated__/AppEntry.js",
+  "keywords": [
+    "react",
+    "expo",
+    "template",
+    "typescript",
+    "nativebase"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "start": "expo start --dev-client",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "postinstall": "expo-yarn-workspaces postinstall"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.4.17",
+    "@expo-google-fonts/roboto": "^0.2.0",
+    "@expo/ngrok": "^4.1.0",
+    "@react-navigation/bottom-tabs": "^6.0.9",
+    "@react-navigation/material-top-tabs": "^6.0.6",
+    "@react-navigation/native": "^6.0.6",
+    "@react-navigation/stack": "^6.0.11",
+    "@sayurmax/timun": "workspace:^",
+    "babel-preset-expo": "^8.5.1",
+    "expo": "~43.0.2",
+    "expo-app-loading": "~1.2.1",
+    "expo-font": "~10.0.3",
+    "expo-splash-screen": "~0.13.5",
+    "expo-status-bar": "~1.1.0",
+    "expo-updates": "~0.10.13",
+    "graphql": "^16.0.1",
+    "native-base": "3.2.1",
+    "react": "17.0.1",
+    "react-dom": "~17.0.1",
+    "react-native": "0.64.3",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-reanimated": "~2.2.0",
+    "react-native-safe-area-context": "3.3.2",
+    "react-native-screens": "~3.8.0",
+    "react-native-svg": "12.1.1",
+    "react-native-tab-view": "^3.1.1",
+    "react-native-web": "~0.13.12",
+    "styled-components": "^5.3.0",
+    "styled-system": "^5.1.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@types/react": "~16.9.35",
+    "@types/react-native": "~0.63.2",
+    "expo-yarn-workspaces": "^1.6.0",
+    "typescript": "~4.0.0"
+  },
+  "author": {
+    "name": "Novanda Ahsan",
+    "url": "https://github.com/novanda1"
+  },
+  "private": true,
+  "expo-yarn-workspaces": {
+    "symlinks": [
+      "react-native-unimodules"
+    ]
+  },
+  "version": "1.0.0"
 }
