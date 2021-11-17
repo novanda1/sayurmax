@@ -22,7 +22,7 @@ export const OrderItem = ({ data }: Props) => {
         rounded="lg"
       >
         <HStack alignItems="center" justifyContent="space-between">
-          <Text fontFamily="body" fontWeight={600} fontSize="sm" style={{fontFamily: "Roboto-Regular"}}>
+          <Text fontFamily="body" fontWeight={600} fontSize="sm">
             Order #{data.id}
           </Text>
           <Text fontFamily="body" fontWeight="medium" fontSize="xs">

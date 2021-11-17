@@ -15,8 +15,8 @@ const client = createApolloClient();
 
 export default function App() {
   return (
-    <NativeBaseProvider theme={theme}>
-      <FontProvider>
+    <FontProvider>
+      <NativeBaseProvider theme={theme}>
         <ApolloProvider client={client}>
           <SafeAreaProvider>
             <NavigationContainer>
@@ -24,7 +24,7 @@ export default function App() {
             </NavigationContainer>
           </SafeAreaProvider>
         </ApolloProvider>
-      </FontProvider>
-    </NativeBaseProvider>
+      </NativeBaseProvider>
+    </FontProvider>
   );
 }

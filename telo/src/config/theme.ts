@@ -33,5 +33,6 @@ export const config = {
     heading: "Roboto",
     body: "Roboto",
     mono: "Roboto",
+    roboto: "Roboto",
   },
 };
