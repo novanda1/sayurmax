@@ -23,6 +23,9 @@ function OrderStatus() {
         tabBarScrollEnabled: true,
         tabBarItemStyle: { width: 100 },
         tabBarLabelStyle: { fontSize: 12, textTransform: "capitalize" },
+        tabBarActiveTintColor: "green",
+        tabBarInactiveTintColor: "gray",
+        tabBarIndicatorStyle: { backgroundColor: "green" },
       }}
     >
       <TabOrder.Screen name="Unverified" component={OrderUnverifScreen} />
