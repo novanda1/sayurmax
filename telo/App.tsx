@@ -8,20 +8,23 @@ import { config } from "./src/config/theme";
 import { MainNavigation } from "./src/navigations/MainNavigation";
 import { ApolloProvider } from "@apollo/client";
 import { createApolloClient } from "@sayurmax/timun/src/apollo-client";
+import FontProvider from "./src/providers/FontProvider";
 
 export const theme = extendTheme({ config });
 const client = createApolloClient();
 
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <ApolloProvider client={client}>
-        <SafeAreaProvider>
-          <NavigationContainer>
-            <MainNavigation />
-          </NavigationContainer>
-        </SafeAreaProvider>
-      </ApolloProvider>
+    <NativeBaseProvider theme={theme}>
+      <FontProvider>
+        <ApolloProvider client={client}>
+          <SafeAreaProvider>
+            <NavigationContainer>
+              <MainNavigation />
+            </NavigationContainer>
+          </SafeAreaProvider>
+        </ApolloProvider>
+      </FontProvider>
     </NativeBaseProvider>
   );
 }

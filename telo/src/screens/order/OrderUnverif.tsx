@@ -23,6 +23,7 @@ export const OrderUnverifScreen = ({ navigation }: any) => {
             onPress={() =>
               navigation.navigate("Order Detail", {
                 items: o.items,
+                order: o,
               })
             }
           >

@@ -1,23 +1,14 @@
 import React from "react";
 import { Box, HStack, VStack, Text } from "native-base";
 import { Order } from "@sayurmax/timun";
+import { formatDate } from "../utils/date";
 
 interface Props {
   data: Order;
 }
 
 export const OrderItem = ({ data }: Props) => {
-  const date = new Date(data.createdAt);
-  const formatedDate =
-    date.getDay() +
-    "-" +
-    date.getMonth() +
-    "-" +
-    date.getFullYear() +
-    " " +
-    date.getHours() +
-    ":" +
-    date.getMinutes();
+  const formatedDate = formatDate(data.createdAt);
 
   return (
     <>
@@ -31,7 +22,7 @@ export const OrderItem = ({ data }: Props) => {
         rounded="lg"
       >
         <HStack alignItems="center" justifyContent="space-between">
-          <Text fontFamily="body" fontWeight={600} fontSize="sm">
+          <Text fontFamily="body" fontWeight={600} fontSize="sm" style={{fontFamily: "Roboto-Regular"}}>
             Order #{data.id}
           </Text>
           <Text fontFamily="body" fontWeight="medium" fontSize="xs">
