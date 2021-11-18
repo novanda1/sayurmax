@@ -1,8 +1,11 @@
+import gql from 'graphql-tag';
+import * as Urql from 'urql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -267,3 +270,98 @@ export type OrdersQueryVariables = Exact<{
 
 
 export type OrdersQuery = { __typename?: 'Query', orders: Array<{ __typename?: 'Order', id: string, status: OrderStatusCode, total: number, updatedAt: string, createdAt: string, items: Array<{ __typename?: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename?: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } }>, address: { __typename?: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string }, user: { __typename?: 'UserType', id: any, displayName?: string | null | undefined, phone: string, createdAt: string, updatedAt: string } }> };
+
+export const CategoryFragmentDoc = gql`
+    fragment Category on CategoryType {
+  id
+  slug
+  title
+}
+    `;
+export const ProductFragmentDoc = gql`
+    fragment Product on ProductType {
+  id
+  title
+  slug
+  categories {
+    ...Category
+  }
+  imageUrl
+  normalPrice
+  dicountPrice
+  itemUnit
+  information
+  nutrition
+  howToKeep
+}
+    ${CategoryFragmentDoc}`;
+export const ItemFragmentDoc = gql`
+    fragment Item on OrderItem {
+  id
+  atPrice
+  qty
+  product {
+    ...Product
+  }
+}
+    ${ProductFragmentDoc}`;
+export const UserAddressFragmentDoc = gql`
+    fragment UserAddress on UserAddress {
+  id
+  name
+  recipient
+  phone
+  city
+  postalCode
+  address
+}
+    `;
+export const UserFragmentDoc = gql`
+    fragment User on UserType {
+  id
+  displayName
+  phone
+  createdAt
+  updatedAt
+}
+    `;
+export const OrderFragmentDoc = gql`
+    fragment Order on Order {
+  id
+  status
+  total
+  updatedAt
+  createdAt
+  items {
+    ...Item
+  }
+  address {
+    ...UserAddress
+  }
+  user {
+    ...User
+  }
+}
+    ${ItemFragmentDoc}
+${UserAddressFragmentDoc}
+${UserFragmentDoc}`;
+export const HelloDocument = gql`
+    query Hello {
+  hello
+}
+    `;
+
+export function useHelloQuery(options: Omit<Urql.UseQueryArgs<HelloQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<HelloQuery>({ query: HelloDocument, ...options });
+};
+export const OrdersDocument = gql`
+    query Orders($status: OrderStatusCode!) {
+  orders(status: $status) {
+    ...Order
+  }
+}
+    ${OrderFragmentDoc}`;
+
+export function useOrdersQuery(options: Omit<Urql.UseQueryArgs<OrdersQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<OrdersQuery>({ query: OrdersDocument, ...options });
+};

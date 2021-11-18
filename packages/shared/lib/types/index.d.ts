@@ -1,3 +1,4 @@
+import * as Urql from 'urql';
 export declare type Maybe<T> = T | null;
 export declare type InputMaybe<T> = Maybe<T>;
 export declare type Exact<T extends {
@@ -11,6 +12,7 @@ export declare type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export declare type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
     [SubKey in K]: Maybe<T[SubKey]>;
 };
+export declare type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export declare type Scalars = {
     ID: string;
@@ -388,3 +390,13 @@ export declare type OrdersQuery = {
         };
     }>;
 };
+export declare const CategoryFragmentDoc: import("graphql").DocumentNode;
+export declare const ProductFragmentDoc: import("graphql").DocumentNode;
+export declare const ItemFragmentDoc: import("graphql").DocumentNode;
+export declare const UserAddressFragmentDoc: import("graphql").DocumentNode;
+export declare const UserFragmentDoc: import("graphql").DocumentNode;
+export declare const OrderFragmentDoc: import("graphql").DocumentNode;
+export declare const HelloDocument: import("graphql").DocumentNode;
+export declare function useHelloQuery(options?: Omit<Urql.UseQueryArgs<HelloQueryVariables>, 'query'>): Urql.UseQueryResponse<HelloQuery, object>;
+export declare const OrdersDocument: import("graphql").DocumentNode;
+export declare function useOrdersQuery(options?: Omit<Urql.UseQueryArgs<OrdersQueryVariables>, 'query'>): Urql.UseQueryResponse<OrdersQuery, object>;
