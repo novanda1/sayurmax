@@ -1,2 +1,2 @@
 export * from "./types/index";
-export * from "./apollo-client";
+export * from "./urql";

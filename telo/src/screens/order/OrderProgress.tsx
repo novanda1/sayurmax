@@ -7,12 +7,13 @@ import { ScrollView, Box } from "native-base";
 interface Props {}
 
 export const OrderProgressScreen = (props: Props) => {
-  const { data } = useOrdersQuery({
+  const [result] = useOrdersQuery({
     variables: {
       status: OrderStatusCode.Progress
     },
   });
 
+  const {data} = result
   return (
     <ScrollView>
       <OrderList>

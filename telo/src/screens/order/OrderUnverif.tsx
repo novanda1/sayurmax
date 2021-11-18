@@ -1,37 +1,41 @@
 import React from "react";
 import { OrderItem } from "../../components/OrderItem";
 import { OrderList } from "../../components/OrderList";
-import { OrderStatusCode, useOrdersQuery } from "@sayurmax/timun";
+import {
+    OrderStatusCode,
+    OrdersQuery,
+    useOrdersQuery,
+    useHelloQuery,
+    HelloDocument,
+} from "@sayurmax/timun";
 import { ScrollView, Pressable, Box } from "native-base";
+import { useQuery } from "urql";
 
-interface Props {}
+export const OrderUnverifScreen: React.FC = ({ navigation }: any) => {
+    const [a] = useQuery({
+        query: HelloDocument,
+    });
+    console.log('a :>> ', a);
 
-export const OrderUnverifScreen = ({ navigation }: any) => {
-  const { data } = useOrdersQuery({
-    variables: {
-      status: OrderStatusCode.Unverified,
-    },
-  });
-
-  return (
-    <ScrollView>
-      <OrderList>
-        {data?.orders.map((o) => (
-          <Pressable
-            key={o.id}
-            w="100%"
-            onPress={() =>
-              navigation.navigate("Order Detail", {
-                items: o.items,
-                order: o,
-              })
-            }
-          >
-            <OrderItem data={o} />
-          </Pressable>
-        ))}
-        <Box mb={7}></Box>
-      </OrderList>
-    </ScrollView>
-  );
+    return (
+        <ScrollView>
+            {/*            <OrderList>
+                {data?.orders.map((o) => (
+                    <Pressable
+                        key={o.id}
+                        w="100%"
+                        onPress={() =>
+                            navigation.navigate("Order Detail", {
+                                items: o.items,
+                                order: o,
+                            })
+                        }
+                    >
+                        <OrderItem data={o} />
+                    </Pressable>
+                ))}
+                <Box mb={7}></Box>
+                </OrderList> */}
+        </ScrollView>
+    );
 };
