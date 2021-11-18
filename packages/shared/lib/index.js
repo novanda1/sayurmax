@@ -1,11 +1,13 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.useTest = exports.halo = void 0;
-var react_1 = require("react");
-exports.halo = "hai";
-var useTest = function () {
-    (0, react_1.useEffect)(function () {
-        console.log("usetest");
-    }, []);
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
-exports.useTest = useTest;
+Object.defineProperty(exports, "__esModule", { value: true });
+__exportStar(require("./types"), exports);

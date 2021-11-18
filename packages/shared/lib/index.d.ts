@@ -1,2 +1,1 @@
-export declare const halo = "hai";
-export declare const useTest: () => void;
+export * from "./types";
