@@ -1,4 +1,3 @@
-import { Order, OrderItem } from "@sayurmax/timun";
 import { Badge, Box, Divider, HStack, Text, VStack, Button } from "native-base";
 import React from "react";
 import { ScrollView } from "react-native-gesture-handler";

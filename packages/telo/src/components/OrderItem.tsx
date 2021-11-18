@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, HStack, VStack, Text } from "native-base";
-import { Order } from "@sayurmax/timun";
 import { formatDate } from "../utils/date";
 
 interface Props {
