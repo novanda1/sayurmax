@@ -12,8 +12,6 @@ export const OrderUnverifScreen: React.FC = ({ navigation }: any) => {
     });
     const { data } = result;
 
-    console.log(data, error);
-
     return (
         <ScrollView>
             <OrderList>

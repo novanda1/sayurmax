@@ -28,7 +28,7 @@ const OrderDetail = ({ route }: any) => {
                     </Container>
                 </Box>
 
-                {/* <Box bg="white" mt="2" py="3" px="2">
+                <Box bg="white" mt="2" py="3" px="2">
                     <Container>
                         <Text fontFamily="body" fontWeight="bold" fontSize="md">
                             {order.address.recipient}
@@ -48,11 +48,8 @@ const OrderDetail = ({ route }: any) => {
 
                 <Box bg="white" mt="2" py="3" px="2">
                     <Container>
-                        <Text
-                            fontFamily="body"
-                            fontSize="sm
-            "
-                        >
+                        <Text fontFamily="body" fontSize="sm">
+                            {/*
                             <VStack w="100%">
                                 <Text mb="3">Items ({items.length})</Text>
                                 {items.map((item) => (
@@ -118,11 +115,11 @@ const OrderDetail = ({ route }: any) => {
                                     mt="3"
                                     variant="outline"
                                     colorScheme="green"
-                                    onPress={() => {}}
                                 >
                                     Hubungi via Whatsapp
                                 </Button>
                             </VStack>
+                            */}
                         </Text>
                     </Container>
                 </Box>
@@ -135,9 +132,8 @@ const OrderDetail = ({ route }: any) => {
                             </Text>
                             <Button colorScheme="green">Update</Button>
                         </VStack>
-            </Container>
-          </Box>
-          */}
+                    </Container>
+                </Box>
             </VStack>
         </ScrollView>
     );
