@@ -1,0 +1,16 @@
+fragment Order on Order {
+    id
+    status
+    total
+    updatedAt
+    createdAt
+    items {
+        ...Item
+    }
+    address {
+        ...UserAddress
+    }
+    user {
+        ...User
+    }
+}

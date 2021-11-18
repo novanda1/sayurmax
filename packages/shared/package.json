@@ -5,7 +5,8 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "gen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "typescript": "^4.5.2"
@@ -14,5 +15,11 @@
     "react": "*",
     "react-native": "*",
     "react-native-web": "*"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "2.3.0",
+    "@graphql-codegen/typescript": "2.4.0",
+    "@graphql-codegen/typescript-operations": "2.2.0",
+    "@graphql-codegen/typescript-urql": "^3.4.0"
   }
 }
