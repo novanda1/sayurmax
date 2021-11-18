@@ -1,20 +1,22 @@
 import React, { useEffect } from "react";
 import { OrderItem } from "../../components/OrderItem";
 import { OrderList } from "../../components/OrderList";
-import {
-  OrderStatusCode,
-  OrdersQuery,
-  useOrdersQuery,
-  useHelloQuery,
-  HelloDocument,
-} from "@sayurmax/timun";
 import { ScrollView, Pressable, Box } from "native-base";
-import { useQuery } from "urql";
+import { OrderStatusCode, useOrdersQuery } from "@sayurmax/shared";
 
 export const OrderUnverifScreen: React.FC = ({ navigation }: any) => {
-  return (
-    <ScrollView>
-      {/*            <OrderList>
+    const [result, error] = useOrdersQuery({
+        variables: {
+            status: OrderStatusCode.Unverified,
+        },
+    });
+    const { data } = result;
+
+    console.log(data, error);
+
+    return (
+        <ScrollView>
+            <OrderList>
                 {data?.orders.map((o) => (
                     <Pressable
                         key={o.id}
@@ -30,7 +32,7 @@ export const OrderUnverifScreen: React.FC = ({ navigation }: any) => {
                     </Pressable>
                 ))}
                 <Box mb={7}></Box>
-                </OrderList> */}
-    </ScrollView>
-  );
+            </OrderList>
+        </ScrollView>
+    );
 };
