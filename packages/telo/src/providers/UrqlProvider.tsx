@@ -8,7 +8,7 @@ interface Props {
 }
 
 const client = createClient({
-    url: "http://localhost:9090/graphql/",
+    url: "https://sayurmax.herokuapp.com/graphql/",
 });
 
 function UrqlProvider({ children }: Props): ReactElement {
