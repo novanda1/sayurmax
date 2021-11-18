@@ -29,10 +29,18 @@ function OrderStatus() {
             }}
         >
             <TabOrder.Screen name="Unverified" component={OrderUnverifScreen} />
-            {/*     <TabOrder.Screen name="On Progress" component={OrderProgressScreen} />
-      <TabOrder.Screen name="On Delivery" component={OrderOnDeliveryScreen} />
-      <TabOrder.Screen name="Completed" component={OrderCompletedScreen} />
-      */}
+            <TabOrder.Screen
+                name="On Progress"
+                component={OrderProgressScreen}
+            />
+            <TabOrder.Screen
+                name="On Delivery"
+                component={OrderOnDeliveryScreen}
+            />
+            <TabOrder.Screen
+                name="Completed"
+                component={OrderCompletedScreen}
+            />
         </TabOrder.Navigator>
     );
 }
