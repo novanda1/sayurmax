@@ -1,5 +1,0 @@
-query Orders($status: OrderStatusCode!) {
-    orders(status: $status) {
-        ...Order
-    }
-}

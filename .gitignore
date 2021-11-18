@@ -60,7 +60,7 @@ lerna-debug.log*
 !.yarn/versions
 
 # timun
-timun/lib
+# timun/lib
 
 # telo
 ### ReactNative ###

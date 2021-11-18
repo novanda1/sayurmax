@@ -3,9 +3,10 @@
     "private": true,
     "workspaces": {
         "packages": [
-            "timun",
-            "telo"
-        ]
+            "packages/shared",
+            "packages/telo"
+        ],
+				"nohoist": ["**/react-native", "**/react-native/**", "react", "react-dom"]
     },
     "repository": "git@github.com:novanda1/sayurmax.git",
     "author": "Novanda Ahsan <novandaahsan1@gmail.com>",
