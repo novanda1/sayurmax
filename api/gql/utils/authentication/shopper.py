@@ -1,14 +1,14 @@
 import typing
 import jwt
 
+from django.contrib.auth.models import User
+
 from starlette.requests import Request
 from starlette.websockets import WebSocket
 from strawberry.permission import BasePermission
 from strawberry.types import Info
 
 from utils import const
-
-from apps.shopper.models import Shopper
 
 
 def authenticate_shopper(request: Request):
@@ -21,7 +21,7 @@ def authenticate_shopper(request: Request):
         phone = payload["phone"]
 
         try:
-            shopper = Shopper.objects.get(phone=phone)
+            shopper = User.objects.get(phone=phone)
         except:
             return False
 
