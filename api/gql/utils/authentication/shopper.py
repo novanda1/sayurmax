@@ -18,10 +18,10 @@ def authenticate_shopper(request: Request):
     payload = jwt.decode(token, const.jwt_secret, algorithms=["HS256"])
 
     if payload:
-        phone = payload["phone"]
+        username = payload["username"]
 
         try:
-            shopper = User.objects.get(phone=phone)
+            shopper = User.objects.get(username=username)
         except:
             return False
 
