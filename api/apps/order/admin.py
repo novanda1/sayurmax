@@ -46,15 +46,18 @@ class DayFilter(admin.SimpleListFilter):
             return queryset.filter()
 
 
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'order_status_code',
                     'invoice_status_code')
-    fields = ('order_status_code',
-              'invoice_status_code')
     list_filter = [DayFilter, 'order_status_code',
                    'invoice_status_code']
     search_fields = ["id"]
+    inlines = [OrderItemInline]
 
     # def has_add_permission(self, request, obj=None):
     #     return False
