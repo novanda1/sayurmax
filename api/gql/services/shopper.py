@@ -1,6 +1,5 @@
 from django.contrib.auth import authenticate, models
 
-from apps.shopper.models import Shopper
 from gql.types.shopper import ShopperAuthResponse
 
 from utils import const
