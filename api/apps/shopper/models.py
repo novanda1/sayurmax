@@ -8,7 +8,7 @@ ph = PasswordHasher()
 
 
 class Shopper(models.Model):
-    phone = PhoneNumberField(_("Phone"))
+    phone = PhoneNumberField(_("Phone"), unique=True)
     password = models.CharField(_("Password"), max_length=150)
     display_name = models.CharField(_("Display Name"), max_length=50)
 
