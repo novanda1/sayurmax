@@ -16,5 +16,5 @@ class UserAdmin(admin.ModelAdmin):
     inlines = [AddressInline]
 
 
-admin.site.unregister(UserOld)
-admin.site.unregister(Group)
+# admin.site.unregister(UserOld)
+# admin.site.unregister(Group)

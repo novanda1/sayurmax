@@ -56,5 +56,5 @@ class OrderAdmin(admin.ModelAdmin):
                    'invoice_status_code']
     search_fields = ["id"]
 
-    def has_add_permission(self, request, obj=None):
-        return False
+    # def has_add_permission(self, request, obj=None):
+    #     return False

@@ -69,11 +69,12 @@ class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     class Meta:
+        app_label = 'order'
         verbose_name = _("cart")
         verbose_name_plural = _("carts")
 
     def __str__(self):
-        return self.pk
+        return str(self.user.display_name or self.user.phone)
 
 
 class CartProduct(models.Model):
@@ -84,8 +85,9 @@ class CartProduct(models.Model):
         "cart"), on_delete=models.CASCADE)
 
     class Meta:
+        app_label = 'order'
         verbose_name = _("cartproduct")
         verbose_name_plural = _("cartproducts")
 
     def __str__(self):
-        return self.id
+        return str(self.id)

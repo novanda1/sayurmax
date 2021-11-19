@@ -13,7 +13,7 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        app_label = 'grocery'
+        app_label = 'order'
         verbose_name = _("user")
         verbose_name_plural = _("users")
 

@@ -1,5 +1,9 @@
-from apps.grocery.models import Category, Product, ItemUnit
+from apps.grocery.models import Category, Product, ItemUnit, Cart, CartProduct
 from django.contrib import admin
+
+
+class CartProductInline(admin.TabularInline):
+    model = CartProduct
 
 
 @admin.register(Category)
@@ -18,3 +22,8 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(ItemUnit)
 class ItemUnitAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    inlines = [CartProductInline]
