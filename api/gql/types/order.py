@@ -11,8 +11,8 @@ from gql.types.product import ProductType
 class OrderStatusCode(Enum):
     Unverified = 0
     Progress = 1
-    Completed = 2
-    OnDelivery = 3
+    OnDelivery = 2
+    Completed = 3
     Cancelled = 4
 
 
