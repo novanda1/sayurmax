@@ -21,7 +21,7 @@ class UserServices:
         payload_data = {
             "sub": str(user.pk),
             "phone": user.phone,
-            "exp": datetime.datetime.now() + datetime.timedelta(days=7)
+            "exp": datetime.datetime.now(tz=pytz.utc) + datetime.timedelta(days=7)
         }
 
         token = jwt.encode(
