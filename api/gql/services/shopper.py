@@ -1,29 +1,25 @@
+from django.contrib.auth import authenticate, models
+
 from apps.shopper.models import Shopper
 from gql.types.shopper import ShopperAuthResponse
 
-from argon2 import PasswordHasher
 from utils import const
 
 import datetime
 import pytz
 import jwt
 
-ph = PasswordHasher()
-
 
 class ShopperServices:
-    def login(self, phone, password):
-        try:
-            shopper = Shopper.objects.get(phone=phone)
-        except:
-            raise Exception("shopper not found")
+    def login(self, username, password):
+        shopper = authenticate(username=username, password=password)
 
-        verified = ph.verify(shopper.password, password)
+        if shopper is not None:
+            user = models.User.objects.get(username=shopper)
 
-        if verified:
             payload_data = {
-                "sub": str(shopper.pk),
-                "phone": str(shopper.phone),
+                "sub": str(user.pk),
+                "username": str(user.username),
                 "exp": datetime.datetime.now(tz=pytz.utc) + datetime.timedelta(days=7)
             }
 
@@ -32,7 +28,6 @@ class ShopperServices:
                 key=const.jwt_secret
             )
 
-            return ShopperAuthResponse(shopper, token)
-
+            return ShopperAuthResponse(user, token)
         else:
-            raise Exception("wrong password")
+            raise Exception("wrong creditentials")

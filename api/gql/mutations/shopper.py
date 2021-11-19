@@ -6,6 +6,7 @@ services = ShopperServices()
 
 class ShopperMutation:
     @mutation
-    def login(self, phone: str, password: str):
-        token = services.login(phone, password)
+    def login(self, username: str, password: str):
+
+        token = services.login(username, password)
         return token
