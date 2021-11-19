@@ -1,6 +1,9 @@
 from django.contrib.auth import authenticate, models
 
+from apps.order.models import Order
+
 from gql.types.shopper import ShopperAuthResponse
+from gql.types.order import OrderStatusCode
 
 from utils import const
 
@@ -30,3 +33,16 @@ class ShopperServices:
             return ShopperAuthResponse(user, token)
         else:
             raise Exception("wrong creditentials")
+
+    def change_order_status(self, id, status: OrderStatusCode):
+        order = Order.objects.get(id=id)
+
+        order.order_status_code = status.value
+
+        try:
+            order.save()
+        except:
+            raise Exception("change status failed")
+
+        return OrderStatusCode(order.order_status_code).name
+    
