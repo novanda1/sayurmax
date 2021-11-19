@@ -6,6 +6,7 @@ from gql.mutations.cart import CartMutation
 from gql.queries.cart import CartQuery
 from gql.mutations.order import OrderMutation
 from gql.queries.order import OrderQuery
+from gql.mutations.shopper import ShopperMutation
 
 
 class Resolver:
@@ -18,3 +19,4 @@ class Resolver:
     otp_mutation: OtpMutation = OtpMutation()
     cart_mutation: CartMutation = CartMutation()
     order_mutation: OrderMutation = OrderMutation()
+    shopper_mutation: ShopperMutation = ShopperMutation()

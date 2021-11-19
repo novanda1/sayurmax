@@ -6,6 +6,7 @@ from gql.types.user import UserResponse, UserType, UserAddress
 from gql.types.product import ProductResponse, ProductType
 from gql.types.cart import Cart, CartProduct
 from gql.types.order import Order
+from gql.types.shopper import ShopperAuthResponse
 
 
 from gql.resolver import Resolver
@@ -45,6 +46,8 @@ class Mutation:
     user_edit_address: UserAddress = resolver.user_mutation.edit_user_address
 
     make_order: Order = resolver.order_mutation.make_order
+
+    shopper_login: ShopperAuthResponse = resolver.shopper_mutation.login
 
 
 schema = strawberry.Schema(query=Query, mutation=Mutation)
