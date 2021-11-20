@@ -39,7 +39,7 @@ class UserAddress(models.Model):
                    editable=False, unique=True)
     name = models.CharField(_("address label"), max_length=50)
     recipient = models.CharField(_("recipient's name"), max_length=50)
-    phone = models.BigIntegerField(_("phone number"))
+    phone = models.CharField(_("phone number"), max_length=50)
     city = models.CharField(_("city"), max_length=50)
     postal_code = models.BigIntegerField(_("Postal Code"))
     address = models.CharField(_("address"), max_length=255)
