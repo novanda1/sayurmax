@@ -6,40 +6,65 @@ import { CatalogScreen } from "../screens/Catalog";
 import { HomeScreen } from "../screens/Home";
 import { OrderScreen } from "../screens/order/Order";
 
+import Feather from "react-native-vector-icons/Feather";
+
 const Tab = createBottomTabNavigator();
 
 export function MainNavigation() {
-  return (
-    <Tab.Navigator
-      initialRouteName="Order Root"
-      screenOptions={({ route }) => {
-        if (route.name === "Order Root") {
-          return {
-            headerShown: false,
-            headerStyle: {
-              borderBottomWidth: 0,
-              borderBottomColor: "transparent",
-              elevation: 0,
-            },
-          };
-        }
-        return {
-          headerStyle: {
-            borderBottomWidth: 0,
-            borderBottomColor: "transparent",
-            elevation: 0,
-          },
-        };
-      }}
-    >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Catalog" component={CatalogScreen} />
-      <Tab.Screen
-        options={{ tabBarLabel: "Order" }}
-        name="Order Root"
-        component={OrderScreen}
-      />
-      <Tab.Screen name="Account" component={AccountScreen} />
-    </Tab.Navigator>
-  );
+    return (
+        <Tab.Navigator
+            initialRouteName="Order Root"
+            screenOptions={({ route }) => {
+                if (route.name === "Order Root") {
+                    return {
+                        headerShown: false,
+                        headerStyle: {
+                            borderBottomWidth: 0,
+                            borderBottomColor: "transparent",
+                            elevation: 0,
+                        },
+                    };
+                }
+                return {
+                    headerStyle: {
+                        borderBottomWidth: 0,
+                        borderBottomColor: "transparent",
+                        elevation: 0,
+                    },
+                };
+            }}
+        >
+            <Tab.Screen
+                name="Home"
+                options={{
+                    tabBarIcon: () => <Feather name="home" size={20} />,
+                }}
+                component={HomeScreen}
+            />
+            <Tab.Screen
+                name="Catalog"
+                options={{
+                    tabBarIcon: () => <Feather name="book" size={20} />,
+                }}
+                component={CatalogScreen}
+            />
+            <Tab.Screen
+                options={{
+                    tabBarLabel: "Order",
+                    tabBarIcon: () => <Feather name="shopping-bag" size={20} />,
+                }}
+                name="Order Root"
+                component={OrderScreen}
+            />
+            <Tab.Screen
+                name="Account"
+                options={{
+                    tabBarIcon: () => (
+                        <Feather name="user" size={20} color="gray.500" />
+                    ),
+                }}
+                component={AccountScreen}
+            />
+        </Tab.Navigator>
+    );
 }
