@@ -4,7 +4,7 @@ from django.utils.translation import gettext as _
 import uuid
 
 from apps.user.models import User, UserAddress
-from apps.grocery.models import Cart
+from apps.grocery.models import Cart, Product
 
 
 ORDER_STATUS_CODE = [
@@ -49,20 +49,23 @@ class OrderItem(models.Model):
                    editable=False, unique=True)
     order = models.ForeignKey(Order, verbose_name=_(
         "Order ID"), on_delete=models.CASCADE)
-    product_id = UUIDField()  # not sure what kind of relation between product
-    at_price = models.BigIntegerField(_("At price"))
-    qty = models.BigIntegerField(_("Quantity"))
+    product = models.OneToOneField(
+        Product, verbose_name=_("Product"), on_delete=models.CASCADE)
+    at_price = models.BigIntegerField(_("At price (auto add)"), default=0)
+    qty = models.BigIntegerField(_("Quantity"), default=1)
 
     class Meta:
         verbose_name = _("Order Item")
         verbose_name_plural = _("Order Items")
 
     def save(self, *args, **kwargs):
+        self.at_price = self.product.dicount_price or self.product.normal_price
+
         order = self.order
         order.total += self.at_price * self.qty
         order.save()
 
-        super().save(*args, **kwargs)
+        super(OrderItem, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.id}"
