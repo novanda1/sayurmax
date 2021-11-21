@@ -57,5 +57,12 @@ class OrderItem(models.Model):
         verbose_name = _("Order Item")
         verbose_name_plural = _("Order Items")
 
+    def save(self, *args, **kwargs):
+        order = self.order
+        order.total += self.at_price * self.qty
+        order.save()
+
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.id}"
