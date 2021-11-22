@@ -155,13 +155,8 @@ class OrderService:
         return order_type
 
     def orders(self, phone, status):
-        try:
-            user = User.objects.get(phone=phone)
-        except:
-            raise Exception("cant find user")
-
         orders = Order.objects.filter(
-            user=user).filter(order_status_code=status.value)
+            order_status_code=status.value)
 
         orders_arr = list()
 
@@ -196,7 +191,7 @@ class OrderService:
 
             order_type = OrderType(
                 id=order.id,
-                user=user,
+                user=order.user,
                 status=order.order_status_code,
                 address=order.address,
                 total=order.total,
