@@ -1,5 +1,3 @@
-from django.db import models
-from django.template.defaultfilters import title
 import factory
 from faker import Faker
 import apps
