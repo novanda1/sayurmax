@@ -78,9 +78,9 @@ class Cart(models.Model):
 
 
 class CartProduct(models.Model):
-    product = models.OneToOneField(
+    product = models.ForeignKey(
         Product, verbose_name=_("Product"), on_delete=models.CASCADE)
-    amount = models.BigIntegerField(_("product amount"))
+    amount = models.BigIntegerField(_("product amount"), default=1)
     cart = models.ForeignKey(Cart, verbose_name=_(
         "cart"), on_delete=models.CASCADE)
 

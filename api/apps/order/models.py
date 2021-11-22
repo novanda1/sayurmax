@@ -49,7 +49,7 @@ class OrderItem(models.Model):
                    editable=False, unique=True)
     order = models.ForeignKey(Order, verbose_name=_(
         "Order ID"), on_delete=models.CASCADE)
-    product = models.OneToOneField(
+    product = models.ForeignKey(
         Product, verbose_name=_("Product"), on_delete=models.CASCADE)
     at_price = models.BigIntegerField(_("At price (auto add)"), default=0)
     qty = models.BigIntegerField(_("Quantity"), default=1)

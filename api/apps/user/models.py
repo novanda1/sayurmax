@@ -52,4 +52,5 @@ class UserAddress(models.Model):
         verbose_name_plural = _("addresses")
 
     def __str__(self):
-        return str(self.id)
+
+        return f"{self.user.display_name or self.user.phone} - {self.name}"
