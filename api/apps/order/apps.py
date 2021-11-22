@@ -6,4 +6,4 @@ class OrderConfig(AppConfig):
     name = 'apps.order'
 
     def ready(self):
-        import apps.order.singnals
+        import apps.order.signals
