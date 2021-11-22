@@ -10,6 +10,7 @@ fake = Faker()
 
 
 units = ['1 kg', '1 pack', '1 pcs', '1 ons']
+categories = ['hidroponik', 'konvensional', 'Segar', 'Imperfect']
 fruits = ('Apple', 'Apricot', 'Banana', 'Blueberry', 'Cherry', 'Durian', 'Grapes', 'Guava', 'Lemon', 'Lime', 'Mango',
           'Melon', 'Orange', 'Papaya', 'Pear', 'Persimmon', 'Pineapple', 'Raspberry', 'Strawberry', 'Tomato', 'Watermelon')
 MIN_PRICE = 4000
@@ -20,14 +21,14 @@ class ItemUnitFaker(factory.django.DjangoModelFactory):
     class Meta:
         model = apps.grocery.models.ItemUnit
 
-    title = fake.sentence(ext_word_list=units)
+    title = random.choice(units)
 
 
 class CategoryFaker(factory.django.DjangoModelFactory):
     class Meta:
         model = apps.grocery.models.Category
 
-    title = fake.sentence(ext_word_list=units)
+    title = random.choice(categories)
     slug = apps.grocery.models.Category, fake.word
 
 
@@ -35,39 +36,38 @@ class ProductFaker(factory.django.DjangoModelFactory):
     class Meta:
         model = apps.grocery.models.Product
 
-    title = fake.sentence()
-    slug = fake.sentence()
-    categories = fake.sentence()
+    title = random.choice(fruits)
+    slug = random.choice(fruits)
+    categories = random.choice(categories)
     image_url = "https://picsum.photos/200/300"
     seller_price = 3000
     normal_price = 3000
     dicount_price = 3000
-    item_unit = apps.grocery.models.ItemUnit(
-        title=fake.word(ext_word_list=units))
+    item_unit = random.choice(units)
 
 
-def create_units(l: int):
-    for i in range(l):
-        ItemUnitFaker.create(title=fake.unique.word())
+def create_units():
+    for u in units:
+        ItemUnitFaker.create(title=u)
 
 
-def create_categories(l: int):
-    for i in range(l):
+def create_categories():
+    for c in categories:
         CategoryFaker.create(
-            title=fake.unique.word(),
-            slug=fake.unique.word()
+            title=c,
+            slug=c
         )
 
 
-def create_products(l: int):
+def create_products():
     categories = [
         category for category in apps.grocery.models.Category.objects.filter()]
     units = [unit for unit in apps.grocery.models.ItemUnit.objects.filter()]
 
-    for i in range(l):
+    for f in fruits:
         product = apps.grocery.models.Product(
-            title=random.choice(fruits),
-            slug=fake.sentence(),
+            title=f,
+            slug=f,
             image_url="https://picsum.photos/200/300",
             seller_price=3000,
             normal_price=3000,
