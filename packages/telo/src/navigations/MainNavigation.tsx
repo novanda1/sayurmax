@@ -37,6 +37,7 @@ export function MainNavigation() {
             <Tab.Screen
                 name="Home"
                 options={{
+                    tabBarLabelStyle: { fontWeight: "bold" },
                     tabBarIcon: () => <Feather name="home" size={20} />,
                 }}
                 component={HomeScreen}
@@ -44,6 +45,7 @@ export function MainNavigation() {
             <Tab.Screen
                 name="Catalog"
                 options={{
+                    tabBarLabelStyle: { fontWeight: "bold" },
                     tabBarIcon: () => <Feather name="book" size={20} />,
                 }}
                 component={CatalogScreen}
@@ -51,6 +53,7 @@ export function MainNavigation() {
             <Tab.Screen
                 options={{
                     tabBarLabel: "Order",
+                    tabBarLabelStyle: { fontWeight: "bold" },
                     tabBarIcon: () => <Feather name="shopping-bag" size={20} />,
                 }}
                 name="Order Root"
@@ -59,6 +62,7 @@ export function MainNavigation() {
             <Tab.Screen
                 name="Account"
                 options={{
+                    tabBarLabelStyle: { fontWeight: "bold" },
                     tabBarIcon: () => (
                         <Feather name="user" size={20} color="gray.500" />
                     ),

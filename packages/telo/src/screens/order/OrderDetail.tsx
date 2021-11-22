@@ -4,8 +4,15 @@ import { ScrollView } from "react-native-gesture-handler";
 import Container from "../../components/Container";
 import { formatDate } from "../../utils/date";
 
+import { Order, OrderItem } from "@sayurmax/shared";
+
 const OrderDetail = ({ route }: any) => {
-    const { order, items }: { order: Order; items: [OrderItem] } = route.params;
+    type RouteParams = {
+        order: Order;
+        items: [OrderItem];
+    };
+
+    const { order, items }: RouteParams = route.params;
     return (
         <ScrollView>
             <VStack>
@@ -48,7 +55,6 @@ const OrderDetail = ({ route }: any) => {
                 <Box bg="white" mt="2" py="3" px="2">
                     <Container>
                         <Text fontFamily="body" fontSize="sm">
-                            {/*
                             <VStack w="100%">
                                 <Text mb="3">Items ({items.length})</Text>
                                 {items.map((item) => (
@@ -118,7 +124,6 @@ const OrderDetail = ({ route }: any) => {
                                     Hubungi via Whatsapp
                                 </Button>
                             </VStack>
-                            */}
                         </Text>
                     </Container>
                 </Box>
@@ -129,7 +134,9 @@ const OrderDetail = ({ route }: any) => {
                             <Text fontSize="xl" fontWeight="bold" mb="3">
                                 Update Status
                             </Text>
-                            <Button colorScheme="green">Update</Button>
+                            <Button colorScheme="green" >
+                                Move to on progress
+                            </Button>
                         </VStack>
                     </Container>
                 </Box>

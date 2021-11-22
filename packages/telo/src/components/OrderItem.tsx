@@ -14,10 +14,10 @@ export const OrderItem = ({ data }: Props) => {
         <>
             <Box
                 bg="white"
-                borderLeftWidth={4}
+                // borderLeftWidth={4}
                 width="100%"
                 borderColor="red.500"
-                px={2}
+                px={3}
                 py={3}
                 rounded="lg"
             >
