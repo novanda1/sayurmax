@@ -42,7 +42,7 @@ class Order(models.Model):
         verbose_name_plural = _("Orders")
 
     def __str__(self):
-        return f"#{self.id}"
+        return f"#{self.id} - {self.total}"
 
     def save(self, *args, **kwargs):
         total = 0
