@@ -154,7 +154,7 @@ class OrderService:
 
         return order_type
 
-    def orders(self, phone, status):
+    def orders(self, status):
         orders = Order.objects.filter(
             order_status_code=status.value)
 

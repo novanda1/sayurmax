@@ -17,12 +17,5 @@ class OrderQuery:
 
     @strawberry.field(permission_classes=[JwtAuth])
     def orders(self, info: Info, status: OrderStatusCode):
-        request: Request = info.context['request']
-
-        try:
-            phone = get_phone_from_jwt(request)
-        except:
-            raise Exception("phone ")
-
-        orders = order_services.orders(phone=phone, status=status)
+        orders = order_services.orders(status=status)
         return orders
