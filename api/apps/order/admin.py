@@ -46,7 +46,7 @@ class DayFilter(admin.SimpleListFilter):
             return queryset.filter()
 
 
-class OrderItemInline(admin.TabularInline):
+class OrderItemInline(admin.StackedInline):
     model = OrderItem
 
 

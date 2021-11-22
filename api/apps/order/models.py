@@ -32,7 +32,8 @@ class Order(models.Model):
         _("Order Status"), choices=ORDER_STATUS_CODE, default=0)
     invoice_status_code = models.SmallIntegerField(
         _("Invoice Status"), choices=INVOICE_STATUS_CODE, default=0)
-    total = models.FloatField(_("Order amount"), default=0)
+    total = models.FloatField(
+        _("Total Invoice"), help_text="dont touch this field (auto add)", default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -43,6 +44,17 @@ class Order(models.Model):
     def __str__(self):
         return f"#{self.id}"
 
+    def save(self, *args, **kwargs):
+        total = 0
+        items = OrderItem.objects.filter(order=self)
+
+        for item in items:
+            total += item.at_price
+
+        self.total = total
+
+        super(Order, self).save(*args, **kwargs)
+
 
 class OrderItem(models.Model):
     id = UUIDField(primary_key=True, default=uuid.uuid4,
@@ -51,7 +63,8 @@ class OrderItem(models.Model):
         "Order ID"), on_delete=models.CASCADE)
     product = models.ForeignKey(
         Product, verbose_name=_("Product"), on_delete=models.CASCADE)
-    at_price = models.BigIntegerField(_("At price (auto add)"), default=0)
+    at_price = models.BigIntegerField(
+        _("At price (auto add)"), help_text="dont touch this field (auto add)", default=0)
     qty = models.BigIntegerField(_("Quantity"), default=1)
 
     class Meta:
@@ -59,11 +72,8 @@ class OrderItem(models.Model):
         verbose_name_plural = _("Order Items")
 
     def save(self, *args, **kwargs):
-        self.at_price = self.product.dicount_price or self.product.normal_price
-
-        order = self.order
-        order.total += self.at_price * self.qty
-        order.save()
+        product_price = self.product.dicount_price if self.product.dicount_price else self.product.normal_price
+        self.at_price = product_price * self.qty
 
         super(OrderItem, self).save(*args, **kwargs)
 
