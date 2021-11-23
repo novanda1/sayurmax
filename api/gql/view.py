@@ -18,7 +18,7 @@ def get_userid(request: Request):
         try:
             payload = jwt.decode(token, const.jwt_secret, algorithms=["HS256"])
         except:
-            pass
+            return None
 
         return payload['sub'] if payload else None
     else:
