@@ -8,12 +8,15 @@ from gql.services.order import OrderService
 from utils.whatsapp import Whatsapp
 from utils.rupiah import rupiah_format
 
+from asgiref.sync import sync_to_async
+
 order_service = OrderService()
 wa = Whatsapp()
 
 
 class OrderMutation:
     @mutation(permission_classes=[JwtAuth])
+    @sync_to_async
     def make_order(self, info: Info, address_id: UUID):
         request: Request = info.context["request"]
         phone = get_phone_from_jwt(request=request)

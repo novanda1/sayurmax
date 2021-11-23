@@ -8,21 +8,25 @@ from gql.utils.authentication.default import JwtAuth, get_phone_from_jwt
 from gql.services.user import UserServices
 from gql.types.user import UserDto
 
+from asgiref.sync import sync_to_async
+
 user_services = UserServices()
 
 
 class UserMutation:
     @strawberry.mutation(permission_classes=[JwtAuth])
+    @sync_to_async
     def edit_user(
         self,
         info: Info,
         options: UserDto
     ):
         user = user_services.edit_user(options)
-        
+
         return user
 
     @strawberry.mutation(permission_classes=[JwtAuth])
+    @sync_to_async
     def add_user_address(
         self,
         info: Info,
@@ -42,6 +46,7 @@ class UserMutation:
         return address
 
     @strawberry.mutation(permission_classes=[JwtAuth])
+    @sync_to_async
     def edit_user_address(
         self,
         info: Info,

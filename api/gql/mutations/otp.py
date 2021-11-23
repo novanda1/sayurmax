@@ -9,6 +9,7 @@ from strawberry.types import Info
 from starlette.requests import Request
 
 from phonenumber_field.validators import validate_international_phonenumber
+from asgiref.sync import sync_to_async
 
 wa = Whatsapp()
 OTP = pyotp.HOTP(const.topt_32)
@@ -19,6 +20,7 @@ otp_services = OtpServices()
 
 class OtpMutation:
     @strawberry.mutation
+    @sync_to_async
     def auth_call(self, phone: str):
         try:
             validate_international_phonenumber(phone)
@@ -35,6 +37,7 @@ class OtpMutation:
         return "OTP sent successfully"
 
     @strawberry.mutation
+    @sync_to_async
     def auth_verif(self, info: Info, phone: str, otp: str):
         verified = otp_services.verif(phone, otp)
         return verified
