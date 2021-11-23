@@ -48,7 +48,7 @@ class Mutation:
     make_order: Order = resolver.order_mutation.make_order
 
     shopper_login: ShopperAuthResponse = resolver.shopper_mutation.login
-    shopper_change_order_status_code: Order = resolver.shopper_mutation.change_order_status
+    shopper_change_order_status_code: str = resolver.shopper_mutation.change_order_status
 
 
 schema = strawberry.Schema(query=Query, mutation=Mutation)
