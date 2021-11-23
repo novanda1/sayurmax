@@ -104,12 +104,7 @@ class OrderService:
 
         return result
 
-    def order(self, id):
-        try:
-            order = Order.objects.get(id=id)
-        except:
-            raise Exception("not found")
-
+    def order(self, id, order: Order):
         try:
             user = User.objects.get(id=order.user.id)
         except:

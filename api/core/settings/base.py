@@ -15,6 +15,9 @@ from utils import const
 
 import os
 
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -87,7 +90,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'core.wsgi.application'
+ASGI_APPLICATION = 'core.asgi.application'
 
 
 # Password validation

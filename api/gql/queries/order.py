@@ -13,10 +13,10 @@ order_services = OrderService()
 
 class OrderQuery:
     @strawberry.field(permission_classes=[JwtAuth])
-    @sync_to_async
-    def order(self, id: strawberry.ID):
-        order = order_services.order(id)
-        return order
+    async def order(self, info: Info, id: strawberry.ID):
+        order = await info.context["order_loader"].load(id)
+        result = order_services.order(id, order)
+        return result
 
     @strawberry.field(permission_classes=[JwtAuth])
     @sync_to_async

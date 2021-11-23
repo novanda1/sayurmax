@@ -1,11 +1,14 @@
 import jwt
 
 from strawberry.django.views import AsyncGraphQLView
+from strawberry.dataloader import DataLoader
 from django.http import HttpRequest, HttpResponse
 from starlette.requests import Request
 
 from typing import Any
 from utils import const
+
+from gql.loaders import load_orders
 
 
 def get_userid(request: Request):
@@ -17,11 +20,13 @@ def get_userid(request: Request):
     else:
         return None
 
+
 class View(AsyncGraphQLView):
     async def get_context(self, request: HttpRequest, response: HttpResponse):
         return {
             "request": request,
             "response": response,
             "userid": get_userid(request),
+            "order_loader": DataLoader(load_fn=load_orders),
             "greeting": "hello from graphql context",
         }
