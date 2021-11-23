@@ -4,12 +4,16 @@ from apps.order.models import Order
 
 from gql.types.shopper import ShopperAuthResponse
 from gql.types.order import OrderStatusCode
+from gql.services.order import OrderService
 
 from utils import const
 
 import datetime
 import pytz
 import jwt
+
+
+order_services = OrderService()
 
 
 class ShopperServices:
@@ -44,5 +48,4 @@ class ShopperServices:
         except:
             raise Exception("change status failed")
 
-        return OrderStatusCode(order.order_status_code).name
-    
+        return order_services.order(id)
