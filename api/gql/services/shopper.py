@@ -27,7 +27,8 @@ class ShopperServices:
 
             token = jwt.encode(
                 payload=payload_data,
-                key=const.jwt_secret
+                key=const.jwt_secret,
+                json_encoder='utf-8'
             )
 
             return ShopperAuthResponse(user, token)
@@ -45,4 +46,3 @@ class ShopperServices:
             raise Exception("change status failed")
 
         return OrderStatusCode(order.order_status_code).name
-    
