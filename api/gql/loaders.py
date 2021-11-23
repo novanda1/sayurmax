@@ -3,4 +3,4 @@ from typing import List
 
 
 async def load_orders(keys) -> List[Order]:
-    return [Order.objects.filter(pk=key) for key in keys]
+    return [Order.objects.get(pk=key) for key in keys]
