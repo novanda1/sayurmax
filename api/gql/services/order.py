@@ -104,15 +104,11 @@ class OrderService:
 
         return result
 
-    def order(self, id, order: Order):
-        try:
-            user = User.objects.get(id=order.user.id)
-        except:
-            raise Exception("err")
-
+    async def order(self, order: Order, user, items, product_loader):
         order_items = list()
-        for o in OrderItem.objects.filter(order__id=order.id):
-            order_item_product = Product.objects.get(id=o.product_id)
+        for o in items:
+            order_item_product = await product_loader.load(o.product.id)
+
             product = ProductType(
                 order_item_product.id,
                 order_item_product.title,

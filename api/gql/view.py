@@ -8,7 +8,7 @@ from starlette.requests import Request
 from typing import Any
 from utils import const
 
-from gql.loaders import load_orders
+from gql.loaders import load_orders, load_users, load_orderitems, load_products
 
 
 def get_userid(request: Request):
@@ -28,5 +28,8 @@ class View(AsyncGraphQLView):
             "response": response,
             "userid": get_userid(request),
             "order_loader": DataLoader(load_fn=load_orders),
+            "user_loader": DataLoader(load_fn=load_users),
+            "orderitems_loader": DataLoader(load_fn=load_orderitems),
+            "product_loader": DataLoader(load_fn=load_products),
             "greeting": "hello from graphql context",
         }
