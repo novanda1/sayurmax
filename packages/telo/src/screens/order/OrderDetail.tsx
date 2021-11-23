@@ -1,15 +1,24 @@
-import { Badge, Box, Divider, HStack, Text, VStack, Button } from "native-base";
-import React, { useCallback, useMemo } from "react";
-import { ScrollView } from "react-native-gesture-handler";
-import Container from "../../components/Container";
-import { formatDate } from "../../utils/date";
-
 import {
     Order,
     OrderItem,
     OrderStatusCode,
     useChangeOrderStatusMutation,
 } from "@sayurmax/shared";
+import {
+    Badge,
+    Box,
+    Button,
+    CheckIcon,
+    Divider,
+    HStack,
+    Select,
+    Text,
+    VStack,
+} from "native-base";
+import React, { useCallback, useMemo, useState } from "react";
+import { ScrollView } from "react-native-gesture-handler";
+import Container from "../../components/Container";
+import { formatDate } from "../../utils/date";
 
 const OrderDetail = ({ route }: any) => {
     type RouteParams = {
@@ -19,18 +28,20 @@ const OrderDetail = ({ route }: any) => {
 
     const { order, items }: RouteParams = route.params;
 
+    const [orderStatus, setOrderStatus] = useState(order.status as string);
+
     const context = useMemo(() => ({ additionalTypenames: ["Order"] }), []);
-    const [result, execute] = useChangeOrderStatusMutation();
+    const [_, execute] = useChangeOrderStatusMutation();
 
     const handleChangeOrderStatus = useCallback(() => {
         execute(
             {
                 shopperChangeOrderStatusCodeId: order.id,
-                status: OrderStatusCode.Progress,
+                status: orderStatus as OrderStatusCode,
             },
             context
         );
-    }, []);
+    }, [orderStatus, context, order]);
 
     return (
         <ScrollView>
@@ -153,11 +164,37 @@ const OrderDetail = ({ route }: any) => {
                             <Text fontSize="xl" fontWeight="bold" mb="3">
                                 Update Status
                             </Text>
+
+                            <Select
+                                selectedValue={orderStatus}
+                                minWidth="200"
+                                accessibilityLabel="Choose Status"
+                                placeholder="Choose Status"
+                                _selectedItem={{
+                                    bg: "teal.600",
+                                    endIcon: <CheckIcon size="5" />,
+                                }}
+                                mt={1}
+                                mb={1}
+                                onValueChange={(itemValue) => {
+                                    setOrderStatus(itemValue);
+                                }}
+                            >
+                                {Object.values(OrderStatusCode)
+                                    .reverse()
+                                    .map((s) => (
+                                        <Select.Item
+                                            key={s}
+                                            label={s}
+                                            value={s}
+                                        />
+                                    ))}
+                            </Select>
                             <Button
                                 colorScheme="green"
                                 onPress={handleChangeOrderStatus}
                             >
-                                Move to on progress
+                                Update
                             </Button>
                         </VStack>
                     </Container>
