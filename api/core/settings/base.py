@@ -15,8 +15,6 @@ from utils import const
 
 import os
 
-os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
