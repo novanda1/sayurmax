@@ -20,7 +20,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import Container from "../../components/Container";
 import { formatDate } from "../../utils/date";
 
-const OrderDetail = ({ route }: any) => {
+const OrderDetail = ({ route, navigation }: any) => {
     type RouteParams = {
         order: Order;
         items: [OrderItem];
@@ -36,14 +36,16 @@ const OrderDetail = ({ route }: any) => {
     );
     const [_, execute] = useChangeOrderStatusMutation();
 
-    const handleChangeOrderStatus = useCallback(() => {
-        execute(
+    const handleChangeOrderStatus = useCallback(async () => {
+        await execute(
             {
                 shopperChangeOrderStatusCodeId: order.id,
                 status: orderStatus as OrderStatusCode,
             },
             context
         );
+
+        navigation.goBack();
     }, [orderStatus, context, order]);
 
     return (
