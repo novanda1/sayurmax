@@ -4,20 +4,12 @@ import { OrderUnverifScreen } from "./OrderUnverif";
 import { OrderProgressScreen } from "./OrderProgress";
 import { OrderOnDeliveryScreen } from "./OrderOnDelivery";
 import { OrderCompletedScreen } from "./OrderCompleted";
-import {
-    CardStyleInterpolators,
-    createStackNavigator,
-} from "@react-navigation/stack";
-import OrderDetail from "./OrderDetail";
-import { OrderCancelledScreen } from "./OrderCancelled";
 
-interface Props {}
+import { OrderCancelledScreen } from "./OrderCancelled";
 
 const TabOrder = createMaterialTopTabNavigator();
 
-const Stack = createStackNavigator();
-
-function OrderStatus() {
+export function OrderScreen() {
     return (
         <TabOrder.Navigator
             screenOptions={{
@@ -52,34 +44,3 @@ function OrderStatus() {
         </TabOrder.Navigator>
     );
 }
-
-export const OrderScreen = (props: Props) => {
-    return (
-        <Stack.Navigator
-            screenOptions={() => ({
-                headerStyle: {
-                    borderBottomWidth: 0,
-                    borderBottomColor: "transparent",
-                    elevation: 0,
-                },
-            })}
-        >
-            <Stack.Screen
-                name="Order"
-                options={{
-                    cardStyleInterpolator:
-                        CardStyleInterpolators.forHorizontalIOS,
-                }}
-                component={OrderStatus}
-            />
-            <Stack.Screen
-                options={{
-                    cardStyleInterpolator:
-                        CardStyleInterpolators.forHorizontalIOS,
-                }}
-                name="Order Detail"
-                component={OrderDetail}
-            />
-        </Stack.Navigator>
-    );
-};

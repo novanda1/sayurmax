@@ -4,8 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { extendTheme, NativeBaseProvider } from "native-base";
 import React from "react";
 import { config } from "./src/config/theme";
-import { MainNavigation } from "./src/navigations/MainNavigation";
 import { UrqlProvider } from "@sayurmax/shared";
+import { RootNavigation } from "./src/navigations/RootNavigation";
 
 const theme = extendTheme({ config });
 
@@ -14,7 +14,7 @@ export default function App() {
         <NativeBaseProvider theme={theme}>
             <UrqlProvider>
                 <NavigationContainer>
-                    <MainNavigation />
+                    <RootNavigation />
                 </NavigationContainer>
             </UrqlProvider>
         </NativeBaseProvider>
