@@ -1,15 +1,15 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { OrderUnverifScreen } from "./OrderUnverif";
-import { OrderProgressScreen } from "./OrderProgress";
-import { OrderOnDeliveryScreen } from "./OrderOnDelivery";
-import { OrderCompletedScreen } from "./OrderCompleted";
+import { OrderUnverifScreen } from "../screens/order/OrderUnverif";
+import { OrderProgressScreen } from "../screens/order/OrderProgress";
+import { OrderOnDeliveryScreen } from "../screens/order/OrderOnDelivery";
+import { OrderCompletedScreen } from "../screens/order/OrderCompleted";
 
-import { OrderCancelledScreen } from "./OrderCancelled";
+import { OrderCancelledScreen } from "../screens/order/OrderCancelled";
 
 const TabOrder = createMaterialTopTabNavigator();
 
-export function OrderScreen() {
+export function OrderNavigation() {
     return (
         <TabOrder.Navigator
             screenOptions={{

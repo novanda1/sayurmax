@@ -6,7 +6,7 @@ import { CatalogScreen } from "../screens/Catalog";
 import { HomeScreen } from "../screens/Home";
 
 import Feather from "react-native-vector-icons/Feather";
-import { OrderScreen } from "../screens/order/Order";
+import { OrderNavigation } from "./OrderNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -63,7 +63,7 @@ export function MainNavigation() {
                     ),
                 }}
                 name="Order"
-                component={OrderScreen}
+                component={OrderNavigation}
             />
             <Tab.Screen
                 name="Account"
