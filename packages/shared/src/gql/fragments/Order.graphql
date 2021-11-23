@@ -1,4 +1,5 @@
 fragment Order on Order {
+    __typename
     id
     status
     total

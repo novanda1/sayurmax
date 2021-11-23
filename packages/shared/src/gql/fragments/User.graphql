@@ -1,4 +1,5 @@
 fragment User on UserType {
+    __typename
     id
     displayName
     phone

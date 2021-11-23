@@ -1,4 +1,5 @@
 fragment UserAddress on UserAddress {
+    __typename
     id
     name
     recipient

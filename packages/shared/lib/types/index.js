@@ -37,7 +37,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useOrdersQuery = exports.OrdersDocument = exports.useHelloQuery = exports.HelloDocument = exports.OrderFragmentDoc = exports.UserFragmentDoc = exports.UserAddressFragmentDoc = exports.ItemFragmentDoc = exports.ProductFragmentDoc = exports.CategoryFragmentDoc = exports.TypeOfProduct = exports.OrderStatusCode = void 0;
+exports.useOrdersQuery = exports.OrdersDocument = exports.useHelloQuery = exports.HelloDocument = exports.useChangeOrderStatusMutation = exports.ChangeOrderStatusDocument = exports.OrderFragmentDoc = exports.UserFragmentDoc = exports.UserAddressFragmentDoc = exports.ItemFragmentDoc = exports.ProductFragmentDoc = exports.CategoryFragmentDoc = exports.TypeOfProduct = exports.OrderStatusCode = void 0;
 var graphql_tag_1 = __importDefault(require("graphql-tag"));
 var Urql = __importStar(require("urql"));
 var OrderStatusCode;
@@ -53,24 +53,30 @@ var TypeOfProduct;
     TypeOfProduct["CartProduct"] = "CART_PRODUCT";
     TypeOfProduct["Product"] = "PRODUCT";
 })(TypeOfProduct = exports.TypeOfProduct || (exports.TypeOfProduct = {}));
-exports.CategoryFragmentDoc = (0, graphql_tag_1.default)(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    fragment Category on CategoryType {\n  id\n  slug\n  title\n}\n    "], ["\n    fragment Category on CategoryType {\n  id\n  slug\n  title\n}\n    "])));
-exports.ProductFragmentDoc = (0, graphql_tag_1.default)(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    fragment Product on ProductType {\n  id\n  title\n  slug\n  categories {\n    ...Category\n  }\n  imageUrl\n  normalPrice\n  dicountPrice\n  itemUnit\n  information\n  nutrition\n  howToKeep\n}\n    ", ""], ["\n    fragment Product on ProductType {\n  id\n  title\n  slug\n  categories {\n    ...Category\n  }\n  imageUrl\n  normalPrice\n  dicountPrice\n  itemUnit\n  information\n  nutrition\n  howToKeep\n}\n    ", ""])), exports.CategoryFragmentDoc);
-exports.ItemFragmentDoc = (0, graphql_tag_1.default)(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n    fragment Item on OrderItem {\n  id\n  atPrice\n  qty\n  product {\n    ...Product\n  }\n}\n    ", ""], ["\n    fragment Item on OrderItem {\n  id\n  atPrice\n  qty\n  product {\n    ...Product\n  }\n}\n    ", ""])), exports.ProductFragmentDoc);
-exports.UserAddressFragmentDoc = (0, graphql_tag_1.default)(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n    fragment UserAddress on UserAddress {\n  id\n  name\n  recipient\n  phone\n  city\n  postalCode\n  address\n}\n    "], ["\n    fragment UserAddress on UserAddress {\n  id\n  name\n  recipient\n  phone\n  city\n  postalCode\n  address\n}\n    "])));
-exports.UserFragmentDoc = (0, graphql_tag_1.default)(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n    fragment User on UserType {\n  id\n  displayName\n  phone\n  createdAt\n  updatedAt\n}\n    "], ["\n    fragment User on UserType {\n  id\n  displayName\n  phone\n  createdAt\n  updatedAt\n}\n    "])));
-exports.OrderFragmentDoc = (0, graphql_tag_1.default)(templateObject_6 || (templateObject_6 = __makeTemplateObject(["\n    fragment Order on Order {\n  id\n  status\n  total\n  updatedAt\n  createdAt\n  items {\n    ...Item\n  }\n  address {\n    ...UserAddress\n  }\n  user {\n    ...User\n  }\n}\n    ", "\n", "\n", ""], ["\n    fragment Order on Order {\n  id\n  status\n  total\n  updatedAt\n  createdAt\n  items {\n    ...Item\n  }\n  address {\n    ...UserAddress\n  }\n  user {\n    ...User\n  }\n}\n    ", "\n", "\n", ""])), exports.ItemFragmentDoc, exports.UserAddressFragmentDoc, exports.UserFragmentDoc);
-exports.HelloDocument = (0, graphql_tag_1.default)(templateObject_7 || (templateObject_7 = __makeTemplateObject(["\n    query Hello {\n  hello\n}\n    "], ["\n    query Hello {\n  hello\n}\n    "])));
+exports.CategoryFragmentDoc = (0, graphql_tag_1.default)(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    fragment Category on CategoryType {\n  __typename\n  id\n  slug\n  title\n}\n    "], ["\n    fragment Category on CategoryType {\n  __typename\n  id\n  slug\n  title\n}\n    "])));
+exports.ProductFragmentDoc = (0, graphql_tag_1.default)(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    fragment Product on ProductType {\n  __typename\n  id\n  title\n  slug\n  categories {\n    ...Category\n  }\n  imageUrl\n  normalPrice\n  dicountPrice\n  itemUnit\n  information\n  nutrition\n  howToKeep\n}\n    ", ""], ["\n    fragment Product on ProductType {\n  __typename\n  id\n  title\n  slug\n  categories {\n    ...Category\n  }\n  imageUrl\n  normalPrice\n  dicountPrice\n  itemUnit\n  information\n  nutrition\n  howToKeep\n}\n    ", ""])), exports.CategoryFragmentDoc);
+exports.ItemFragmentDoc = (0, graphql_tag_1.default)(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n    fragment Item on OrderItem {\n  __typename\n  id\n  atPrice\n  qty\n  product {\n    ...Product\n  }\n}\n    ", ""], ["\n    fragment Item on OrderItem {\n  __typename\n  id\n  atPrice\n  qty\n  product {\n    ...Product\n  }\n}\n    ", ""])), exports.ProductFragmentDoc);
+exports.UserAddressFragmentDoc = (0, graphql_tag_1.default)(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n    fragment UserAddress on UserAddress {\n  __typename\n  id\n  name\n  recipient\n  phone\n  city\n  postalCode\n  address\n}\n    "], ["\n    fragment UserAddress on UserAddress {\n  __typename\n  id\n  name\n  recipient\n  phone\n  city\n  postalCode\n  address\n}\n    "])));
+exports.UserFragmentDoc = (0, graphql_tag_1.default)(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n    fragment User on UserType {\n  __typename\n  id\n  displayName\n  phone\n  createdAt\n  updatedAt\n}\n    "], ["\n    fragment User on UserType {\n  __typename\n  id\n  displayName\n  phone\n  createdAt\n  updatedAt\n}\n    "])));
+exports.OrderFragmentDoc = (0, graphql_tag_1.default)(templateObject_6 || (templateObject_6 = __makeTemplateObject(["\n    fragment Order on Order {\n  __typename\n  id\n  status\n  total\n  updatedAt\n  createdAt\n  items {\n    ...Item\n  }\n  address {\n    ...UserAddress\n  }\n  user {\n    ...User\n  }\n}\n    ", "\n", "\n", ""], ["\n    fragment Order on Order {\n  __typename\n  id\n  status\n  total\n  updatedAt\n  createdAt\n  items {\n    ...Item\n  }\n  address {\n    ...UserAddress\n  }\n  user {\n    ...User\n  }\n}\n    ", "\n", "\n", ""])), exports.ItemFragmentDoc, exports.UserAddressFragmentDoc, exports.UserFragmentDoc);
+exports.ChangeOrderStatusDocument = (0, graphql_tag_1.default)(templateObject_7 || (templateObject_7 = __makeTemplateObject(["\n    mutation ChangeOrderStatus($shopperChangeOrderStatusCodeId: String!, $status: OrderStatusCode!) {\n  shopperChangeOrderStatusCode(\n    id: $shopperChangeOrderStatusCodeId\n    status: $status\n  ) {\n    ...Order\n  }\n}\n    ", ""], ["\n    mutation ChangeOrderStatus($shopperChangeOrderStatusCodeId: String!, $status: OrderStatusCode!) {\n  shopperChangeOrderStatusCode(\n    id: $shopperChangeOrderStatusCodeId\n    status: $status\n  ) {\n    ...Order\n  }\n}\n    ", ""])), exports.OrderFragmentDoc);
+function useChangeOrderStatusMutation() {
+    return Urql.useMutation(exports.ChangeOrderStatusDocument);
+}
+exports.useChangeOrderStatusMutation = useChangeOrderStatusMutation;
+;
+exports.HelloDocument = (0, graphql_tag_1.default)(templateObject_8 || (templateObject_8 = __makeTemplateObject(["\n    query Hello {\n  hello\n}\n    "], ["\n    query Hello {\n  hello\n}\n    "])));
 function useHelloQuery(options) {
     if (options === void 0) { options = {}; }
     return Urql.useQuery(__assign({ query: exports.HelloDocument }, options));
 }
 exports.useHelloQuery = useHelloQuery;
 ;
-exports.OrdersDocument = (0, graphql_tag_1.default)(templateObject_8 || (templateObject_8 = __makeTemplateObject(["\n    query Orders($status: OrderStatusCode!) {\n  orders(status: $status) {\n    ...Order\n  }\n}\n    ", ""], ["\n    query Orders($status: OrderStatusCode!) {\n  orders(status: $status) {\n    ...Order\n  }\n}\n    ", ""])), exports.OrderFragmentDoc);
+exports.OrdersDocument = (0, graphql_tag_1.default)(templateObject_9 || (templateObject_9 = __makeTemplateObject(["\n    query Orders($status: OrderStatusCode!) {\n  orders(status: $status) {\n    ...Order\n  }\n}\n    ", ""], ["\n    query Orders($status: OrderStatusCode!) {\n  orders(status: $status) {\n    ...Order\n  }\n}\n    ", ""])), exports.OrderFragmentDoc);
 function useOrdersQuery(options) {
     if (options === void 0) { options = {}; }
     return Urql.useQuery(__assign({ query: exports.OrdersDocument }, options));
 }
 exports.useOrdersQuery = useOrdersQuery;
 ;
-var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8;
+var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9;

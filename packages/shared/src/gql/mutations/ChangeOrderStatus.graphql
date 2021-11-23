@@ -1,0 +1,11 @@
+mutation ChangeOrderStatus(
+    $shopperChangeOrderStatusCodeId: String!
+    $status: OrderStatusCode!
+) {
+    shopperChangeOrderStatusCode(
+        id: $shopperChangeOrderStatusCodeId
+        status: $status
+    ) {
+        ...Order
+    }
+}

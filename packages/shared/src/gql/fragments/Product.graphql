@@ -1,4 +1,5 @@
 fragment Product on ProductType {
+    __typename
     id
     title
     slug

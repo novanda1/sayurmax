@@ -49,6 +49,8 @@ export type Mutation = {
   authVerif: UserResponse;
   editCartProductAmount: CartProduct;
   makeOrder: Order;
+  shopperChangeOrderStatusCode: Order;
+  shopperLogin: ShopperAuthResponse;
   userAddAddress: UserAddress;
   userEdit: UserType;
   userEditAddress: UserAddress;
@@ -81,6 +83,18 @@ export type MutationEditCartProductAmountArgs = {
 
 export type MutationMakeOrderArgs = {
   addressId: Scalars['UUID'];
+};
+
+
+export type MutationShopperChangeOrderStatusCodeArgs = {
+  id: Scalars['String'];
+  status: OrderStatusCode;
+};
+
+
+export type MutationShopperLoginArgs = {
+  password: Scalars['String'];
+  username: Scalars['String'];
 };
 
 
@@ -210,6 +224,20 @@ export type QueryVerifyJwtArgs = {
   token: Scalars['String'];
 };
 
+export type Shopper = {
+  __typename?: 'Shopper';
+  email?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  username: Scalars['String'];
+};
+
+export type ShopperAuthResponse = {
+  __typename?: 'ShopperAuthResponse';
+  shopper: Shopper;
+  token: Scalars['String'];
+};
+
 export enum TypeOfProduct {
   CartProduct = 'CART_PRODUCT',
   Product = 'PRODUCT'
@@ -247,17 +275,25 @@ export type UserType = {
   updatedAt: Scalars['String'];
 };
 
-export type CategoryFragment = { __typename?: 'CategoryType', id: number, slug: string, title: string };
+export type CategoryFragment = { __typename: 'CategoryType', id: number, slug: string, title: string };
 
-export type ItemFragment = { __typename?: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename?: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } };
+export type ItemFragment = { __typename: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } };
 
-export type OrderFragment = { __typename?: 'Order', id: string, status: OrderStatusCode, total: number, updatedAt: string, createdAt: string, items: Array<{ __typename?: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename?: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } }>, address: { __typename?: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string }, user: { __typename?: 'UserType', id: any, displayName?: string | null | undefined, phone: string, createdAt: string, updatedAt: string } };
+export type OrderFragment = { __typename: 'Order', id: string, status: OrderStatusCode, total: number, updatedAt: string, createdAt: string, items: Array<{ __typename: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } }>, address: { __typename: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string }, user: { __typename: 'UserType', id: any, displayName?: string | null | undefined, phone: string, createdAt: string, updatedAt: string } };
 
-export type ProductFragment = { __typename?: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined };
+export type ProductFragment = { __typename: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename: 'CategoryType', id: number, slug: string, title: string }> | null | undefined };
 
-export type UserFragment = { __typename?: 'UserType', id: any, displayName?: string | null | undefined, phone: string, createdAt: string, updatedAt: string };
+export type UserFragment = { __typename: 'UserType', id: any, displayName?: string | null | undefined, phone: string, createdAt: string, updatedAt: string };
 
-export type UserAddressFragment = { __typename?: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string };
+export type UserAddressFragment = { __typename: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string };
+
+export type ChangeOrderStatusMutationVariables = Exact<{
+  shopperChangeOrderStatusCodeId: Scalars['String'];
+  status: OrderStatusCode;
+}>;
+
+
+export type ChangeOrderStatusMutation = { __typename?: 'Mutation', shopperChangeOrderStatusCode: { __typename: 'Order', id: string, status: OrderStatusCode, total: number, updatedAt: string, createdAt: string, items: Array<{ __typename: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } }>, address: { __typename: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string }, user: { __typename: 'UserType', id: any, displayName?: string | null | undefined, phone: string, createdAt: string, updatedAt: string } } };
 
 export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -269,10 +305,11 @@ export type OrdersQueryVariables = Exact<{
 }>;
 
 
-export type OrdersQuery = { __typename?: 'Query', orders: Array<{ __typename?: 'Order', id: string, status: OrderStatusCode, total: number, updatedAt: string, createdAt: string, items: Array<{ __typename?: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename?: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename?: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } }>, address: { __typename?: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string }, user: { __typename?: 'UserType', id: any, displayName?: string | null | undefined, phone: string, createdAt: string, updatedAt: string } }> };
+export type OrdersQuery = { __typename?: 'Query', orders: Array<{ __typename: 'Order', id: string, status: OrderStatusCode, total: number, updatedAt: string, createdAt: string, items: Array<{ __typename: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } }>, address: { __typename: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string }, user: { __typename: 'UserType', id: any, displayName?: string | null | undefined, phone: string, createdAt: string, updatedAt: string } }> };
 
 export const CategoryFragmentDoc = gql`
     fragment Category on CategoryType {
+  __typename
   id
   slug
   title
@@ -280,6 +317,7 @@ export const CategoryFragmentDoc = gql`
     `;
 export const ProductFragmentDoc = gql`
     fragment Product on ProductType {
+  __typename
   id
   title
   slug
@@ -297,6 +335,7 @@ export const ProductFragmentDoc = gql`
     ${CategoryFragmentDoc}`;
 export const ItemFragmentDoc = gql`
     fragment Item on OrderItem {
+  __typename
   id
   atPrice
   qty
@@ -307,6 +346,7 @@ export const ItemFragmentDoc = gql`
     ${ProductFragmentDoc}`;
 export const UserAddressFragmentDoc = gql`
     fragment UserAddress on UserAddress {
+  __typename
   id
   name
   recipient
@@ -318,6 +358,7 @@ export const UserAddressFragmentDoc = gql`
     `;
 export const UserFragmentDoc = gql`
     fragment User on UserType {
+  __typename
   id
   displayName
   phone
@@ -327,6 +368,7 @@ export const UserFragmentDoc = gql`
     `;
 export const OrderFragmentDoc = gql`
     fragment Order on Order {
+  __typename
   id
   status
   total
@@ -345,6 +387,20 @@ export const OrderFragmentDoc = gql`
     ${ItemFragmentDoc}
 ${UserAddressFragmentDoc}
 ${UserFragmentDoc}`;
+export const ChangeOrderStatusDocument = gql`
+    mutation ChangeOrderStatus($shopperChangeOrderStatusCodeId: String!, $status: OrderStatusCode!) {
+  shopperChangeOrderStatusCode(
+    id: $shopperChangeOrderStatusCodeId
+    status: $status
+  ) {
+    ...Order
+  }
+}
+    ${OrderFragmentDoc}`;
+
+export function useChangeOrderStatusMutation() {
+  return Urql.useMutation<ChangeOrderStatusMutation, ChangeOrderStatusMutationVariables>(ChangeOrderStatusDocument);
+};
 export const HelloDocument = gql`
     query Hello {
   hello

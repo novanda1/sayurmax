@@ -51,6 +51,8 @@ export declare type Mutation = {
     authVerif: UserResponse;
     editCartProductAmount: CartProduct;
     makeOrder: Order;
+    shopperChangeOrderStatusCode: Order;
+    shopperLogin: ShopperAuthResponse;
     userAddAddress: UserAddress;
     userEdit: UserType;
     userEditAddress: UserAddress;
@@ -73,6 +75,14 @@ export declare type MutationEditCartProductAmountArgs = {
 };
 export declare type MutationMakeOrderArgs = {
     addressId: Scalars['UUID'];
+};
+export declare type MutationShopperChangeOrderStatusCodeArgs = {
+    id: Scalars['String'];
+    status: OrderStatusCode;
+};
+export declare type MutationShopperLoginArgs = {
+    password: Scalars['String'];
+    username: Scalars['String'];
 };
 export declare type MutationUserAddAddressArgs = {
     address: Scalars['String'];
@@ -175,6 +185,18 @@ export declare type QueryUserGetAddressArgs = {
 export declare type QueryVerifyJwtArgs = {
     token: Scalars['String'];
 };
+export declare type Shopper = {
+    __typename?: 'Shopper';
+    email?: Maybe<Scalars['String']>;
+    firstName?: Maybe<Scalars['String']>;
+    lastName?: Maybe<Scalars['String']>;
+    username: Scalars['String'];
+};
+export declare type ShopperAuthResponse = {
+    __typename?: 'ShopperAuthResponse';
+    shopper: Shopper;
+    token: Scalars['String'];
+};
 export declare enum TypeOfProduct {
     CartProduct = "CART_PRODUCT",
     Product = "PRODUCT"
@@ -208,18 +230,18 @@ export declare type UserType = {
     updatedAt: Scalars['String'];
 };
 export declare type CategoryFragment = {
-    __typename?: 'CategoryType';
+    __typename: 'CategoryType';
     id: number;
     slug: string;
     title: string;
 };
 export declare type ItemFragment = {
-    __typename?: 'OrderItem';
+    __typename: 'OrderItem';
     id: any;
     atPrice: number;
     qty: number;
     product: {
-        __typename?: 'ProductType';
+        __typename: 'ProductType';
         id: any;
         title: string;
         slug: string;
@@ -231,7 +253,7 @@ export declare type ItemFragment = {
         nutrition?: string | null | undefined;
         howToKeep?: string | null | undefined;
         categories?: Array<{
-            __typename?: 'CategoryType';
+            __typename: 'CategoryType';
             id: number;
             slug: string;
             title: string;
@@ -239,19 +261,19 @@ export declare type ItemFragment = {
     };
 };
 export declare type OrderFragment = {
-    __typename?: 'Order';
+    __typename: 'Order';
     id: string;
     status: OrderStatusCode;
     total: number;
     updatedAt: string;
     createdAt: string;
     items: Array<{
-        __typename?: 'OrderItem';
+        __typename: 'OrderItem';
         id: any;
         atPrice: number;
         qty: number;
         product: {
-            __typename?: 'ProductType';
+            __typename: 'ProductType';
             id: any;
             title: string;
             slug: string;
@@ -263,7 +285,7 @@ export declare type OrderFragment = {
             nutrition?: string | null | undefined;
             howToKeep?: string | null | undefined;
             categories?: Array<{
-                __typename?: 'CategoryType';
+                __typename: 'CategoryType';
                 id: number;
                 slug: string;
                 title: string;
@@ -271,7 +293,7 @@ export declare type OrderFragment = {
         };
     }>;
     address: {
-        __typename?: 'UserAddress';
+        __typename: 'UserAddress';
         id: any;
         name: string;
         recipient: string;
@@ -281,7 +303,7 @@ export declare type OrderFragment = {
         address: string;
     };
     user: {
-        __typename?: 'UserType';
+        __typename: 'UserType';
         id: any;
         displayName?: string | null | undefined;
         phone: string;
@@ -290,7 +312,7 @@ export declare type OrderFragment = {
     };
 };
 export declare type ProductFragment = {
-    __typename?: 'ProductType';
+    __typename: 'ProductType';
     id: any;
     title: string;
     slug: string;
@@ -302,14 +324,14 @@ export declare type ProductFragment = {
     nutrition?: string | null | undefined;
     howToKeep?: string | null | undefined;
     categories?: Array<{
-        __typename?: 'CategoryType';
+        __typename: 'CategoryType';
         id: number;
         slug: string;
         title: string;
     }> | null | undefined;
 };
 export declare type UserFragment = {
-    __typename?: 'UserType';
+    __typename: 'UserType';
     id: any;
     displayName?: string | null | undefined;
     phone: string;
@@ -317,7 +339,7 @@ export declare type UserFragment = {
     updatedAt: string;
 };
 export declare type UserAddressFragment = {
-    __typename?: 'UserAddress';
+    __typename: 'UserAddress';
     id: any;
     name: string;
     recipient: string;
@@ -325,6 +347,64 @@ export declare type UserAddressFragment = {
     city: string;
     postalCode: number;
     address: string;
+};
+export declare type ChangeOrderStatusMutationVariables = Exact<{
+    shopperChangeOrderStatusCodeId: Scalars['String'];
+    status: OrderStatusCode;
+}>;
+export declare type ChangeOrderStatusMutation = {
+    __typename?: 'Mutation';
+    shopperChangeOrderStatusCode: {
+        __typename: 'Order';
+        id: string;
+        status: OrderStatusCode;
+        total: number;
+        updatedAt: string;
+        createdAt: string;
+        items: Array<{
+            __typename: 'OrderItem';
+            id: any;
+            atPrice: number;
+            qty: number;
+            product: {
+                __typename: 'ProductType';
+                id: any;
+                title: string;
+                slug: string;
+                imageUrl: string;
+                normalPrice: number;
+                dicountPrice?: number | null | undefined;
+                itemUnit: string;
+                information?: string | null | undefined;
+                nutrition?: string | null | undefined;
+                howToKeep?: string | null | undefined;
+                categories?: Array<{
+                    __typename: 'CategoryType';
+                    id: number;
+                    slug: string;
+                    title: string;
+                }> | null | undefined;
+            };
+        }>;
+        address: {
+            __typename: 'UserAddress';
+            id: any;
+            name: string;
+            recipient: string;
+            phone: string;
+            city: string;
+            postalCode: number;
+            address: string;
+        };
+        user: {
+            __typename: 'UserType';
+            id: any;
+            displayName?: string | null | undefined;
+            phone: string;
+            createdAt: string;
+            updatedAt: string;
+        };
+    };
 };
 export declare type HelloQueryVariables = Exact<{
     [key: string]: never;
@@ -339,19 +419,19 @@ export declare type OrdersQueryVariables = Exact<{
 export declare type OrdersQuery = {
     __typename?: 'Query';
     orders: Array<{
-        __typename?: 'Order';
+        __typename: 'Order';
         id: string;
         status: OrderStatusCode;
         total: number;
         updatedAt: string;
         createdAt: string;
         items: Array<{
-            __typename?: 'OrderItem';
+            __typename: 'OrderItem';
             id: any;
             atPrice: number;
             qty: number;
             product: {
-                __typename?: 'ProductType';
+                __typename: 'ProductType';
                 id: any;
                 title: string;
                 slug: string;
@@ -363,7 +443,7 @@ export declare type OrdersQuery = {
                 nutrition?: string | null | undefined;
                 howToKeep?: string | null | undefined;
                 categories?: Array<{
-                    __typename?: 'CategoryType';
+                    __typename: 'CategoryType';
                     id: number;
                     slug: string;
                     title: string;
@@ -371,7 +451,7 @@ export declare type OrdersQuery = {
             };
         }>;
         address: {
-            __typename?: 'UserAddress';
+            __typename: 'UserAddress';
             id: any;
             name: string;
             recipient: string;
@@ -381,7 +461,7 @@ export declare type OrdersQuery = {
             address: string;
         };
         user: {
-            __typename?: 'UserType';
+            __typename: 'UserType';
             id: any;
             displayName?: string | null | undefined;
             phone: string;
@@ -396,6 +476,11 @@ export declare const ItemFragmentDoc: import("graphql").DocumentNode;
 export declare const UserAddressFragmentDoc: import("graphql").DocumentNode;
 export declare const UserFragmentDoc: import("graphql").DocumentNode;
 export declare const OrderFragmentDoc: import("graphql").DocumentNode;
+export declare const ChangeOrderStatusDocument: import("graphql").DocumentNode;
+export declare function useChangeOrderStatusMutation(): Urql.UseMutationResponse<ChangeOrderStatusMutation, Exact<{
+    shopperChangeOrderStatusCodeId: string;
+    status: OrderStatusCode;
+}>>;
 export declare const HelloDocument: import("graphql").DocumentNode;
 export declare function useHelloQuery(options?: Omit<Urql.UseQueryArgs<HelloQueryVariables>, 'query'>): Urql.UseQueryResponse<HelloQuery, object>;
 export declare const OrdersDocument: import("graphql").DocumentNode;
