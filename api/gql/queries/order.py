@@ -3,7 +3,7 @@ from strawberry.types import Info
 from starlette.requests import Request
 
 from gql.services.order import OrderService
-from gql.utils.authentication.default import JwtAuth, get_phone_from_jwt
+from gql.utils.authentication.default import JwtAuth
 from gql.types.order import OrderStatusCode
 
 from asgiref.sync import sync_to_async

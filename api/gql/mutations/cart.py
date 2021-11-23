@@ -5,7 +5,7 @@ from strawberry.types import Info
 from apps.grocery.models import Cart, Product
 from apps.user.models import User
 from gql.services.cart import CartServices
-from gql.utils.authentication.default import JwtAuth, get_phone_from_jwt
+from gql.utils.authentication.default import JwtAuth
 from gql.types.cart import TypeOfProduct
 
 
@@ -19,10 +19,10 @@ class CartMutation:
     @sync_to_async
     def add_to_cart(self, info: Info, product_id: str, amount: int):
         request: Request = info.context["request"]
-        phone = get_phone_from_jwt(request=request)
+        pk = info.context["userid"]
 
         cart = cart_services.add_to_cart(
-            phone=phone, productid=product_id, amount=amount)
+            pk=pk, productid=product_id, amount=amount)
 
         return cart
 

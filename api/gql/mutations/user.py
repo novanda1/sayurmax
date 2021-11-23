@@ -4,7 +4,7 @@ import uuid
 from typing import Optional
 from strawberry.types import Info
 
-from gql.utils.authentication.default import JwtAuth, get_phone_from_jwt
+from gql.utils.authentication.default import JwtAuth
 from gql.services.user import UserServices
 from gql.types.user import UserDto
 
@@ -37,11 +37,10 @@ class UserMutation:
         postal_code: str,
         address: str
     ):
-        request: Request = info.context["request"]
-        current_user_phone = get_phone_from_jwt(request=request)
+        userid = info.context["userid"]
 
         address = user_services.add_user_address(
-            current_user_phone, phone, name, recipient, city, postal_code, address)
+            userid, phone, name, recipient, city, postal_code, address)
 
         return address
 
@@ -59,10 +58,9 @@ class UserMutation:
         address: Optional[str]
     ):
 
-        request: Request = info.context["request"]
-        current_user_phone = get_phone_from_jwt(request=request)
+        userid = info.context["userid"]
 
         address = user_services.edit_user_address(
-            id, current_user_phone, phone=phone, name=name, recipient=recipient, city=city, postal_code=postal_code, address=address)
+            id, userid=userid, phone=phone, name=name, recipient=recipient, city=city, postal_code=postal_code, address=address)
 
         return address

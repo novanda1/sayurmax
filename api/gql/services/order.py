@@ -16,10 +16,10 @@ class OrderService:
     def create(
         self,
         address_id,
-        phone
+        userid
     ):
         try:
-            user = User.objects.get(phone=phone)
+            user = User.objects.get(pk=userid)
         except:
             raise Exception("user not found")
 

@@ -5,14 +5,14 @@ from gql.types.product import ProductType
 
 
 class CartServices:
-    def add_to_cart(self, phone, productid, amount):
+    def add_to_cart(self, userid, productid, amount):
         try:
-            user = User.objects.get(phone=phone)
+            user = User.objects.get(pk=userid)
         except:
             raise Exception("user doesnt exists")
 
         try:
-            cart = Cart.objects.get(user__phone=phone)
+            cart = Cart.objects.get(user__pk=userid)
         except:
             cart = Cart(user=user)
             cart.save()
@@ -82,7 +82,7 @@ class CartServices:
 
         return product_data
 
-    def delete_cart_product(self, id, phone):
+    def delete_cart_product(self, id):
         try:
             product = CartProduct.objects.get(pk=id)
         except:
@@ -95,9 +95,9 @@ class CartServices:
 
         return True
 
-    def get_cart(self, phone):
+    def get_cart(self, userid):
         try:
-            cart = Cart.objects.get(user__phone = phone)
+            cart = Cart.objects.get(user__pk=userid)
         except:
             raise Exception("cart not found")
 

@@ -21,15 +21,6 @@ def authenticate_header(request: Request):
         return False
 
 
-def get_phone_from_jwt(request: Request):
-    auth = request.headers.get('Authorization')
-    token = auth.split()[1]
-
-    payload = jwt.decode(token, const.jwt_secret, algorithms=["HS256"])
-
-    return payload['phone']
-
-
 class JwtAuth(BasePermission):
     message = "User is not authenticated"
 

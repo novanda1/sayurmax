@@ -1,2 +1,2 @@
 def say_hello(self, info):
-    return f'{info.context["greeting"]}'
+    return f'{info.context["userid"]}'

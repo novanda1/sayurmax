@@ -1,6 +1,6 @@
 from apps.user.models import User
 from utils import const
-from gql.utils.authentication.default import JwtAuth, get_phone_from_jwt
+from gql.utils.authentication.default import JwtAuth
 from gql.services.user import UserServices
 
 
@@ -50,8 +50,7 @@ class UserQuery:
     @strawberry.field(permission_classes=[JwtAuth])
     @sync_to_async
     def get_user_addresses(self, info: Info):
-        request: Request = info.context["request"]
-        phone = get_phone_from_jwt(request=request)
+        userid = info.context["userid"]
 
-        address = user_services.get_user_addresses(phone)
+        address = user_services.get_user_addresses(userid)
         return address

@@ -20,7 +20,6 @@ class UserServices:
 
         payload_data = {
             "sub": str(user.pk),
-            "phone": user.phone,
             "exp": datetime.datetime.now(tz=pytz.utc) + datetime.timedelta(days=7)
         }
 
@@ -46,7 +45,6 @@ class UserServices:
 
         payload_data = {
             "sub": str(user.pk),
-            "phone": user.phone,
             "exp": datetime.datetime.now(tz=pytz.utc) + datetime.timedelta(days=7)
         }
 
@@ -72,7 +70,7 @@ class UserServices:
 
     def add_user_address(
         self,
-        current_user_phone: str,
+        userid: str,
         phone: str,
         name: str,
         recipient: str,
@@ -82,7 +80,7 @@ class UserServices:
     ):
 
         try:
-            user = User.objects.get(phone=current_user_phone)
+            user = User.objects.get(pk=userid)
         except:
             raise Exception("user doesnt exists")
 
@@ -103,7 +101,7 @@ class UserServices:
     def edit_user_address(
         self,
         id: str,
-        current_user_phone: str,
+        userid: str,
         phone: Optional[str] = "",
         name: Optional[str] = "",
         recipient: Optional[str] = "",
@@ -113,7 +111,7 @@ class UserServices:
     ):
 
         try:
-            user = User.objects.get(phone=current_user_phone)
+            user = User.objects.get(phone=userid)
         except:
             raise Exception("user doesnt exists")
 
@@ -137,6 +135,6 @@ class UserServices:
         user_address = UserAddress.objects.get(id=id)
         return user_address
 
-    def get_user_addresses(self, phone):
-        user_addresses = UserAddress.objects.filter(user__phone=phone)
+    def get_user_addresses(self, userid):
+        user_addresses = UserAddress.objects.filter(user__id=id)
         return user_addresses
