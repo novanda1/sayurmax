@@ -30,7 +30,10 @@ const OrderDetail = ({ route }: any) => {
 
     const [orderStatus, setOrderStatus] = useState(order.status as string);
 
-    const context = useMemo(() => ({ additionalTypenames: ["Order"] }), []);
+    const context = useMemo(
+        () => ({ additionalTypenames: ["Order"] }),
+        [order]
+    );
     const [_, execute] = useChangeOrderStatusMutation();
 
     const handleChangeOrderStatus = useCallback(() => {
