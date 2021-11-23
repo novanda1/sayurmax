@@ -5,7 +5,7 @@ import { extendTheme, NativeBaseProvider } from "native-base";
 import React from "react";
 import { config } from "./src/config/theme";
 import { MainNavigation } from "./src/navigations/MainNavigation";
-import UrqlProvider from "./src/providers/UrqlProvider";
+import { UrqlProvider } from "@sayurmax/shared";
 
 const theme = extendTheme({ config });
 

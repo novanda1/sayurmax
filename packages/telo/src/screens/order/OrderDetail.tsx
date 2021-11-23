@@ -1,10 +1,15 @@
 import { Badge, Box, Divider, HStack, Text, VStack, Button } from "native-base";
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import Container from "../../components/Container";
 import { formatDate } from "../../utils/date";
 
-import { Order, OrderItem } from "@sayurmax/shared";
+import {
+    Order,
+    OrderItem,
+    OrderStatusCode,
+    useChangeOrderStatusMutation,
+} from "@sayurmax/shared";
 
 const OrderDetail = ({ route }: any) => {
     type RouteParams = {
@@ -13,6 +18,20 @@ const OrderDetail = ({ route }: any) => {
     };
 
     const { order, items }: RouteParams = route.params;
+
+    const context = useMemo(() => ({ additionalTypenames: ["Order"] }), []);
+    const [result, execute] = useChangeOrderStatusMutation();
+
+    const handleChangeOrderStatus = useCallback(() => {
+        execute(
+            {
+                shopperChangeOrderStatusCodeId: order.id,
+                status: OrderStatusCode.Progress,
+            },
+            context
+        );
+    }, []);
+
     return (
         <ScrollView>
             <VStack>
@@ -134,7 +153,10 @@ const OrderDetail = ({ route }: any) => {
                             <Text fontSize="xl" fontWeight="bold" mb="3">
                                 Update Status
                             </Text>
-                            <Button colorScheme="green" >
+                            <Button
+                                colorScheme="green"
+                                onPress={handleChangeOrderStatus}
+                            >
                                 Move to on progress
                             </Button>
                         </VStack>
