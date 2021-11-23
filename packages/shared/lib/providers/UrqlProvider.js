@@ -10,7 +10,7 @@ var client = (0, urql_1.createClient)({
     fetchOptions: function () {
         return {
             headers: {
-                Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3NzI1MTQ3MC1lY2E5LTRlYWUtOTAwOS03ZThkOTYzNjFmNTciLCJwaG9uZSI6Iis2Mjg1MTU1MTE0NzQ1In0.hSwmDmWP79DyXUwwEU50f1_7OyReWqcL_T3G7CT4VSY",
+                Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwidXNlcm5hbWUiOiJpbWFzaG9wcGVyIiwiZXhwIjoxNjM3OTEyMDU2fQ.sMnk2Jt92I_GXL7zlSwNf9RyBFU6PS1zSMHZE4tetAg",
             },
         };
     },
