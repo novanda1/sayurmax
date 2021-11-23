@@ -3887,6 +3887,7 @@ __metadata:
     "@sayurmax/shared": 0.0.1
     "@types/react": ~16.9.35
     "@types/react-native": ~0.63.2
+    "@types/react-native-vector-icons": ^6.4.10
     babel-preset-expo: ^8.5.1
     expo: ~43.0.2
     expo-app-loading: ~1.2.1
@@ -4270,6 +4271,25 @@ __metadata:
   version: 1.5.5
   resolution: "@types/q@npm:1.5.5"
   checksum: 3bd386fb97a0e5f1ce1ed7a14e39b60e469b5ca9d920a7f69e0cdb58d22c0f5bdd16637d8c3a5bfeda76663c023564dd47a65389ee9aaabd65aee54803d5ba45
+  languageName: node
+  linkType: hard
+
+"@types/react-native-vector-icons@npm:^6.4.10":
+  version: 6.4.10
+  resolution: "@types/react-native-vector-icons@npm:6.4.10"
+  dependencies:
+    "@types/react": "*"
+    "@types/react-native": "*"
+  checksum: 765319410bcaa9fb89545750ef257d11c2e92f84ab3117db5fc45845cfebcb979f0aca9c5c101cf6f1e5fbf14a207c5c732fd4e00801e9bec4aabaf1a1a15b11
+  languageName: node
+  linkType: hard
+
+"@types/react-native@npm:*":
+  version: 0.66.5
+  resolution: "@types/react-native@npm:0.66.5"
+  dependencies:
+    "@types/react": "*"
+  checksum: 7107dd8626259d2968f3ed564aae706fad3d535ae00bca2549d16d21be7926df8e982efd8c8a4b9b79a9d1c1beef3e1758fc51a877ee04426a41aca0f6b5a534
   languageName: node
   linkType: hard
 
