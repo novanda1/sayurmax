@@ -15,7 +15,11 @@ def get_userid(request: Request):
     auth = request.headers.get('Authorization')
     if auth:
         token = auth.split()[1]
-        payload = jwt.decode(token, const.jwt_secret, algorithms=["HS256"])
+        try:
+            payload = jwt.decode(token, const.jwt_secret, algorithms=["HS256"])
+        except:
+            pass
+
         return payload['sub'] if payload else None
     else:
         return None
