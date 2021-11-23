@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import { OrderStatusCode, useOrdersQuery } from "@sayurmax/shared";
+import { Box, Pressable, ScrollView } from "native-base";
+import React from "react";
 import { OrderItem } from "../../components/OrderItem";
 import { OrderList } from "../../components/OrderList";
-import { ScrollView, Pressable, Box } from "native-base";
-import { OrderStatusCode, useOrdersQuery } from "@sayurmax/shared";
 
 export const OrderUnverifScreen: React.FC = ({ navigation }: any) => {
-    const [result, error] = useOrdersQuery({
+    const [result] = useOrdersQuery({
         variables: {
             status: OrderStatusCode.Unverified,
         },

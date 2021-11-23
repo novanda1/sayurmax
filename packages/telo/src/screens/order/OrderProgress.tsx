@@ -2,11 +2,9 @@ import React from "react";
 import { OrderItem } from "../../components/OrderItem";
 import { OrderList } from "../../components/OrderList";
 import { OrderStatusCode, useOrdersQuery } from "@sayurmax/shared";
-import { ScrollView, Box } from "native-base";
+import { ScrollView, Box, Pressable } from "native-base";
 
-interface Props {}
-
-export const OrderProgressScreen = (props: Props) => {
+export const OrderProgressScreen = ({ navigation }: any) => {
     const [result] = useOrdersQuery({
         variables: {
             status: OrderStatusCode.Progress,
@@ -18,7 +16,18 @@ export const OrderProgressScreen = (props: Props) => {
         <ScrollView>
             <OrderList>
                 {data?.orders.map((o) => (
-                    <OrderItem key={o.id} data={o} />
+                    <Pressable
+                        key={o.id}
+                        w="100%"
+                        onPress={() =>
+                            navigation.navigate("Order Detail", {
+                                items: o.items,
+                                order: o,
+                            })
+                        }
+                    >
+                        <OrderItem data={o} />
+                    </Pressable>
                 ))}
                 <Box mb={7}></Box>
             </OrderList>

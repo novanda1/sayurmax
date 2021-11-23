@@ -9,6 +9,7 @@ import {
     createStackNavigator,
 } from "@react-navigation/stack";
 import OrderDetail from "./OrderDetail";
+import { OrderCancelledScreen } from "./OrderCancelled";
 
 interface Props {}
 
@@ -28,7 +29,10 @@ function OrderStatus() {
                 tabBarIndicatorStyle: { backgroundColor: "green" },
             }}
         >
-            <TabOrder.Screen name="Unverified" component={OrderUnverifScreen} />
+            <TabOrder.Screen
+                name="Not Verified"
+                component={OrderUnverifScreen}
+            />
             <TabOrder.Screen
                 name="On Progress"
                 component={OrderProgressScreen}
@@ -40,6 +44,10 @@ function OrderStatus() {
             <TabOrder.Screen
                 name="Completed"
                 component={OrderCompletedScreen}
+            />
+            <TabOrder.Screen
+                name="Cancelled"
+                component={OrderCancelledScreen}
             />
         </TabOrder.Navigator>
     );

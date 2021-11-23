@@ -4,10 +4,10 @@ import { OrderList } from "../../components/OrderList";
 import { OrderStatusCode, useOrdersQuery } from "@sayurmax/shared";
 import { ScrollView, Box, Pressable } from "native-base";
 
-export const OrderCompletedScreen = ({ navigation }: any) => {
+export const OrderCancelledScreen = ({ navigation }: any) => {
     const [result] = useOrdersQuery({
         variables: {
-            status: OrderStatusCode.Completed,
+            status: OrderStatusCode.Cancelled,
         },
     });
 
