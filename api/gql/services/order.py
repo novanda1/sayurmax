@@ -9,6 +9,8 @@ from gql.types.user import FieldError, UserAddress as UserAddressType
 from gql.types.order import Order as OrderType, OrderItem as OrderItemType, OrderStatusCode, OrderItem as OrderItemType
 from gql.types.product import ProductType
 
+from asgiref.sync import sync_to_async
+
 
 class OrderService:
     def create(

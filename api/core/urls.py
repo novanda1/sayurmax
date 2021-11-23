@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from strawberry.django.views import AsyncGraphQLView
+from gql.view import View
 
 from gql.schema import schema
 
@@ -27,6 +27,6 @@ admin.site.index_title = 'Admin'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("graphql/", AsyncGraphQLView.as_view(schema=schema, graphiql=False)),
+    path("graphql/", View.as_view(schema=schema, graphiql=False)),
     path('bot/', include('apps.bot.urls')),
 ]
