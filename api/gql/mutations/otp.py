@@ -34,7 +34,10 @@ class OtpMutation:
         except:
             raise Exception("failed to send wa")
 
-        return "OTP sent successfully"
+        if "200" in str(res):
+            return "OTP sent successfully"
+        else:
+            raise Exception(res)
 
     @strawberry.mutation
     @sync_to_async
