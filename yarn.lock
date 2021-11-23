@@ -3864,6 +3864,7 @@ __metadata:
     "@graphql-codegen/typescript-operations": 2.2.0
     "@graphql-codegen/typescript-urql": ^3.4.0
     typescript: ^4.5.2
+    urql: ^2.0.5
   peerDependencies:
     react: "*"
     react-native: "*"

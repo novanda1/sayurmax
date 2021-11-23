@@ -51,7 +51,7 @@ export declare type Mutation = {
     authVerif: UserResponse;
     editCartProductAmount: CartProduct;
     makeOrder: Order;
-    shopperChangeOrderStatusCode: Order;
+    shopperChangeOrderStatusCode: Scalars['String'];
     shopperLogin: ShopperAuthResponse;
     userAddAddress: UserAddress;
     userEdit: UserType;
@@ -354,57 +354,7 @@ export declare type ChangeOrderStatusMutationVariables = Exact<{
 }>;
 export declare type ChangeOrderStatusMutation = {
     __typename?: 'Mutation';
-    shopperChangeOrderStatusCode: {
-        __typename: 'Order';
-        id: string;
-        status: OrderStatusCode;
-        total: number;
-        updatedAt: string;
-        createdAt: string;
-        items: Array<{
-            __typename: 'OrderItem';
-            id: any;
-            atPrice: number;
-            qty: number;
-            product: {
-                __typename: 'ProductType';
-                id: any;
-                title: string;
-                slug: string;
-                imageUrl: string;
-                normalPrice: number;
-                dicountPrice?: number | null | undefined;
-                itemUnit: string;
-                information?: string | null | undefined;
-                nutrition?: string | null | undefined;
-                howToKeep?: string | null | undefined;
-                categories?: Array<{
-                    __typename: 'CategoryType';
-                    id: number;
-                    slug: string;
-                    title: string;
-                }> | null | undefined;
-            };
-        }>;
-        address: {
-            __typename: 'UserAddress';
-            id: any;
-            name: string;
-            recipient: string;
-            phone: string;
-            city: string;
-            postalCode: number;
-            address: string;
-        };
-        user: {
-            __typename: 'UserType';
-            id: any;
-            displayName?: string | null | undefined;
-            phone: string;
-            createdAt: string;
-            updatedAt: string;
-        };
-    };
+    shopperChangeOrderStatusCode: string;
 };
 export declare type HelloQueryVariables = Exact<{
     [key: string]: never;
