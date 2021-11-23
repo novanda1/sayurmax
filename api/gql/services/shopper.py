@@ -28,7 +28,6 @@ class ShopperServices:
             token = jwt.encode(
                 payload=payload_data,
                 key=const.jwt_secret,
-                json_encoder='utf-8'
             )
 
             return ShopperAuthResponse(user, token)
