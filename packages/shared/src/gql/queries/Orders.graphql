@@ -1,5 +1,5 @@
-query Orders($status: OrderStatusCode!) {
-    orders(status: $status) {
-        ...Order
+query Orders($status: OrderStatusCode!, $limit: Int!, $after: String) {
+    orders(status: $status, limit: $limit, after: $after) {
+        ...OrdersResponse
     }
 }
