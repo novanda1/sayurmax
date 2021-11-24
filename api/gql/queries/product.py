@@ -29,7 +29,6 @@ class ProductQuery:
         return Data([p for p in page], page.has_next, paginator.cursor(page[-1]))
 
     @strawberry.field
-    @sync_to_async
-    def product(id: strawberry.ID):
-        product = Product.objects.get(id=id)
+    async def product(id: strawberry.ID, info: strawberry.types.Info):
+        product = await info.context['product_loader'].load(id)
         return product
