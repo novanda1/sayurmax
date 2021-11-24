@@ -1,24 +1,8 @@
-FROM python:3.7.4-slim-stretch as Python
+FROM python:3.9
 
-COPY requirements.txt .
+WORKDIR /code
+COPY ./requirements.txt requirements.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
+COPY . .
 
-# install deps
-RUN apt-get update
-RUN pip install -r requirements.txt
-
-FROM python:3.7.4-slim-stretch
-
-COPY --from=Python /root/.cache /root/.cache
-COPY --from=Python requirements.txt .
-
-RUN apt-get update
-RUN pip install -r requirements.txt 
-RUN rm -rf /root/.cache
-RUN rm -rf /var/lib/apt/lists/*
-
-RUN mkdir app
-WORKDIR /app
-
-COPY ./ /app/
-
-CMD python manage.py runserver 0.0.0.0:8000 --settings=core.settings.dev
+CMD python manage.py collectstatic --noinput; uvicorn core.asgi:app --reload --host 0.0.0.0
