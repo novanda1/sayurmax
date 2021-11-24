@@ -42,6 +42,7 @@ djangocms-video==3.0.0
 easy-thumbnails==2.7.1
 factory-boy==3.2.1
 Faker==9.8.2
+fastapi==0.70.0
 graphql-core==3.1.6
 gunicorn==20.1.0
 h11==0.12.0
@@ -53,6 +54,7 @@ Pillow==8.3.2
 psycopg2-binary==2.9.1
 py-moneyed==1.2
 pycparser==2.20
+pydantic==1.8.2
 Pygments==2.10.0
 PyJWT==2.2.0
 pyotp==2.6.0

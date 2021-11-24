@@ -6,6 +6,9 @@ from core.tests.factories.order import create as order
 
 def run():
     user(l=10)
+
+
+def run2():
     create_units()
     create_categories()
     create_products()

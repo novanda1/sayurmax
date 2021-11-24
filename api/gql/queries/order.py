@@ -1,10 +1,13 @@
 import strawberry
 from strawberry.types import Info
 from starlette.requests import Request
+from typing import Optional
 
 from gql.services.order import OrderService
 from gql.utils.authentication.default import JwtAuth
-from gql.types.order import OrderStatusCode
+from gql.types.order import OrderStatusCode, Order as OrderType
+from apps.order.models import Order
+
 
 from asgiref.sync import sync_to_async
 
@@ -24,6 +27,6 @@ class OrderQuery:
 
     @strawberry.field(permission_classes=[JwtAuth])
     @sync_to_async
-    def orders(self, info: Info, status: OrderStatusCode):
-        orders = order_services.orders(status=status)
+    def orders(self, info: Info, status: OrderStatusCode, limit: int, after: Optional[str] = None):
+        orders = order_services.orders(status, limit, after)
         return orders
