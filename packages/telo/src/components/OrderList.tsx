@@ -9,7 +9,7 @@ interface Props {
 export const OrderList: React.FC<Props> = ({ children }) => {
   return (
     <>
-      <Container>
+      <Container minH="100vh" backgroundColor="#E9EBEE">
         <VStack space={2} alignItems="center" w="100%" mt={4}>
           {children}
         </VStack>
