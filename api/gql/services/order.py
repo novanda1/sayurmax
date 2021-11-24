@@ -9,6 +9,9 @@ from gql.types.user import FieldError, UserAddress as UserAddressType
 from gql.types.order import Order as OrderType, OrderItem as OrderItemType, OrderStatusCode, OrderItem as OrderItemType
 from gql.types.product import ProductType
 
+from cursor_pagination import CursorPaginator
+
+
 from asgiref.sync import sync_to_async
 
 
@@ -147,52 +150,57 @@ class OrderService:
 
         return order_type
 
-    def orders(self, status):
-        orders = Order.objects.filter(
+    def orders(self, status, limit, after):
+        qs = Order.objects.filter(
             order_status_code=status.value)
+        paginator = CursorPaginator(qs, ordering=('-created_at', '-id'))
+        page = paginator.page(first=limit, after=after)
 
-        orders_arr = list()
+        class Data:
+            def __init__(self, result, has_next, next_cursor):
+                real_next_cursor = next_cursor if has_next else ""
 
-        for order in orders:
-            order_items = list()
-            for o in OrderItem.objects.filter(order__id=order.id):
-                order_item_product = Product.objects.get(id=o.product_id)
-                product = ProductType(
-                    order_item_product.id,
-                    order_item_product.title,
-                    order_item_product.slug,
-                    # the reason to not use "order_item_product" directly is just for changing this categories
-                    # @todo make it better
-                    order_item_product.categories.all(),
-                    order_item_product.image_url,
-                    order_item_product.normal_price,
-                    order_item_product.dicount_price,
-                    order_item_product.item_unit,
-                    order_item_product.information,
-                    order_item_product.nutrition,
-                    order_item_product.how_to_keep,
-                )
+                order_items = list()
+                for order in result:
+                    for o in OrderItem.objects.filter(order__id=order.id):
+                        order_item_product = Product.objects.get(
+                            id=o.product_id)
+                    product = ProductType(
+                        order_item_product.id,
+                        order_item_product.title,
+                        order_item_product.slug,
+                        # the reason to not use "order_item_product" directly is just for changing this categories
+                        # @todo make it better
+                        order_item_product.categories.all(),
+                        order_item_product.image_url,
+                        order_item_product.normal_price,
+                        order_item_product.dicount_price,
+                        order_item_product.item_unit,
+                        order_item_product.information,
+                        order_item_product.nutrition,
+                        order_item_product.how_to_keep,
+                    )
 
-                items = OrderItemType(
-                    id=o.id,
-                    product=product,
-                    qty=o.qty,
-                    at_price=o.at_price
-                )
+                    items = OrderItemType(
+                        id=o.id,
+                        product=product,
+                        qty=o.qty,
+                        at_price=o.at_price
+                    )
 
-                order_items.append(items)
+                    order_items.append(items)
 
-            order_type = OrderType(
-                id=order.id,
-                user=order.user,
-                status=order.order_status_code,
-                address=order.address,
-                total=order.total,
-                items=order_items,
-                created_at=order.created_at,
-                updated_at=order.updated_at
-            )
+                self.has_next = has_next
+                self.next_cursor = real_next_cursor
+                self.result = [OrderType(
+                    id=order.id,
+                    user=order.user,
+                    status=order.order_status_code,
+                    address=order.address,
+                    total=order.total,
+                    items=order_items,
+                    created_at=order.created_at,
+                    updated_at=order.updated_at
+                ) for order in result]
 
-            orders_arr.append(order_type)
-
-        return orders_arr
+        return Data([p for p in page], page.has_next, paginator.cursor(page[-1]))
