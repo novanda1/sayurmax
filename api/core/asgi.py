@@ -29,7 +29,7 @@ def get_application() -> FastAPI:
     )
 
     app.mount("/graphql", graphql_app)
-    app.mount("/django", WSGIMiddleware(get_wsgi_application()))
+    app.mount("/cms", WSGIMiddleware(get_wsgi_application()))
 
     app.mount('/static', StaticFiles(
         directory=os.path.normpath(
