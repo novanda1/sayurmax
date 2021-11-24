@@ -22,7 +22,7 @@ def get_application() -> FastAPI:
     app = FastAPI(title=settings.PROJECT_NAME, debug=settings.DEBUG)
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=settings.CORS_ALLOWED_ORIGINS or ["*"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
