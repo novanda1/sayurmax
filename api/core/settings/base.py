@@ -90,7 +90,7 @@ TEMPLATES = [
     },
 ]
 
-ASGI_APPLICATION = 'core.asgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
 
 
 # Password validation
@@ -163,3 +163,4 @@ STATICFILES_DIRS = (
 )
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 SILENCED_SYSTEM_CHECKS = ['security.W019']
+PROJECT_NAME='sayurmax'
