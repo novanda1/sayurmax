@@ -1,7 +1,7 @@
 import strawberry
 from enum import Enum
 from uuid import UUID
-from typing import List
+from typing import List, Optional
 
 from gql.types.user import UserType, UserAddress
 from gql.types.product import ProductType
@@ -41,3 +41,10 @@ class Order:
     items: List[OrderItem]
     updated_at: str
     created_at: str
+
+
+@strawberry.type
+class OrderResponse:
+    result: List[Order]
+    has_next: bool
+    next_cursor: Optional[str]
