@@ -169,7 +169,6 @@ const OrderDetail = ({ route, navigation }: any) => {
                             <Text fontSize="xl" fontWeight="bold" mb="3">
                                 Update Status
                             </Text>
-
                             <Select
                                 selectedValue={orderStatus}
                                 minWidth="200"
@@ -189,6 +188,7 @@ const OrderDetail = ({ route, navigation }: any) => {
                                     .reverse()
                                     .map((s) => (
                                         <Select.Item
+                                            accessibilityHint={s}
                                             key={s}
                                             label={s}
                                             value={s}
