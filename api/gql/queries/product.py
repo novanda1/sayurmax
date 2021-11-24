@@ -14,7 +14,7 @@ class ProductQuery:
     @sync_to_async
     def products(limit: int, after: Optional[str] = None):
         qs = Product.objects.all()
-        paginator = CursorPaginator(qs, ordering=('-title', '-id'))
+        paginator = CursorPaginator(qs, ordering=('-created_at', '-id'))
         page = paginator.page(first=limit, after=after)
 
         class Data:
