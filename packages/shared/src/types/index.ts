@@ -143,6 +143,13 @@ export type OrderItem = {
   qty: Scalars['Int'];
 };
 
+export type OrderResponse = {
+  __typename?: 'OrderResponse';
+  hasNext: Scalars['Boolean'];
+  nextCursor?: Maybe<Scalars['String']>;
+  result: Array<Order>;
+};
+
 export enum OrderStatusCode {
   Cancelled = 'Cancelled',
   Completed = 'Completed',
@@ -178,7 +185,7 @@ export type Query = {
   cart: Cart;
   hello: Scalars['String'];
   order: Order;
-  orders: Array<Order>;
+  orders: OrderResponse;
   product: ProductType;
   products: ProductResponse;
   user: UserType;
@@ -195,6 +202,8 @@ export type QueryOrderArgs = {
 
 
 export type QueryOrdersArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  limit: Scalars['Int'];
   status: OrderStatusCode;
 };
 
@@ -281,6 +290,8 @@ export type ItemFragment = { __typename: 'OrderItem', id: any, atPrice: number, 
 
 export type OrderFragment = { __typename: 'Order', id: string, status: OrderStatusCode, total: number, updatedAt: string, createdAt: string, items: Array<{ __typename: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } }>, address: { __typename: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string }, user: { __typename: 'UserType', id: any, displayName?: string | null | undefined, phone: string, createdAt: string, updatedAt: string } };
 
+export type OrdersResponseFragment = { __typename: 'OrderResponse', hasNext: boolean, nextCursor?: string | null | undefined, result: Array<{ __typename: 'Order', id: string, status: OrderStatusCode, total: number, updatedAt: string, createdAt: string, items: Array<{ __typename: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } }>, address: { __typename: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string }, user: { __typename: 'UserType', id: any, displayName?: string | null | undefined, phone: string, createdAt: string, updatedAt: string } }> };
+
 export type ProductFragment = { __typename: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename: 'CategoryType', id: number, slug: string, title: string }> | null | undefined };
 
 export type UserFragment = { __typename: 'UserType', id: any, displayName?: string | null | undefined, phone: string, createdAt: string, updatedAt: string };
@@ -302,10 +313,12 @@ export type HelloQuery = { __typename?: 'Query', hello: string };
 
 export type OrdersQueryVariables = Exact<{
   status: OrderStatusCode;
+  limit: Scalars['Int'];
+  after?: Maybe<Scalars['String']>;
 }>;
 
 
-export type OrdersQuery = { __typename?: 'Query', orders: Array<{ __typename: 'Order', id: string, status: OrderStatusCode, total: number, updatedAt: string, createdAt: string, items: Array<{ __typename: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } }>, address: { __typename: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string }, user: { __typename: 'UserType', id: any, displayName?: string | null | undefined, phone: string, createdAt: string, updatedAt: string } }> };
+export type OrdersQuery = { __typename?: 'Query', orders: { __typename: 'OrderResponse', hasNext: boolean, nextCursor?: string | null | undefined, result: Array<{ __typename: 'Order', id: string, status: OrderStatusCode, total: number, updatedAt: string, createdAt: string, items: Array<{ __typename: 'OrderItem', id: any, atPrice: number, qty: number, product: { __typename: 'ProductType', id: any, title: string, slug: string, imageUrl: string, normalPrice: number, dicountPrice?: number | null | undefined, itemUnit: string, information?: string | null | undefined, nutrition?: string | null | undefined, howToKeep?: string | null | undefined, categories?: Array<{ __typename: 'CategoryType', id: number, slug: string, title: string }> | null | undefined } }>, address: { __typename: 'UserAddress', id: any, name: string, recipient: string, phone: string, city: string, postalCode: number, address: string }, user: { __typename: 'UserType', id: any, displayName?: string | null | undefined, phone: string, createdAt: string, updatedAt: string } }> } };
 
 export const CategoryFragmentDoc = gql`
     fragment Category on CategoryType {
@@ -387,6 +400,16 @@ export const OrderFragmentDoc = gql`
     ${ItemFragmentDoc}
 ${UserAddressFragmentDoc}
 ${UserFragmentDoc}`;
+export const OrdersResponseFragmentDoc = gql`
+    fragment OrdersResponse on OrderResponse {
+  __typename
+  hasNext
+  nextCursor
+  result {
+    ...Order
+  }
+}
+    ${OrderFragmentDoc}`;
 export const ChangeOrderStatusDocument = gql`
     mutation ChangeOrderStatus($shopperChangeOrderStatusCodeId: String!, $status: OrderStatusCode!) {
   shopperChangeOrderStatusCode(
@@ -409,12 +432,12 @@ export function useHelloQuery(options: Omit<Urql.UseQueryArgs<HelloQueryVariable
   return Urql.useQuery<HelloQuery>({ query: HelloDocument, ...options });
 };
 export const OrdersDocument = gql`
-    query Orders($status: OrderStatusCode!) {
-  orders(status: $status) {
-    ...Order
+    query Orders($status: OrderStatusCode!, $limit: Int!, $after: String) {
+  orders(status: $status, limit: $limit, after: $after) {
+    ...OrdersResponse
   }
 }
-    ${OrderFragmentDoc}`;
+    ${OrdersResponseFragmentDoc}`;
 
 export function useOrdersQuery(options: Omit<Urql.UseQueryArgs<OrdersQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<OrdersQuery>({ query: OrdersDocument, ...options });

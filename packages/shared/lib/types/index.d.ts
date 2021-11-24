@@ -122,6 +122,12 @@ export declare type OrderItem = {
     product: ProductType;
     qty: Scalars['Int'];
 };
+export declare type OrderResponse = {
+    __typename?: 'OrderResponse';
+    hasNext: Scalars['Boolean'];
+    nextCursor?: Maybe<Scalars['String']>;
+    result: Array<Order>;
+};
 export declare enum OrderStatusCode {
     Cancelled = "Cancelled",
     Completed = "Completed",
@@ -154,7 +160,7 @@ export declare type Query = {
     cart: Cart;
     hello: Scalars['String'];
     order: Order;
-    orders: Array<Order>;
+    orders: OrderResponse;
     product: ProductType;
     products: ProductResponse;
     user: UserType;
@@ -167,6 +173,8 @@ export declare type QueryOrderArgs = {
     id: Scalars['ID'];
 };
 export declare type QueryOrdersArgs = {
+    after?: InputMaybe<Scalars['String']>;
+    limit: Scalars['Int'];
     status: OrderStatusCode;
 };
 export declare type QueryProductArgs = {
@@ -311,6 +319,62 @@ export declare type OrderFragment = {
         updatedAt: string;
     };
 };
+export declare type OrdersResponseFragment = {
+    __typename: 'OrderResponse';
+    hasNext: boolean;
+    nextCursor?: string | null | undefined;
+    result: Array<{
+        __typename: 'Order';
+        id: string;
+        status: OrderStatusCode;
+        total: number;
+        updatedAt: string;
+        createdAt: string;
+        items: Array<{
+            __typename: 'OrderItem';
+            id: any;
+            atPrice: number;
+            qty: number;
+            product: {
+                __typename: 'ProductType';
+                id: any;
+                title: string;
+                slug: string;
+                imageUrl: string;
+                normalPrice: number;
+                dicountPrice?: number | null | undefined;
+                itemUnit: string;
+                information?: string | null | undefined;
+                nutrition?: string | null | undefined;
+                howToKeep?: string | null | undefined;
+                categories?: Array<{
+                    __typename: 'CategoryType';
+                    id: number;
+                    slug: string;
+                    title: string;
+                }> | null | undefined;
+            };
+        }>;
+        address: {
+            __typename: 'UserAddress';
+            id: any;
+            name: string;
+            recipient: string;
+            phone: string;
+            city: string;
+            postalCode: number;
+            address: string;
+        };
+        user: {
+            __typename: 'UserType';
+            id: any;
+            displayName?: string | null | undefined;
+            phone: string;
+            createdAt: string;
+            updatedAt: string;
+        };
+    }>;
+};
 export declare type ProductFragment = {
     __typename: 'ProductType';
     id: any;
@@ -365,60 +429,67 @@ export declare type HelloQuery = {
 };
 export declare type OrdersQueryVariables = Exact<{
     status: OrderStatusCode;
+    limit: Scalars['Int'];
+    after?: Maybe<Scalars['String']>;
 }>;
 export declare type OrdersQuery = {
     __typename?: 'Query';
-    orders: Array<{
-        __typename: 'Order';
-        id: string;
-        status: OrderStatusCode;
-        total: number;
-        updatedAt: string;
-        createdAt: string;
-        items: Array<{
-            __typename: 'OrderItem';
-            id: any;
-            atPrice: number;
-            qty: number;
-            product: {
-                __typename: 'ProductType';
+    orders: {
+        __typename: 'OrderResponse';
+        hasNext: boolean;
+        nextCursor?: string | null | undefined;
+        result: Array<{
+            __typename: 'Order';
+            id: string;
+            status: OrderStatusCode;
+            total: number;
+            updatedAt: string;
+            createdAt: string;
+            items: Array<{
+                __typename: 'OrderItem';
                 id: any;
-                title: string;
-                slug: string;
-                imageUrl: string;
-                normalPrice: number;
-                dicountPrice?: number | null | undefined;
-                itemUnit: string;
-                information?: string | null | undefined;
-                nutrition?: string | null | undefined;
-                howToKeep?: string | null | undefined;
-                categories?: Array<{
-                    __typename: 'CategoryType';
-                    id: number;
-                    slug: string;
+                atPrice: number;
+                qty: number;
+                product: {
+                    __typename: 'ProductType';
+                    id: any;
                     title: string;
-                }> | null | undefined;
+                    slug: string;
+                    imageUrl: string;
+                    normalPrice: number;
+                    dicountPrice?: number | null | undefined;
+                    itemUnit: string;
+                    information?: string | null | undefined;
+                    nutrition?: string | null | undefined;
+                    howToKeep?: string | null | undefined;
+                    categories?: Array<{
+                        __typename: 'CategoryType';
+                        id: number;
+                        slug: string;
+                        title: string;
+                    }> | null | undefined;
+                };
+            }>;
+            address: {
+                __typename: 'UserAddress';
+                id: any;
+                name: string;
+                recipient: string;
+                phone: string;
+                city: string;
+                postalCode: number;
+                address: string;
+            };
+            user: {
+                __typename: 'UserType';
+                id: any;
+                displayName?: string | null | undefined;
+                phone: string;
+                createdAt: string;
+                updatedAt: string;
             };
         }>;
-        address: {
-            __typename: 'UserAddress';
-            id: any;
-            name: string;
-            recipient: string;
-            phone: string;
-            city: string;
-            postalCode: number;
-            address: string;
-        };
-        user: {
-            __typename: 'UserType';
-            id: any;
-            displayName?: string | null | undefined;
-            phone: string;
-            createdAt: string;
-            updatedAt: string;
-        };
-    }>;
+    };
 };
 export declare const CategoryFragmentDoc: import("graphql").DocumentNode;
 export declare const ProductFragmentDoc: import("graphql").DocumentNode;
@@ -426,6 +497,7 @@ export declare const ItemFragmentDoc: import("graphql").DocumentNode;
 export declare const UserAddressFragmentDoc: import("graphql").DocumentNode;
 export declare const UserFragmentDoc: import("graphql").DocumentNode;
 export declare const OrderFragmentDoc: import("graphql").DocumentNode;
+export declare const OrdersResponseFragmentDoc: import("graphql").DocumentNode;
 export declare const ChangeOrderStatusDocument: import("graphql").DocumentNode;
 export declare function useChangeOrderStatusMutation(): Urql.UseMutationResponse<ChangeOrderStatusMutation, Exact<{
     shopperChangeOrderStatusCodeId: string;
