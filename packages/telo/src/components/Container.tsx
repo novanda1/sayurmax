@@ -3,7 +3,7 @@ import { Box, IBoxProps } from "native-base";
 
 const Container: React.FC<IBoxProps> = (props: IBoxProps) => {
     return (
-        <Box w="100%" backgroundColor="#E9EBEE" px={4} {...props}>
+        <Box w="100%" px={4} {...props}>
             {props.children}
         </Box>
     );
