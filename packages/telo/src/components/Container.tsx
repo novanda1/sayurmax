@@ -1,10 +1,12 @@
 import React from "react";
-import { Box } from "native-base";
+import { Box, IBoxProps } from "native-base";
 
-interface Props {}
-
-const Container: React.FC<Props> = ({ children }) => {
-  return <Box w="100%" px={4}>{children}</Box>;
+const Container: React.FC<IBoxProps> = (props: IBoxProps) => {
+    return (
+        <Box w="100%" backgroundColor="#E9EBEE" px={4} {...props}>
+            {props.children}
+        </Box>
+    );
 };
 
 export default Container;
