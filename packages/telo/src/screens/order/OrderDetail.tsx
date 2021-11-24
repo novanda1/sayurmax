@@ -95,7 +95,7 @@ const OrderDetail = ({ route, navigation }: any) => {
                                 {items.map((item) => (
                                     <Box
                                         w="100%"
-                                        key={item.product.id}
+                                        key={item.id}
                                         shadow="1"
                                         rounded="sm"
                                         px="3"
