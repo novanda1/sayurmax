@@ -5,7 +5,7 @@ from gql.queries.hello import say_hello
 from gql.types.user import UserResponse, UserType, UserAddress
 from gql.types.product import ProductResponse, ProductType
 from gql.types.cart import Cart, CartProduct
-from gql.types.order import Order
+from gql.types.order import Order, OrderResponse
 from gql.types.shopper import ShopperAuthResponse
 
 
@@ -30,7 +30,7 @@ class Query:
     cart: Cart = resolver.cart_query.get_cart
 
     order: Order = resolver.order_query.order
-    orders: List[Order] = resolver.order_query.orders
+    orders: OrderResponse = resolver.order_query.orders
 
 
 @strawberry.type
