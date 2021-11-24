@@ -8,6 +8,7 @@ export const OrderOnDeliveryScreen = ({ navigation }: any) => {
     const [result] = useOrdersQuery({
         variables: {
             status: OrderStatusCode.OnDelivery,
+            limit: 10,
         },
     });
 
@@ -16,7 +17,7 @@ export const OrderOnDeliveryScreen = ({ navigation }: any) => {
     return (
         <ScrollView>
             <OrderList>
-                {data?.orders.map((o) => (
+                {data?.orders.result.map((o) => (
                     <Pressable
                         key={o.id}
                         w="100%"

@@ -8,6 +8,7 @@ export const OrderUnverifScreen: React.FC = ({ navigation }: any) => {
     const [result] = useOrdersQuery({
         variables: {
             status: OrderStatusCode.Unverified,
+            limit: 10
         },
     });
     const { data } = result;
@@ -15,7 +16,7 @@ export const OrderUnverifScreen: React.FC = ({ navigation }: any) => {
     return (
         <ScrollView>
             <OrderList>
-                {data?.orders.map((o) => (
+                {data?.orders.result?.map((o) => (
                     <Pressable
                         key={o.id}
                         w="100%"
