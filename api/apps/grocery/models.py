@@ -52,6 +52,8 @@ class Product(models.Model):
     information = models.TextField(_("Product Infromation"), blank=True)
     nutrition = models.TextField(_("Product Nutrition"), blank=True)
     how_to_keep = models.TextField(_("How To Keep"), blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
