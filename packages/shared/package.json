@@ -4,7 +4,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "rm lib -rf && tsc",
     "watch": "tsc -w",
     "gen": "graphql-codegen --config codegen.yml"
   },
