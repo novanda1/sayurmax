@@ -14,11 +14,10 @@ export const OrderItem = ({ data }: Props) => {
         <>
             <Box
                 bg="white"
-                // borderLeftWidth={4}
+                borderLeftWidth="5"
                 width="100%"
                 borderColor="red.500"
-                px={3}
-                py={3}
+                p="3"
                 rounded="lg"
             >
                 <HStack alignItems="center" justifyContent="space-between">
