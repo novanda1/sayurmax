@@ -1,1 +1,1 @@
-web: python manage.py collectstatic --noinput; gunicorn core.wsgi --log-file -
+web: python manage.py collectstatic --noinput; uvicorn core.asgi:app --reload --host 0.0.0.0 --port 80
