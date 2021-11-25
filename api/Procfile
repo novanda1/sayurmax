@@ -1,1 +1,1 @@
-web: python manage.py collectstatic --noinput; uvicorn core.asgi:app --reload --port 80
+web: python manage.py collectstatic --noinput;  gunicorn -w 4 -k uvicorn.workers.UvicornWorker core.asgi:app --log-file
