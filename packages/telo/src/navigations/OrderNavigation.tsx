@@ -18,7 +18,7 @@ export function OrderNavigation() {
                 tabBarLabelStyle: { fontSize: 16, textTransform: "capitalize" },
                 tabBarActiveTintColor: "#0FB36C",
                 tabBarInactiveTintColor: "#9E9E9E",
-                tabBarIndicatorStyle: { backgroundColor: "green" },
+                tabBarIndicatorStyle: { backgroundColor: "#0FB36C" },
             }}
         >
             <TabOrder.Screen
