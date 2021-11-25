@@ -14,10 +14,10 @@ export function OrderNavigation() {
         <TabOrder.Navigator
             screenOptions={{
                 tabBarScrollEnabled: true,
-                tabBarItemStyle: { width: 100 },
-                tabBarLabelStyle: { fontSize: 12, textTransform: "capitalize" },
-                tabBarActiveTintColor: "green",
-                tabBarInactiveTintColor: "gray",
+                tabBarItemStyle: { width: 134 },
+                tabBarLabelStyle: { fontSize: 16, textTransform: "capitalize" },
+                tabBarActiveTintColor: "#0FB36C",
+                tabBarInactiveTintColor: "#9E9E9E",
                 tabBarIndicatorStyle: { backgroundColor: "green" },
             }}
         >
