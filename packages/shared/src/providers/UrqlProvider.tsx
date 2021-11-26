@@ -3,13 +3,12 @@ import {
     cacheExchange,
     createClient,
     dedupExchange,
-    errorExchange,
     fetchExchange,
     makeOperation,
     Provider,
 } from "urql";
 import { authExchange } from "@urql/exchange-auth";
-import * as Store from "expo-secure-store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface Props {
     children: React.ReactNode;
@@ -20,29 +19,15 @@ const client = createClient({
     exchanges: [
         dedupExchange,
         cacheExchange,
-        fetchExchange,
-        errorExchange({
-            onError: (error) => {
-                const isAuthError = error.graphQLErrors.some(
-                    (e) => e.message === "User is not authenticated"
-                );
-
-                if (isAuthError) {
-                    // logout();
-                }
-            },
-        }),
         authExchange({
             getAuth: async ({ authState }) => {
                 if (!authState) {
-                    // const token = await Store.getItemAsync("@toum/token") ;
-                    const token = localStorage.getItem("token") ;
-
-                    if (token) return { token };
-                    else return null;
+                    const token = await AsyncStorage.getItem("@tuman/token");
+                    if (token) {
+                        return { token };
+                    }
+                    return null;
                 }
-
-                // logout();
 
                 return null;
             },
@@ -74,8 +59,8 @@ const client = createClient({
                 });
             },
             didAuthError: ({ error }) => {
-                return error.graphQLErrors.some(
-                    (e) => e.message === "User is not authenticated"
+                return error.graphQLErrors.some((e) =>
+                    e.message.includes("not authenticated")
                 );
             },
             willAuthError: ({ authState }) => {
@@ -83,6 +68,7 @@ const client = createClient({
                 return false;
             },
         }),
+        fetchExchange,
     ],
 });
 

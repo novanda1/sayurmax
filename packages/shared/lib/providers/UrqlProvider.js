@@ -53,35 +53,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(require("react"));
 var urql_1 = require("urql");
 var exchange_auth_1 = require("@urql/exchange-auth");
+var async_storage_1 = __importDefault(require("@react-native-async-storage/async-storage"));
 var client = (0, urql_1.createClient)({
     url: "https://sayurmax.herokuapp.com/graphql/",
     exchanges: [
         urql_1.dedupExchange,
         urql_1.cacheExchange,
-        urql_1.fetchExchange,
-        (0, urql_1.errorExchange)({
-            onError: function (error) {
-                var isAuthError = error.graphQLErrors.some(function (e) { return e.message === "User is not authenticated"; });
-                if (isAuthError) {
-                    // logout();
-                }
-            },
-        }),
         (0, exchange_auth_1.authExchange)({
             getAuth: function (_a) {
                 var authState = _a.authState;
                 return __awaiter(void 0, void 0, void 0, function () {
                     var token;
                     return __generator(this, function (_b) {
-                        if (!authState) {
-                            token = localStorage.getItem("token");
-                            if (token)
-                                return [2 /*return*/, { token: token }];
-                            else
+                        switch (_b.label) {
+                            case 0:
+                                if (!!authState) return [3 /*break*/, 2];
+                                return [4 /*yield*/, async_storage_1.default.getItem("@tuman/token")];
+                            case 1:
+                                token = _b.sent();
+                                if (token) {
+                                    return [2 /*return*/, { token: token }];
+                                }
                                 return [2 /*return*/, null];
+                            case 2: return [2 /*return*/, null];
                         }
-                        // logout();
-                        return [2 /*return*/, null];
                     });
                 });
             },
@@ -97,7 +92,9 @@ var client = (0, urql_1.createClient)({
             },
             didAuthError: function (_a) {
                 var error = _a.error;
-                return error.graphQLErrors.some(function (e) { return e.message === "User is not authenticated"; });
+                return error.graphQLErrors.some(function (e) {
+                    return e.message.includes("not authenticated");
+                });
             },
             willAuthError: function (_a) {
                 var authState = _a.authState;
@@ -106,6 +103,7 @@ var client = (0, urql_1.createClient)({
                 return false;
             },
         }),
+        urql_1.fetchExchange,
     ],
 });
 function UrqlProvider(_a) {
