@@ -19,7 +19,7 @@ interface Props {
 export const OrderList: React.FC<Props> = ({ children }) => {
     return (
         <>
-            <Container minH="100vh" backgroundColor="#E9EBEE">
+            <Container minH="100vh">
                 <Heading size="md" mt="6">
                     32 Pesanan Belum diantar
                 </Heading>

@@ -24,12 +24,12 @@ export const OrderItem = ({ data }: Props) => {
                     <Text fontFamily="body" fontWeight={600} fontSize="sm">
                         Order #{data.id}
                     </Text>
-                    <Text fontFamily="body" fontWeight="medium" fontSize="xs">
+                    <Text fontFamily="body" fontWeight="medium" fontSize="xs" color="gray.500">
                         {formatedDate}
                     </Text>
                 </HStack>
                 <VStack>
-                    <Text fontFamily="body" fontSize="md" fontWeight="bold">
+                    <Text fontFamily="body" fontSize="md" fontWeight="bold" color="gray.500">
                         {data.address.recipient}
                     </Text>
                     <Text
@@ -38,9 +38,9 @@ export const OrderItem = ({ data }: Props) => {
                         mt="2"
                         color="gray.700"
                     >
-                        {data.address.address + " "}
-                        {data.address.city + " "}
-                        {data.address.address}
+                        {data.address.address + ", "}
+                        {data.address.city + " "} <br />
+                        {data.address.detail}
                     </Text>
                     <Text fontFamily="body" mt="2" fontWeight="semibold">
                         Total
