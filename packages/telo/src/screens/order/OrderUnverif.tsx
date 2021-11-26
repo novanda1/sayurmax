@@ -1,8 +1,8 @@
 import { OrderStatusCode, useOrdersQuery } from "@sayurmax/shared";
 import { Box, Pressable, ScrollView } from "native-base";
 import React from "react";
-import { OrderItem } from "../../components/OrderItem";
-import { OrderList } from "../../components/OrderList";
+import { OrderItem } from "../../components/order/OrderItem";
+import { OrderList } from "../../components/order/OrderList";
 
 export const OrderUnverifScreen: React.FC = ({ navigation }: any) => {
     const [result] = useOrdersQuery({

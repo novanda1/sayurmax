@@ -1,6 +1,6 @@
 import React from "react";
-import { OrderItem } from "../../components/OrderItem";
-import { OrderList } from "../../components/OrderList";
+import { OrderItem } from "../../components/order/OrderItem";
+import { OrderList } from "../../components/order/OrderList";
 import { OrderStatusCode, useOrdersQuery } from "@sayurmax/shared";
 import { ScrollView, Box, Pressable } from "native-base";
 

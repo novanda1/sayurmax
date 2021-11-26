@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, HStack, VStack, Text } from "native-base";
-import { formatDate } from "../utils/date";
+import { formatDate } from "../../utils/date";
 import { Order } from "@sayurmax/shared";
 
 interface Props {
