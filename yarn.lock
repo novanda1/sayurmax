@@ -3295,26 +3295,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-picker/picker@npm:2.1.0":
-  version: 2.1.0
-  resolution: "@react-native-picker/picker@npm:2.1.0"
-  peerDependencies:
-    react: 16 || 17
-    react-native: ">=0.57"
-  checksum: 9a96e9da0704dc0b222d6818bcc7bcd23a914a664774e7717842944770b1677a59906166bb6f0a789b3d270aed6ab32a742e9191f5a40b13d92e98de0ab66855
-  languageName: node
-  linkType: hard
-
-"@react-native-picker/picker@npm:^1.8.3":
-  version: 1.16.8
-  resolution: "@react-native-picker/picker@npm:1.16.8"
-  peerDependencies:
-    react: 16 || 17
-    react-native: ">=0.57"
-  checksum: c0176e41ba7486bf0a27ab5471315848cb166330313bd12e29ee65b7d2e1dfde22383de6a89be15770d132b33bca1764e64feee3acf22c67c3733fd877d3e91f
-  languageName: node
-  linkType: hard
-
 "@react-native/assets@npm:1.0.0":
   version: 1.0.0
   resolution: "@react-native/assets@npm:1.0.0"
@@ -3927,7 +3907,6 @@ __metadata:
     "@expo-google-fonts/roboto": ^0.2.0
     "@expo/ngrok": ^4.1.0
     "@graphql-codegen/cli": ^2.3.0
-    "@react-native-picker/picker": 2.1.0
     "@react-navigation/bottom-tabs": ^6.0.9
     "@react-navigation/material-top-tabs": ^6.0.6
     "@react-navigation/native": ^6.0.6
@@ -3940,6 +3919,7 @@ __metadata:
     expo: ~43.0.2
     expo-app-loading: ~1.2.1
     expo-font: ~10.0.3
+    expo-secure-store: ~11.0.3
     expo-splash-screen: ~0.13.5
     expo-status-bar: ~1.1.0
     expo-updates: ~0.10.13
@@ -3953,7 +3933,6 @@ __metadata:
     react-native: 0.64.3
     react-native-gesture-handler: ^1.10.3
     react-native-pager-view: ^5.4.9
-    react-native-picker-select: ^8.0.4
     react-native-reanimated: ~2.2.0
     react-native-safe-area-context: 3.3.2
     react-native-screens: ~3.8.0
@@ -3965,6 +3944,7 @@ __metadata:
     styled-system: ^5.1.5
     typescript: ~4.0.0
     urql: ^2.0.5
+    zustand: ^3.6.5
   peerDependencies:
     react: "*"
     react-native: "*"
@@ -8014,6 +7994,15 @@ __metadata:
   bin:
     expo-pwa: build/cli.js
   checksum: f06e03b14f5fd3a1413f530d74c207e2aacbc79c1dbba7c2f8f220d17729fdb754cc0c8579e64086f781564ffd728ebfdf99b11f337cf6b2fd94cb56fdf65998
+  languageName: node
+  linkType: hard
+
+"expo-secure-store@npm:~11.0.3":
+  version: 11.0.3
+  resolution: "expo-secure-store@npm:11.0.3"
+  dependencies:
+    expo-modules-core: ~0.4.4
+  checksum: ebc273111886b50858775ba118f859ef321c9b7cdda1025c59b7553829d39b94e187aeb2685d131ff8561f58b247d45658124485e648b43e342c6a8c493dee69
   languageName: node
   linkType: hard
 
@@ -14075,16 +14064,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-picker-select@npm:^8.0.4":
-  version: 8.0.4
-  resolution: "react-native-picker-select@npm:8.0.4"
-  dependencies:
-    "@react-native-picker/picker": ^1.8.3
-    lodash.isequal: ^4.5.0
-  checksum: 9656a2f7b330a9e5a8b6b90393140fc5370762d2a14de4c5d31ce43de8abc677870c7f2ee8a493f48535157ddcbc3311cf3f41dac262bd84e50e913f0d4a24ff
-  languageName: node
-  linkType: hard
-
 "react-native-reanimated@npm:~2.2.0":
   version: 2.2.4
   resolution: "react-native-reanimated@npm:2.2.4"
@@ -17425,5 +17404,17 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: f77b3d8d00310def622123df93d4ee654fc6a0096182af8bd60679ddcdfb3474c56c6c7190817c84a2785648cdee9d721c0154eb45698c62176c322fb46fc700
+  languageName: node
+  linkType: hard
+
+"zustand@npm:^3.6.5":
+  version: 3.6.5
+  resolution: "zustand@npm:3.6.5"
+  peerDependencies:
+    react: ">=16.8"
+  peerDependenciesMeta:
+    react:
+      optional: true
+  checksum: 1c3eee75ba04c9ec2d9390bb5f8a9ef736f21f9b266cf39e578a359325b10db816f54783ae70a5ee69cd0846e4a504d460fe8e91fde57a276cd3e7ce2538caa3
   languageName: node
   linkType: hard
