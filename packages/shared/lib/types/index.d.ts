@@ -213,6 +213,7 @@ export declare type UserAddress = {
     __typename?: 'UserAddress';
     address: Scalars['String'];
     city: Scalars['String'];
+    detail: Scalars['String'];
     id: Scalars['UUID'];
     name: Scalars['String'];
     phone: Scalars['String'];
@@ -309,6 +310,7 @@ export declare type OrderFragment = {
         city: string;
         postalCode: number;
         address: string;
+        detail: string;
     };
     user: {
         __typename: 'UserType';
@@ -364,6 +366,7 @@ export declare type OrdersResponseFragment = {
             city: string;
             postalCode: number;
             address: string;
+            detail: string;
         };
         user: {
             __typename: 'UserType';
@@ -411,6 +414,7 @@ export declare type UserAddressFragment = {
     city: string;
     postalCode: number;
     address: string;
+    detail: string;
 };
 export declare type ChangeOrderStatusMutationVariables = Exact<{
     shopperChangeOrderStatusCodeId: Scalars['String'];
@@ -497,6 +501,7 @@ export declare type OrdersQuery = {
                 city: string;
                 postalCode: number;
                 address: string;
+                detail: string;
             };
             user: {
                 __typename: 'UserType';

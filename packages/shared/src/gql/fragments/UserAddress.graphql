@@ -7,4 +7,5 @@ fragment UserAddress on UserAddress {
     city
     postalCode
     address
+    detail
 }
