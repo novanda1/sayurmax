@@ -39,4 +39,5 @@ class UserAddress:
     city: str
     postal_code: int
     address: str
+    detail: str
     
