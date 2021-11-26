@@ -22,5 +22,9 @@ export const formatDate = (d: string) => {
     const ddmmyyArr = date.replace(date.split("-")[1], monthName).split("-");
     const ddmmyy = ddmmyyArr.reverse().join(" ");
 
-    return ddmmyy + " " + time;
+    return (
+        ddmmyy +
+        " " +
+        Array.from(time).slice(0, -1).slice(0, -1).slice(0, -1).join("")
+    );
 };
