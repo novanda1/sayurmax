@@ -9,10 +9,12 @@
     "gen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
+    "@urql/exchange-auth": "^0.1.6",
     "typescript": "^4.5.2",
     "urql": "^2.0.5"
   },
   "peerDependencies": {
+    "expo-secure-store": "*",
     "react": "*",
     "react-native": "*",
     "react-native-web": "*"

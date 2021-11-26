@@ -306,6 +306,14 @@ export type ChangeOrderStatusMutationVariables = Exact<{
 
 export type ChangeOrderStatusMutation = { __typename?: 'Mutation', shopperChangeOrderStatusCode: string };
 
+export type ShopperLoginMutationVariables = Exact<{
+  username: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type ShopperLoginMutation = { __typename?: 'Mutation', shopperLogin: { __typename?: 'ShopperAuthResponse', token: string, shopper: { __typename?: 'Shopper', username: string, email?: string | null | undefined, firstName?: string | null | undefined, lastName?: string | null | undefined } } };
+
 export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -421,6 +429,23 @@ export const ChangeOrderStatusDocument = gql`
 
 export function useChangeOrderStatusMutation() {
   return Urql.useMutation<ChangeOrderStatusMutation, ChangeOrderStatusMutationVariables>(ChangeOrderStatusDocument);
+};
+export const ShopperLoginDocument = gql`
+    mutation shopperLogin($username: String!, $password: String!) {
+  shopperLogin(username: $username, password: $password) {
+    shopper {
+      username
+      email
+      firstName
+      lastName
+    }
+    token
+  }
+}
+    `;
+
+export function useShopperLoginMutation() {
+  return Urql.useMutation<ShopperLoginMutation, ShopperLoginMutationVariables>(ShopperLoginDocument);
 };
 export const HelloDocument = gql`
     query Hello {

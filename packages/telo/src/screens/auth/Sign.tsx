@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
     Box,
     Text,
@@ -12,7 +11,36 @@ import {
     Center,
     NativeBaseProvider,
 } from "native-base";
-export const Example = () => {
+import { useShopperLoginMutation } from "@sayurmax/shared";
+import { useCallback, useState } from "react";
+import { useTokenStore } from "../../modules/auth/useTokenStore";
+export const SignIn = () => {
+    const tokenStore = useTokenStore();
+
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+    const onChangeUsername = useCallback((text: string) => {
+        setUsername(text);
+    }, []);
+    const onChangePassword = useCallback((text: string) => {
+        setPassword(text);
+    }, []);
+
+    const [_, execute] = useShopperLoginMutation();
+
+    const handleLogin = useCallback(async () => {
+        const response = await execute({
+            username,
+            password,
+        });
+
+        if (response.data)
+            tokenStore.setTokens({
+                accessToken: response.data?.shopperLogin.token,
+            });
+    }, [password, username]);
+
     return (
         <Box safeArea p="2" py="8" w="90%" maxW="290">
             <Heading
@@ -39,12 +67,16 @@ export const Example = () => {
 
             <VStack space={3} mt="5">
                 <FormControl>
-                    <FormControl.Label>Nickname</FormControl.Label>
-                    <Input />
+                    <FormControl.Label>Username</FormControl.Label>
+                    <Input value={username} onChangeText={onChangeUsername} />
                 </FormControl>
                 <FormControl>
                     <FormControl.Label>Password</FormControl.Label>
-                    <Input type="password" />
+                    <Input
+                        type="password"
+                        value={password}
+                        onChangeText={onChangePassword}
+                    />
                     <Link
                         _text={{
                             fontSize: "xs",
@@ -57,7 +89,7 @@ export const Example = () => {
                         Forget Password?
                     </Link>
                 </FormControl>
-                <Button mt="2" colorScheme="green">
+                <Button mt="2" colorScheme="green" onPress={handleLogin}>
                     Sign in
                 </Button>
             </VStack>
@@ -69,7 +101,7 @@ export default () => {
     return (
         <NativeBaseProvider>
             <Center flex={1} px="3">
-                <Example />
+                <SignIn />
             </Center>
         </NativeBaseProvider>
     );

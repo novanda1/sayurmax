@@ -37,7 +37,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useOrdersQuery = exports.OrdersDocument = exports.useHelloQuery = exports.HelloDocument = exports.useChangeOrderStatusMutation = exports.ChangeOrderStatusDocument = exports.OrdersResponseFragmentDoc = exports.OrderFragmentDoc = exports.UserFragmentDoc = exports.UserAddressFragmentDoc = exports.ItemFragmentDoc = exports.ProductFragmentDoc = exports.CategoryFragmentDoc = exports.TypeOfProduct = exports.OrderStatusCode = void 0;
+exports.useOrdersQuery = exports.OrdersDocument = exports.useHelloQuery = exports.HelloDocument = exports.useShopperLoginMutation = exports.ShopperLoginDocument = exports.useChangeOrderStatusMutation = exports.ChangeOrderStatusDocument = exports.OrdersResponseFragmentDoc = exports.OrderFragmentDoc = exports.UserFragmentDoc = exports.UserAddressFragmentDoc = exports.ItemFragmentDoc = exports.ProductFragmentDoc = exports.CategoryFragmentDoc = exports.TypeOfProduct = exports.OrderStatusCode = void 0;
 var graphql_tag_1 = __importDefault(require("graphql-tag"));
 var Urql = __importStar(require("urql"));
 var OrderStatusCode;
@@ -66,18 +66,24 @@ function useChangeOrderStatusMutation() {
 }
 exports.useChangeOrderStatusMutation = useChangeOrderStatusMutation;
 ;
-exports.HelloDocument = (0, graphql_tag_1.default)(templateObject_9 || (templateObject_9 = __makeTemplateObject(["\n    query Hello {\n  hello\n}\n    "], ["\n    query Hello {\n  hello\n}\n    "])));
+exports.ShopperLoginDocument = (0, graphql_tag_1.default)(templateObject_9 || (templateObject_9 = __makeTemplateObject(["\n    mutation shopperLogin($username: String!, $password: String!) {\n  shopperLogin(username: $username, password: $password) {\n    shopper {\n      username\n      email\n      firstName\n      lastName\n    }\n    token\n  }\n}\n    "], ["\n    mutation shopperLogin($username: String!, $password: String!) {\n  shopperLogin(username: $username, password: $password) {\n    shopper {\n      username\n      email\n      firstName\n      lastName\n    }\n    token\n  }\n}\n    "])));
+function useShopperLoginMutation() {
+    return Urql.useMutation(exports.ShopperLoginDocument);
+}
+exports.useShopperLoginMutation = useShopperLoginMutation;
+;
+exports.HelloDocument = (0, graphql_tag_1.default)(templateObject_10 || (templateObject_10 = __makeTemplateObject(["\n    query Hello {\n  hello\n}\n    "], ["\n    query Hello {\n  hello\n}\n    "])));
 function useHelloQuery(options) {
     if (options === void 0) { options = {}; }
     return Urql.useQuery(__assign({ query: exports.HelloDocument }, options));
 }
 exports.useHelloQuery = useHelloQuery;
 ;
-exports.OrdersDocument = (0, graphql_tag_1.default)(templateObject_10 || (templateObject_10 = __makeTemplateObject(["\n    query Orders($status: OrderStatusCode!, $limit: Int!, $after: String) {\n  orders(status: $status, limit: $limit, after: $after) {\n    ...OrdersResponse\n  }\n}\n    ", ""], ["\n    query Orders($status: OrderStatusCode!, $limit: Int!, $after: String) {\n  orders(status: $status, limit: $limit, after: $after) {\n    ...OrdersResponse\n  }\n}\n    ", ""])), exports.OrdersResponseFragmentDoc);
+exports.OrdersDocument = (0, graphql_tag_1.default)(templateObject_11 || (templateObject_11 = __makeTemplateObject(["\n    query Orders($status: OrderStatusCode!, $limit: Int!, $after: String) {\n  orders(status: $status, limit: $limit, after: $after) {\n    ...OrdersResponse\n  }\n}\n    ", ""], ["\n    query Orders($status: OrderStatusCode!, $limit: Int!, $after: String) {\n  orders(status: $status, limit: $limit, after: $after) {\n    ...OrdersResponse\n  }\n}\n    ", ""])), exports.OrdersResponseFragmentDoc);
 function useOrdersQuery(options) {
     if (options === void 0) { options = {}; }
     return Urql.useQuery(__assign({ query: exports.OrdersDocument }, options));
 }
 exports.useOrdersQuery = useOrdersQuery;
 ;
-var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10;
+var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10, templateObject_11;

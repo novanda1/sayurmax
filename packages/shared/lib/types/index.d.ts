@@ -420,6 +420,24 @@ export declare type ChangeOrderStatusMutation = {
     __typename?: 'Mutation';
     shopperChangeOrderStatusCode: string;
 };
+export declare type ShopperLoginMutationVariables = Exact<{
+    username: Scalars['String'];
+    password: Scalars['String'];
+}>;
+export declare type ShopperLoginMutation = {
+    __typename?: 'Mutation';
+    shopperLogin: {
+        __typename?: 'ShopperAuthResponse';
+        token: string;
+        shopper: {
+            __typename?: 'Shopper';
+            username: string;
+            email?: string | null | undefined;
+            firstName?: string | null | undefined;
+            lastName?: string | null | undefined;
+        };
+    };
+};
 export declare type HelloQueryVariables = Exact<{
     [key: string]: never;
 }>;
@@ -502,6 +520,11 @@ export declare const ChangeOrderStatusDocument: import("graphql").DocumentNode;
 export declare function useChangeOrderStatusMutation(): Urql.UseMutationResponse<ChangeOrderStatusMutation, Exact<{
     shopperChangeOrderStatusCodeId: string;
     status: OrderStatusCode;
+}>>;
+export declare const ShopperLoginDocument: import("graphql").DocumentNode;
+export declare function useShopperLoginMutation(): Urql.UseMutationResponse<ShopperLoginMutation, Exact<{
+    username: string;
+    password: string;
 }>>;
 export declare const HelloDocument: import("graphql").DocumentNode;
 export declare function useHelloQuery(options?: Omit<Urql.UseQueryArgs<HelloQueryVariables>, 'query'>): Urql.UseQueryResponse<HelloQuery, object>;

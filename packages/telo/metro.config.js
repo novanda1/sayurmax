@@ -6,6 +6,7 @@ const y = createMetroConfiguration(__dirname);
 const watchFolders = [
   path.resolve(__dirname + "/.."),
   path.resolve(__dirname + "/../../", "node_modules"),
+  path.resolve(path.join(__dirname, "/../telo/")),
 ];
 
 module.exports = {

@@ -3890,9 +3890,11 @@ __metadata:
     "@graphql-codegen/typescript": 2.4.0
     "@graphql-codegen/typescript-operations": 2.2.0
     "@graphql-codegen/typescript-urql": ^3.4.0
+    "@urql/exchange-auth": ^0.1.6
     typescript: ^4.5.2
     urql: ^2.0.5
   peerDependencies:
+    expo-secure-store: "*"
     react: "*"
     react-native: "*"
     react-native-web: "*"
@@ -4450,7 +4452,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@urql/core@npm:^2.3.2":
+"@urql/core@npm:>=2.2.0, @urql/core@npm:^2.3.2":
   version: 2.3.5
   resolution: "@urql/core@npm:2.3.5"
   dependencies:
@@ -4459,6 +4461,18 @@ __metadata:
   peerDependencies:
     graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
   checksum: 597119560b2261043d5b210fdb5d80ece39d7e52db4c52e6ccadfa57e4e05fa9a2873f11b3f5e067051545e28012d2e0e41c8edaec3e26b797cf3212202e6800
+  languageName: node
+  linkType: hard
+
+"@urql/exchange-auth@npm:^0.1.6":
+  version: 0.1.6
+  resolution: "@urql/exchange-auth@npm:0.1.6"
+  dependencies:
+    "@urql/core": ">=2.2.0"
+    wonka: ^4.0.14
+  peerDependencies:
+    graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
+  checksum: 4ff40f9c89f1116f691c7a15da0b59528fdfb4bfa6c02a31bcf79de28b5ba8295c088c674a1100b2dcddfa37e4b7305b45e87f40b6dec59500bcec53399da098
   languageName: node
   linkType: hard
 
