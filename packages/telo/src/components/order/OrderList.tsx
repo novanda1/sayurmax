@@ -19,7 +19,7 @@ interface Props {
 export const OrderList: React.FC<Props> = ({ children }) => {
     return (
         <>
-            <Container minH="100vh">
+            <Container minH={100}>
                 <Heading size="md" mt="6">
                     32 Pesanan Belum diantar
                 </Heading>
@@ -28,7 +28,7 @@ export const OrderList: React.FC<Props> = ({ children }) => {
                 <HStack space="2" mt="3">
                     <Input
                         placeholder="Cari list"
-                        bg="#fff"
+                        bg="gray"
                         flex="1"
                         borderRadius="4"
                         py="3"
@@ -45,7 +45,7 @@ export const OrderList: React.FC<Props> = ({ children }) => {
                                 m="2"
                                 ml="3"
                                 size="6"
-                                color="gray.400"
+                                color="gray"
                                 as={<Feather name="search" />}
                             />
                         }

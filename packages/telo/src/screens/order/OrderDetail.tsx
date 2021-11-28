@@ -89,77 +89,82 @@ const OrderDetail = ({ route, navigation }: any) => {
 
                 <Box bg="white" mt="2" py="3" px="2">
                     <Container>
-                        <Text fontFamily="body" fontSize="sm">
-                            <VStack w="100%">
-                                <Text mb="3">Items ({items.length})</Text>
-                                {items.map((item) => (
-                                    <Box
-                                        w="100%"
-                                        key={item.id}
-                                        shadow="1"
-                                        rounded="sm"
-                                        px="3"
-                                        py="3"
-                                        mb="3"
-                                    >
-                                        <HStack justifyContent="space-between">
-                                            <Text maxW="1/2" fontWeight="bold">
-                                                {item.product.title} per{" "}
-                                                {item.product.itemUnit}
-                                            </Text>
-                                            <Text
-                                                minW="max-content"
-                                                fontWeight="bold"
-                                            >
-                                                Rp. {item.atPrice * item.qty}
-                                            </Text>
-                                        </HStack>
-                                        <HStack
-                                            mt="2"
-                                            justifyContent="space-between"
-                                        >
-                                            <Text>
-                                                {item.qty} x {item.atPrice}
-                                            </Text>
-                                            <Text color="green.600">
-                                                Lihat Catatan
-                                            </Text>
-                                        </HStack>
-                                    </Box>
-                                ))}
-                                <Divider />
-                                <HStack mt="2" justifyContent="space-between">
-                                    <Text>Subtotal</Text>
-                                    <Text fontWeight="bold">
-                                        Rp. {order.total}
-                                    </Text>
-                                </HStack>
-                                <HStack mt="2" justifyContent="space-between">
-                                    <Text>Ongkir</Text>
-                                    <Text fontWeight="bold">Rp. 0</Text>
-                                </HStack>
-                                <HStack mt="2" justifyContent="space-between">
-                                    <Text fontWeight="bold" fontSize="lg">
-                                        Total
-                                    </Text>
-                                    <Text
-                                        fontWeight="bold"
-                                        fontSize="lg"
-                                        color="green.600"
-                                    >
-                                        Rp. {order.total}
-                                    </Text>
-                                </HStack>
+                        <VStack w="100%">
+                            <Text mb="3">Items ({items.length})</Text>
+                            {items.map((item) => (
+                                <Box
+                                    key={item.id + item.qty}
+                                    w="100%"
+                                    rounded="sm"
+                                    style={{
+                                        shadowColor: "rgb(27, 35, 66)",
+                                        shadowOffset: { width: 0, height: 5 },
+                                        elevation: 3,
+                                        shadowRadius: 20,
+                                        shadowOpacity: 0.1,
+                                        backgroundColor : "#0000"
 
-                                <Button
-                                    mt="3"
-                                    variant="outline"
-                                    colorScheme="green"
+                                    }}
+                                    px="3"
+                                    py="3"
+                                    mb="3"
                                 >
-                                    Hubungi via Whatsapp
-                                </Button>
-                            </VStack>
-                        </Text>
+                                    <HStack justifyContent="space-between">
+                                        <Text fontWeight="bold">
+                                            {item.product.title} per{" "}
+                                            {item.product.itemUnit}
+                                        </Text>
+                                        <Text
+                                            fontWeight="bold"
+                                        >
+                                            Rp. {item.atPrice * item.qty}
+                                        </Text>
+                                    </HStack>
+                                    <HStack
+                                        mt="2"
+                                        justifyContent="space-between"
+                                    >
+                                        <Text>
+                                            {item.qty} x {item.atPrice}
+                                        </Text>
+                                        <Text color="green.600">
+                                            Lihat Catatan
+                                        </Text>
+                                    </HStack>
+                                </Box>
+                            ))}
+                            <Divider />
+                            <HStack mt="2" justifyContent="space-between">
+                                <Text>Subtotal</Text>
+                                <Text fontWeight="bold">
+                                    Rp. {order.total}
+                                </Text>
+                            </HStack>
+                            <HStack mt="2" justifyContent="space-between">
+                                <Text>Ongkir</Text>
+                                <Text fontWeight="bold">Rp. 0</Text>
+                            </HStack>
+                            <HStack mt="2" justifyContent="space-between">
+                                <Text fontWeight="bold" fontSize="lg">
+                                    Total
+                                </Text>
+                                <Text
+                                    fontWeight="bold"
+                                    fontSize="lg"
+                                    color="green.600"
+                                >
+                                    Rp. {order.total}
+                                </Text>
+                            </HStack>
+
+                            <Button
+                                mt="3"
+                                variant="outline"
+                                colorScheme="green"
+                            >
+                                Hubungi via Whatsapp
+                            </Button>
+                        </VStack>
                     </Container>
                 </Box>
 
@@ -171,12 +176,12 @@ const OrderDetail = ({ route, navigation }: any) => {
                             </Text>
                             <Select
                                 selectedValue={orderStatus}
-                                minWidth="200"
+                                minWidth="200px"
                                 accessibilityLabel="Choose Status"
                                 placeholder="Choose Status"
                                 _selectedItem={{
                                     bg: "teal.600",
-                                    endIcon: <CheckIcon size="5" />,
+                                    endIcon: <CheckIcon />,
                                 }}
                                 mt={1}
                                 mb={1}
@@ -188,8 +193,8 @@ const OrderDetail = ({ route, navigation }: any) => {
                                     .reverse()
                                     .map((s) => (
                                         <Select.Item
-                                            accessibilityHint={s}
                                             key={s}
+                                            accessibilityHint={s}
                                             label={s}
                                             value={s}
                                         />

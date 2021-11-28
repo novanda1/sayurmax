@@ -3905,6 +3905,7 @@ __metadata:
     typescript: ^4.5.2
     urql: ^2.0.5
   peerDependencies:
+    "@react-native-async-storage/async-storage": "*"
     expo-secure-store: "*"
     react: "*"
     react-native: "*"
@@ -3946,7 +3947,7 @@ __metadata:
     react-dom: ^17.0.2
     react-native: 0.64.3
     react-native-gesture-handler: ^1.10.3
-    react-native-pager-view: ^5.4.9
+    react-native-pager-view: 5.4.6
     react-native-reanimated: ~2.2.0
     react-native-safe-area-context: 3.3.2
     react-native-screens: ~3.8.0
@@ -14096,13 +14097,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-pager-view@npm:^5.4.9":
-  version: 5.4.9
-  resolution: "react-native-pager-view@npm:5.4.9"
+"react-native-pager-view@npm:5.4.6":
+  version: 5.4.6
+  resolution: "react-native-pager-view@npm:5.4.6"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 6a2a538a1ce7a3334ef5177fd32d2c45a7ce39358d01e4f3f7a10e4357cc9888feb9b1c29146da33430a0e4dd8d04bf3036370495d135d4d6321ee9f11b42b3c
+  checksum: a361f74068d017469c5c6865be4691ecec5bebac4d7b34717259e57e18e962e71d41fa5c549d43c304dc976f372717f67c0084e1059f93f579c8a357d6b37373
   languageName: node
   linkType: hard
 
