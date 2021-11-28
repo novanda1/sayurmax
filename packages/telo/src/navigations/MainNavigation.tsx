@@ -7,6 +7,7 @@ import { HomeScreen } from "../screens/Home";
 
 import Feather from "react-native-vector-icons/Feather";
 import { OrderNavigation } from "./OrderNavigation";
+import OrderDataPicker from "../components/order/OrderDatePicker";
 
 const Tab = createBottomTabNavigator();
 
@@ -61,6 +62,11 @@ export function MainNavigation() {
                             size={20}
                         />
                     ),
+                    headerRight: () => {
+                        return (
+                            <OrderDataPicker />
+                        )
+                    }
                 }}
                 name="Order"
                 component={OrderNavigation}

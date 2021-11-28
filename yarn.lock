@@ -3946,6 +3946,7 @@ __metadata:
     react: 17.0.1
     react-dom: ^17.0.2
     react-native: 0.64.3
+    react-native-date-picker: ^4.1.2
     react-native-gesture-handler: ^1.10.3
     react-native-pager-view: 5.4.6
     react-native-reanimated: ~2.2.0
@@ -14081,6 +14082,13 @@ __metadata:
     jscodeshift: ^0.11.0
     nullthrows: ^1.1.1
   checksum: 545d1e416be5bd0bc27a9bc4d58719317577fbcb38f80082857142f4946ba336df3f5fa3e87137709691acd809ee46e1f52834648399cb50219a70f441d6e6a3
+  languageName: node
+  linkType: hard
+
+"react-native-date-picker@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "react-native-date-picker@npm:4.1.2"
+  checksum: 85cd47523f7803b619566abc8ca078d3e4d59fc10e6e9d27aaab83cbe36bc108c6dd17d709e7f55cc9fe43595aec14b5c8f3fd47f3cd1943b572189e92bd82ad
   languageName: node
   linkType: hard
 
