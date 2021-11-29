@@ -2,7 +2,8 @@ import { HStack, Icon, IconButton, Box } from "native-base";
 import { useCallback, useState } from "react";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import { Platform } from "react-native";
-import DatePicker from "react-native-date-picker";
+import DatePicker from '@react-native-community/datetimepicker';
+
 import { useOrderStore } from "../../modules/order/useOrderStore";
 import moment from "moment";
 
@@ -24,21 +25,15 @@ const AndroidDatePicker: React.FC = () => {
                         <Icon as={MaterialIcon} size="sm" name="date-range" />
                     }
                 />
-                {DatePicker && (
+                {open && (
                     <DatePicker
-                        modal
-                        open={open}
-                        date={moment(date).toDate()}
+                        value={date.toDate()}
                         mode="date"
-                        onConfirm={(date) => {
+                        onChange={(event: any, date: any) => {
                             setOpen(false);
                             setDate(moment(date));
                         }}
-                        onCancel={() => {
-                            setOpen(false);
-                        }}
                         maximumDate={new Date()}
-                        androidVariant="iosClone"
                     />
                 )}
             </HStack>
