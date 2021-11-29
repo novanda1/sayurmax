@@ -33,7 +33,8 @@ class OrderQuery:
         status: OrderStatusCode,
         limit: int,
         after: Optional[str] = None,
-        date: Optional[OrderDate] = None
+        date: Optional[OrderDate] = None,
+        search: Optional[str] = None
     ):
-        orders = order_services.orders(status, limit, after, date)
+        orders = order_services.orders(status, limit, after, date, search)
         return orders

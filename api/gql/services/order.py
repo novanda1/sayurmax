@@ -1,6 +1,8 @@
 import datetime
 from typing import List
 
+from django.contrib.postgres.search import SearchVector
+
 from apps.user.models import UserAddress, User
 from apps.order.models import Order, OrderItem
 from apps.grocery.models import Cart, CartProduct, Product
@@ -150,9 +152,15 @@ class OrderService:
 
         return order_type
 
-    def orders(self, status, limit, after, date):
+    def orders(self, status, limit, after, date, search):
         qs = Order.objects.filter(
             order_status_code=status.value)
+
+        if search:
+            qs = qs.annotate(search=SearchVector(
+                'user__display_name') + SearchVector('user__phone')).filter(search=search)
+        else:
+            pass
 
         if date:
             qs = qs.filter(created_at__date=datetime.date(
