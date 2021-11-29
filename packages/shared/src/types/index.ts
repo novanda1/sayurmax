@@ -211,6 +211,7 @@ export type QueryOrdersArgs = {
   after?: InputMaybe<Scalars['String']>;
   date?: InputMaybe<OrderDate>;
   limit: Scalars['Int'];
+  search?: InputMaybe<Scalars['String']>;
   status: OrderStatusCode;
 };
 
@@ -332,6 +333,7 @@ export type OrdersQueryVariables = Exact<{
   limit: Scalars['Int'];
   after?: Maybe<Scalars['String']>;
   date?: Maybe<OrderDate>;
+  search?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -467,8 +469,14 @@ export function useHelloQuery(options: Omit<Urql.UseQueryArgs<HelloQueryVariable
   return Urql.useQuery<HelloQuery>({ query: HelloDocument, ...options });
 };
 export const OrdersDocument = gql`
-    query Orders($status: OrderStatusCode!, $limit: Int!, $after: String, $date: OrderDate) {
-  orders(status: $status, limit: $limit, after: $after, date: $date) {
+    query Orders($status: OrderStatusCode!, $limit: Int!, $after: String, $date: OrderDate, $search: String) {
+  orders(
+    status: $status
+    limit: $limit
+    after: $after
+    date: $date
+    search: $search
+  ) {
     ...OrdersResponse
   }
 }

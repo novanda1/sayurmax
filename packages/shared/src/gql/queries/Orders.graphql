@@ -3,8 +3,15 @@ query Orders(
     $limit: Int!
     $after: String
     $date: OrderDate
+    $search: String
 ) {
-    orders(status: $status, limit: $limit, after: $after, date: $date) {
+    orders(
+        status: $status
+        limit: $limit
+        after: $after
+        date: $date
+        search: $search
+    ) {
         ...OrdersResponse
     }
 }

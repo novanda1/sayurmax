@@ -181,6 +181,7 @@ export declare type QueryOrdersArgs = {
     after?: InputMaybe<Scalars['String']>;
     date?: InputMaybe<OrderDate>;
     limit: Scalars['Int'];
+    search?: InputMaybe<Scalars['String']>;
     status: OrderStatusCode;
 };
 export declare type QueryProductArgs = {
@@ -460,6 +461,7 @@ export declare type OrdersQueryVariables = Exact<{
     limit: Scalars['Int'];
     after?: Maybe<Scalars['String']>;
     date?: Maybe<OrderDate>;
+    search?: Maybe<Scalars['String']>;
 }>;
 export declare type OrdersQuery = {
     __typename?: 'Query';
