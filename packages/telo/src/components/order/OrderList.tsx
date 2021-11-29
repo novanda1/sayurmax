@@ -28,7 +28,7 @@ export const OrderList: React.FC<Props> = ({ children }) => {
                 <HStack space="2" mt="3">
                     <Input
                         placeholder="Cari list"
-                        bg="gray"
+                        bg="white"
                         flex="1"
                         borderRadius="4"
                         py="3"
