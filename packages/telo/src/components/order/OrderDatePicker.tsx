@@ -3,18 +3,18 @@ import { useCallback, useState } from "react";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import { Platform } from "react-native";
 import AntDatepicker from "../AntDatePicker";
+import DatePicker from "react-native-date-picker";
 
-const OrderDataPicker: React.FC = () => {
+const AndroidDatePicker: React.FC = () => {
     const [open, setOpen] = useState(false);
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState<Date>(new Date());
 
     const toggleDate = useCallback(() => {
         setOpen(!open);
         console.log(open);
     }, [setOpen, open]);
 
-    if (Platform.OS === "android") {
-        console.log("called");
+    if (Platform.OS === "android")
         return (
             <HStack mr="2">
                 <IconButton
@@ -24,28 +24,36 @@ const OrderDataPicker: React.FC = () => {
                         <Icon as={MaterialIcon} size="sm" name="date-range" />
                     }
                 />
-                {/* <DatePicker
-                    modal
-                    open={open}
-                    date={date}
-                    mode="date"
-                    onConfirm={(date) => {
-                        setOpen(false);
-                        setDate(date);
-                    }}
-                    onCancel={() => {
-                        setOpen(false);
-                    }}
-                    maximumDate={new Date()}
-                    androidVariant="iosClone"
-                /> */}
+                {DatePicker && (
+                    <DatePicker
+                        modal
+                        open={open}
+                        date={date}
+                        mode="date"
+                        onConfirm={(date) => {
+                            setOpen(false);
+                            setDate(date);
+                        }}
+                        onCancel={() => {
+                            setOpen(false);
+                        }}
+                        maximumDate={new Date()}
+                        androidVariant="iosClone"
+                    />
+                )}
             </HStack>
         );
+    else return <></>;
+};
+
+const OrderDataPicker: React.FC = () => {
+    if (Platform.OS === "android") {
+        return <AndroidDatePicker />;
     } else
         return (
             <HStack mr="2">
                 <Box maxW="130px">
-                    <AntDatepicker />
+                    {/* <AntDatepicker /> */}
                 </Box>
             </HStack>
         );
