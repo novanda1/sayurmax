@@ -24,8 +24,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      },
-      "package": "com.sejalur.sayurmaxshopper"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
