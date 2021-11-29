@@ -8,7 +8,7 @@ import {
     Badge,
     Box,
     Button,
-    CheckIcon, HStack, Select,
+    CheckIcon, HStack,
     Text,
     VStack
 } from "native-base";
@@ -17,6 +17,8 @@ import { Linking } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Container from "../../components/Container";
 import { formatDate } from "../../utils/date";
+import { Picker } from '@react-native-picker/picker';
+
 
 const OrderDetail = ({ route, navigation }: any) => {
     type RouteParams = {
@@ -166,17 +168,9 @@ const OrderDetail = ({ route, navigation }: any) => {
                             <Text fontSize="xl" fontWeight="bold" mb="3">
                                 Update Status
                             </Text>
-                            <Select
+                            <Picker
                                 selectedValue={orderStatus}
-                                minWidth="200px"
                                 accessibilityLabel="Choose Status"
-                                placeholder="Choose Status"
-                                _selectedItem={{
-                                    bg: "teal.600",
-                                    endIcon: <CheckIcon />,
-                                }}
-                                mt={1}
-                                mb={1}
                                 onValueChange={(itemValue) => {
                                     setOrderStatus(itemValue);
                                 }}
@@ -184,14 +178,13 @@ const OrderDetail = ({ route, navigation }: any) => {
                                 {Object.values(OrderStatusCode)
                                     .reverse()
                                     .map((s) => (
-                                        <Select.Item
+                                        <Picker.Item
                                             key={s}
-                                            accessibilityHint={s}
                                             label={s}
                                             value={s}
                                         />
                                     ))}
-                            </Select>
+                            </Picker>
                             <Button
                                 colorScheme="green"
                                 onPress={handleChangeOrderStatus}
