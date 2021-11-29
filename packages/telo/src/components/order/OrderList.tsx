@@ -1,16 +1,6 @@
+import { VStack } from "native-base";
 import React from "react";
-import {
-    Heading,
-    HStack,
-    Icon,
-    IconButton,
-    Input,
-    Text,
-    VStack,
-} from "native-base";
 import Container from "../Container";
-import Feather from "react-native-vector-icons/Feather";
-import IonIcon from "react-native-vector-icons/Ionicons";
 
 interface Props {
     children: React.ReactNode;
