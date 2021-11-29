@@ -16,7 +16,7 @@ export const OrderItem = ({ data }: Props) => {
                 bg="white"
                 borderLeftWidth="5"
                 width="100%"
-                borderColor="red.500"
+                borderColor="#0FB36C"
                 p="3"
                 rounded="lg"
             >
@@ -24,12 +24,22 @@ export const OrderItem = ({ data }: Props) => {
                     <Text fontFamily="body" fontWeight={600} fontSize="sm">
                         Order #{data.id}
                     </Text>
-                    <Text fontFamily="body" fontWeight="medium" fontSize="xs" color="gray">
+                    <Text
+                        fontFamily="body"
+                        fontWeight="medium"
+                        fontSize="xs"
+                        color="gray"
+                    >
                         {formatedDate}
                     </Text>
                 </HStack>
                 <VStack>
-                    <Text fontFamily="body" fontSize="md" fontWeight="bold" color="gray">
+                    <Text
+                        fontFamily="body"
+                        fontSize="md"
+                        fontWeight="bold"
+                        color="gray"
+                    >
                         {data.address.recipient}
                     </Text>
                     <Text
