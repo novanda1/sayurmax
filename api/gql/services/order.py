@@ -157,8 +157,11 @@ class OrderService:
             order_status_code=status.value)
 
         if search:
-            qs = qs.annotate(search=SearchVector(
-                'user__display_name') + SearchVector('user__phone')).filter(search=search)
+            qs = qs.annotate(search=
+                SearchVector('user__display_name') 
+                + SearchVector('user__phone')
+                + SearchVector('address__recipient')
+            ).filter(search=search)
         else:
             pass
 
