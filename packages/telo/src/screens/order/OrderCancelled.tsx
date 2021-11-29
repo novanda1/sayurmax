@@ -16,7 +16,7 @@ import { useOrder } from "../../modules/order/useOrder";
 
 export const OrderCancelledScreen = ({ navigation }: any) => {
     const { result, SearchInput } = useOrder({
-        orderStatus: OrderStatusCode.Progress,
+        orderStatus: OrderStatusCode.Cancelled,
     });
 
     const { data } = result;

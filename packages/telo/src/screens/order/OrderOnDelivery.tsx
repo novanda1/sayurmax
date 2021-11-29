@@ -16,7 +16,7 @@ import { useOrder } from "../../modules/order/useOrder";
 
 export const OrderOnDeliveryScreen = ({ navigation }: any) => {
     const { result, SearchInput } = useOrder({
-        orderStatus: OrderStatusCode.Progress,
+        orderStatus: OrderStatusCode.OnDelivery,
     });
 
     const { data } = result;

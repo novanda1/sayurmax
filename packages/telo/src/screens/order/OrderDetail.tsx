@@ -11,11 +11,13 @@ import {
     CheckIcon,
     Divider,
     HStack,
+    Link,
     Select,
     Text,
     VStack,
 } from "native-base";
 import React, { useCallback, useMemo, useState } from "react";
+import { Linking } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Container from "../../components/Container";
 import { formatDate } from "../../utils/date";
@@ -96,15 +98,8 @@ const OrderDetail = ({ route, navigation }: any) => {
                                     key={item.id + item.qty}
                                     w="100%"
                                     rounded="sm"
-                                    style={{
-                                        shadowColor: "rgb(27, 35, 66)",
-                                        shadowOffset: { width: 0, height: 5 },
-                                        elevation: 3,
-                                        shadowRadius: 20,
-                                        shadowOpacity: 0.1,
-                                        backgroundColor : "#0000"
-
-                                    }}
+                                    borderWidth="1"
+                                    borderColor="gray.100"
                                     px="3"
                                     py="3"
                                     mb="3"
@@ -114,9 +109,7 @@ const OrderDetail = ({ route, navigation }: any) => {
                                             {item.product.title} per{" "}
                                             {item.product.itemUnit}
                                         </Text>
-                                        <Text
-                                            fontWeight="bold"
-                                        >
+                                        <Text fontWeight="bold">
                                             Rp. {item.atPrice * item.qty}
                                         </Text>
                                     </HStack>
@@ -133,12 +126,9 @@ const OrderDetail = ({ route, navigation }: any) => {
                                     </HStack>
                                 </Box>
                             ))}
-                            <Divider />
                             <HStack mt="2" justifyContent="space-between">
                                 <Text>Subtotal</Text>
-                                <Text fontWeight="bold">
-                                    Rp. {order.total}
-                                </Text>
+                                <Text fontWeight="bold">Rp. {order.total}</Text>
                             </HStack>
                             <HStack mt="2" justifyContent="space-between">
                                 <Text>Ongkir</Text>
@@ -161,6 +151,12 @@ const OrderDetail = ({ route, navigation }: any) => {
                                 mt="3"
                                 variant="outline"
                                 colorScheme="green"
+                                onPress={() => {
+                                    Linking.openURL(
+                                        "whatsapp://send?text=hai&phone=" +
+                                            order.address.phone
+                                    );
+                                }}
                             >
                                 Hubungi via Whatsapp
                             </Button>
