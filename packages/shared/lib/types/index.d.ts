@@ -115,6 +115,11 @@ export declare type Order = {
     updatedAt: Scalars['String'];
     user: UserType;
 };
+export declare type OrderDate = {
+    day: Scalars['Int'];
+    month: Scalars['Int'];
+    year: Scalars['Int'];
+};
 export declare type OrderItem = {
     __typename?: 'OrderItem';
     atPrice: Scalars['Int'];
@@ -174,6 +179,7 @@ export declare type QueryOrderArgs = {
 };
 export declare type QueryOrdersArgs = {
     after?: InputMaybe<Scalars['String']>;
+    date?: InputMaybe<OrderDate>;
     limit: Scalars['Int'];
     status: OrderStatusCode;
 };
@@ -453,6 +459,7 @@ export declare type OrdersQueryVariables = Exact<{
     status: OrderStatusCode;
     limit: Scalars['Int'];
     after?: Maybe<Scalars['String']>;
+    date?: Maybe<OrderDate>;
 }>;
 export declare type OrdersQuery = {
     __typename?: 'Query';

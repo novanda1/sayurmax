@@ -79,7 +79,7 @@ function useHelloQuery(options) {
 }
 exports.useHelloQuery = useHelloQuery;
 ;
-exports.OrdersDocument = (0, graphql_tag_1.default)(templateObject_11 || (templateObject_11 = __makeTemplateObject(["\n    query Orders($status: OrderStatusCode!, $limit: Int!, $after: String) {\n  orders(status: $status, limit: $limit, after: $after) {\n    ...OrdersResponse\n  }\n}\n    ", ""], ["\n    query Orders($status: OrderStatusCode!, $limit: Int!, $after: String) {\n  orders(status: $status, limit: $limit, after: $after) {\n    ...OrdersResponse\n  }\n}\n    ", ""])), exports.OrdersResponseFragmentDoc);
+exports.OrdersDocument = (0, graphql_tag_1.default)(templateObject_11 || (templateObject_11 = __makeTemplateObject(["\n    query Orders($status: OrderStatusCode!, $limit: Int!, $after: String, $date: OrderDate) {\n  orders(status: $status, limit: $limit, after: $after, date: $date) {\n    ...OrdersResponse\n  }\n}\n    ", ""], ["\n    query Orders($status: OrderStatusCode!, $limit: Int!, $after: String, $date: OrderDate) {\n  orders(status: $status, limit: $limit, after: $after, date: $date) {\n    ...OrdersResponse\n  }\n}\n    ", ""])), exports.OrdersResponseFragmentDoc);
 function useOrdersQuery(options) {
     if (options === void 0) { options = {}; }
     return Urql.useQuery(__assign({ query: exports.OrdersDocument }, options));
