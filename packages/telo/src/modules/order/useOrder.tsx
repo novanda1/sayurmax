@@ -33,8 +33,8 @@ export const useOrder = ({ orderStatus }: Props): Return => {
     });
 
     const handleInputSearch = useCallback(
-        (e) => {
-            setSearch(e.target.value);
+        (text) => {
+            setSearch(text);
             reexecuteQuery();
         },
         [setSearch, reexecuteQuery]
@@ -57,7 +57,7 @@ export const useOrder = ({ orderStatus }: Props): Return => {
                     px="1"
                     fontSize="14"
                     value={search}
-                    onChange={handleInputSearch}
+                    onChangeText={handleInputSearch}
                     InputLeftElement={
                         <Icon
                             m="2"

@@ -2,16 +2,16 @@ import { HStack, Icon, IconButton, Box } from "native-base";
 import { useCallback, useState } from "react";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import { Platform } from "react-native";
-import AntDatepicker from "../AntDatePicker";
 import DatePicker from "react-native-date-picker";
+import { useOrderStore } from "../../modules/order/useOrderStore";
+import moment from "moment";
 
 const AndroidDatePicker: React.FC = () => {
     const [open, setOpen] = useState(false);
-    const [date, setDate] = useState<Date>(new Date());
+    const { date, setDate } = useOrderStore()
 
     const toggleDate = useCallback(() => {
         setOpen(!open);
-        console.log(open);
     }, [setOpen, open]);
 
     if (Platform.OS === "android")
@@ -28,11 +28,11 @@ const AndroidDatePicker: React.FC = () => {
                     <DatePicker
                         modal
                         open={open}
-                        date={date}
+                        date={moment(date).toDate()}
                         mode="date"
                         onConfirm={(date) => {
                             setOpen(false);
-                            setDate(date);
+                            setDate(moment(date));
                         }}
                         onCancel={() => {
                             setOpen(false);
@@ -53,7 +53,6 @@ const OrderDataPicker: React.FC = () => {
         return (
             <HStack mr="2">
                 <Box maxW="130px">
-                    {/* <AntDatepicker /> */}
                 </Box>
             </HStack>
         );

@@ -2,19 +2,15 @@ import {
     Order,
     OrderItem,
     OrderStatusCode,
-    useChangeOrderStatusMutation,
+    useChangeOrderStatusMutation
 } from "@sayurmax/shared";
 import {
     Badge,
     Box,
     Button,
-    CheckIcon,
-    Divider,
-    HStack,
-    Link,
-    Select,
+    CheckIcon, HStack, Select,
     Text,
-    VStack,
+    VStack
 } from "native-base";
 import React, { useCallback, useMemo, useState } from "react";
 import { Linking } from "react-native";
@@ -154,7 +150,7 @@ const OrderDetail = ({ route, navigation }: any) => {
                                 onPress={() => {
                                     Linking.openURL(
                                         "whatsapp://send?text=hai&phone=" +
-                                            order.address.phone
+                                        order.address.phone
                                     );
                                 }}
                             >
