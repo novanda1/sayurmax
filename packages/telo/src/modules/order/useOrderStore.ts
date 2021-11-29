@@ -3,7 +3,7 @@ import { combine } from "zustand/middleware";
 import moment from "moment";
 
 export const useOrderStore = create(
-    combine({ date: moment() }, (set) => ({
+    combine({ date: moment(new Date()) }, (set) => ({
         setDate: (x: moment.Moment) => {
             set({ date: x });
         },

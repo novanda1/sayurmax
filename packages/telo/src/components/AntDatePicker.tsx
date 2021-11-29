@@ -4,12 +4,13 @@ import { Icon } from "native-base";
 import React from "react";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import { useOrderStore } from "../modules/order/useOrderStore";
+import moment from "moment";
 
 export default function AntDatepicker() {
     const { date, setDate } = useOrderStore();
 
     function onChange(date: any, dateString: any) {
-        setDate(date);
+        setDate(moment(date));
     }
 
     return (
