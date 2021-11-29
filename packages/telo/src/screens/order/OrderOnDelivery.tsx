@@ -1,34 +1,60 @@
-import React, { useEffect } from "react";
+import { OrderStatusCode } from "@sayurmax/shared";
+import {
+    Box,
+    Heading,
+    HStack,
+    IconButton,
+    Pressable,
+    ScrollView,
+    Text,
+} from "native-base";
+import React from "react";
+import IonIcon from "react-native-vector-icons/Ionicons";
 import { OrderItem } from "../../components/order/OrderItem";
 import { OrderList } from "../../components/order/OrderList";
-import { OrderStatusCode, useOrdersQuery } from "@sayurmax/shared";
-import { ScrollView, Box, Pressable } from "native-base";
-import { useOrderStore } from "../../modules/order/useOrderStore";
+import { useOrder } from "../../modules/order/useOrder";
 
 export const OrderOnDeliveryScreen = ({ navigation }: any) => {
-    const { date } = useOrderStore();
-
-    const [result, reexecuteQuery] = useOrdersQuery({
-        variables: {
-            status: OrderStatusCode.OnDelivery,
-            limit: 10,
-            date: {
-                year: date.year(),
-                month: date.month() + 1,
-                day: date.date(),
-            },
-        },
+    const { result, SearchInput } = useOrder({
+        orderStatus: OrderStatusCode.Progress,
     });
 
     const { data } = result;
 
-    useEffect(() => {
-        reexecuteQuery();
-    }, [date]);
-
     return (
         <ScrollView>
-            <OrderList>
+            <OrderList
+                topELement={
+                    <>
+                        <Heading size="md" mt="6">
+                            {data?.orders.result?.length
+                                ? data?.orders.result?.length + " "
+                                : null}
+                            Pesanan Sedang Diantar
+                        </Heading>
+                        <Text>
+                            {data?.orders.result?.length
+                                ? "Kamu punya pesanan yang sedang diantar"
+                                : "Pesanan sudah diantar"}
+                        </Text>
+
+                        <HStack space="2" mt="3">
+                            {SearchInput}
+                            <IconButton
+                                variant="solid"
+                                backgroundColor="white"
+                                my="1px"
+                                w="45px"
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="center"
+                                icon={<IonIcon name="filter-sharp" />}
+                                _icon={{ fontSize: "20px" }}
+                            />
+                        </HStack>
+                    </>
+                }
+            >
                 {data?.orders.result.map((o) => (
                     <Pressable
                         key={o.id}
