@@ -7,6 +7,12 @@ from gql.types.user import UserType, UserAddress
 from gql.types.product import ProductType
 
 
+@strawberry.input
+class OrderDate:
+    year: int
+    month: int
+    day: int
+
 @strawberry.enum
 class OrderStatusCode(Enum):
     Unverified = 0

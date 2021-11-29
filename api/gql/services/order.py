@@ -1,4 +1,4 @@
-
+import datetime
 from typing import List
 
 from apps.user.models import UserAddress, User
@@ -150,9 +150,16 @@ class OrderService:
 
         return order_type
 
-    def orders(self, status, limit, after):
+    def orders(self, status, limit, after, date):
         qs = Order.objects.filter(
             order_status_code=status.value)
+
+        if date:
+            qs = qs.filter(created_at__date=datetime.date(
+                date.year, date.month, date.day))
+        else:
+            pass
+
         paginator = CursorPaginator(qs, ordering=('-created_at', '-id'))
         page = paginator.page(first=limit, after=after)
 

@@ -5,7 +5,7 @@ from typing import Optional
 
 from gql.services.order import OrderService
 from gql.utils.authentication.default import JwtAuth
-from gql.types.order import OrderStatusCode, Order as OrderType
+from gql.types.order import OrderStatusCode, Order as OrderType, OrderDate
 from apps.order.models import Order
 
 
@@ -27,6 +27,13 @@ class OrderQuery:
 
     @strawberry.field(permission_classes=[JwtAuth])
     @sync_to_async
-    def orders(self, info: Info, status: OrderStatusCode, limit: int, after: Optional[str] = None):
-        orders = order_services.orders(status, limit, after)
+    def orders(
+        self,
+        info: Info,
+        status: OrderStatusCode,
+        limit: int,
+        after: Optional[str] = None,
+        date: Optional[OrderDate] = None
+    ):
+        orders = order_services.orders(status, limit, after, date)
         return orders
