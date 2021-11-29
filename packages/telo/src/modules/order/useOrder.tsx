@@ -37,7 +37,7 @@ export const useOrder = ({ orderStatus }: Props): Return => {
             setSearch(e.target.value);
             reexecuteQuery();
         },
-        [setSearch]
+        [setSearch, reexecuteQuery]
     );
 
     useEffect(() => {
