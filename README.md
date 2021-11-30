@@ -3,7 +3,7 @@
 The grocery app  
 under development ☺
 
-## Structure
+### Structure
 
 |         Codebase          |            Description            |
 | :-----------------------: | :-------------------------------: |
