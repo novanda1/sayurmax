@@ -25,7 +25,7 @@ INVOICE_STATUS_CODE = [
 class Order(models.Model):
     id = models.AutoField(_("Invoice Number"), primary_key=True)
     user = models.ForeignKey(
-        User, verbose_name=_("User"), on_delete=models.CASCADE)
+        User, verbose_name=_("User"), on_delete=models.CASCADE, editable=False)
     address = models.ForeignKey(UserAddress, verbose_name=_(
         "Address"), on_delete=models.SET_NULL, blank=True, null=True)
     order_status_code = models.SmallIntegerField(
@@ -42,7 +42,7 @@ class Order(models.Model):
         verbose_name_plural = _("Orders")
 
     def __str__(self):
-        return f"#{self.id} - {self.total}"
+        return f"#{self.id}: {self.user.display_name}"
 
     def save(self, *args, **kwargs):
         total = 0
