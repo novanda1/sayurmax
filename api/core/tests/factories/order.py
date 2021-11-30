@@ -23,8 +23,11 @@ def create():
             items = CartProduct.objects.filter(cart=c)
 
             for item in items:
-                order_item = OrderItem(
-                    order=order,
-                    product=item.product,
-                    qty=random.randint(1, 5))
-                order_item.save()
+                if item.product:
+                    order_item = OrderItem(
+                        order=order,
+                        product=item.product,
+                        qty=random.randint(1, 5))
+                    order_item.save()
+                else:
+                    pass
