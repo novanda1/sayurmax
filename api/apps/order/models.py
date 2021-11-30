@@ -49,7 +49,7 @@ class Order(models.Model):
         items = OrderItem.objects.filter(order=self)
 
         for item in items:
-            total += item.at_price
+            total += item.at_price * item.qty
 
         self.total = total
 
