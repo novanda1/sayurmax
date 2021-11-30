@@ -48,6 +48,16 @@ class DayFilter(admin.SimpleListFilter):
 
 class OrderItemInline(admin.StackedInline):
     model = OrderItem
+    extra = 0
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(Order)
@@ -59,5 +69,11 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ["id"]
     inlines = [OrderItemInline]
 
-    # def has_add_permission(self, request, obj=None):
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    # def has_change_permission(self, request, obj=None):
     #     return False

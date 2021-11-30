@@ -5,6 +5,15 @@ from django.contrib import admin
 class CartProductInline(admin.TabularInline):
     model = CartProduct
 
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -27,3 +36,12 @@ class ItemUnitAdmin(admin.ModelAdmin):
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
     inlines = [CartProductInline]
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
