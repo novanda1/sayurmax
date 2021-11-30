@@ -50,15 +50,6 @@ class OrderItemInline(admin.StackedInline):
     model = OrderItem
     extra = 0
 
-    def has_add_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
-
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
@@ -68,12 +59,3 @@ class OrderAdmin(admin.ModelAdmin):
                    'invoice_status_code']
     search_fields = ["id"]
     inlines = [OrderItemInline]
-
-    def has_add_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    # def has_change_permission(self, request, obj=None):
-    #     return False
