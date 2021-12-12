@@ -1,9 +1,0 @@
-fragment Item on OrderItem {
-    __typename
-    id
-    atPrice
-    qty
-    product {
-        ...Product
-    }
-}

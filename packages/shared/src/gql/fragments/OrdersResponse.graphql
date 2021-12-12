@@ -1,8 +1,0 @@
-fragment OrdersResponse on OrderResponse {
-    __typename
-    hasNext
-    nextCursor
-    result {
-        ...Order
-    }
-}

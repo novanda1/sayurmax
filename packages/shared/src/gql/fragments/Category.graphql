@@ -1,6 +1,0 @@
-fragment Category on CategoryType {
-    __typename
-    id
-    slug
-    title
-}
