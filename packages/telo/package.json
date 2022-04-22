@@ -39,7 +39,7 @@
     "graphql": "^16.0.1",
     "graphql-codegen": "^0.4.0",
     "init": "^0.1.2",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "native-base": "3.2.2",
     "react": "17.0.1",
     "react-dom": "^17.0.2",
