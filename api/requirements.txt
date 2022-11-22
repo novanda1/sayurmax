@@ -50,7 +50,7 @@ html5lib==1.1
 idna==3.2
 importlib-metadata==4.8.1
 phonenumberslite==8.12.34
-Pillow==9.0.1
+Pillow==9.3.0
 psycopg2-binary==2.9.1
 py-moneyed==1.2
 pycparser==2.20
